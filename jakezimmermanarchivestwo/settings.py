@@ -140,4 +140,4 @@ django_heroku.settings(locals())
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-print("test")
+print(DATABASES['default']['ENGINE'])
