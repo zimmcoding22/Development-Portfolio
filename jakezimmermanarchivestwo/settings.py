@@ -87,10 +87,10 @@ WSGI_APPLICATION = 'jakezimmermanarchivestwo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd5oop0qupqvjdc',
-        'USER': 'bokcgcxtaarjsy',
-        'PASSWORD': 'eb255477c8bd565e8e713e7bebee12292514d37edf05838b94f853ed63f852c1',
-        'HOST': 'ec2-52-44-13-158.compute-1.amazonaws.com',
+        'NAME': 'dfsk7dj22kdl6g',
+        'USER': 'rimrxcynfzpjzm',
+        'PASSWORD': 'df5d2bf9d2246d371e2f27be411bfe1dc0e0d02ebba9f9b8c7cf07e9a1f44659',
+        'HOST': 'ec2-3-226-163-72.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
