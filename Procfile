@@ -1,2 +1,2 @@
 python manage.py migrate
-web: gunicorn jakezimmermanarchivestwo.wsgi --log-file=-
+web: gunicorn jakezimmermanarchivestwo.wsgi --log-file -
