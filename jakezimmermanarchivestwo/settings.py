@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-fbi&^#!e9yjfb!p@!grfv*1wm*casy7&no3a53*v0e66eo&ms9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["jzarchives.com"]
+ALLOWED_HOSTS = ["jzarchivestwo.herokuapp.com"]
 
 
 # Application definition
@@ -143,3 +143,5 @@ django_heroku.settings(locals())
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 print(DATABASES['default']['ENGINE'])
+print(DATABASES['default']['USER'])
+
