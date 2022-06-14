@@ -6,7 +6,7 @@ class Deck(models.Model):
 	cost = models.FloatField()
 	producer = models.CharField(max_length=100)
 	finish = models.CharField(max_length=100)
-	#image = models.ImageField(null=True, blank=True, upload_to="images/")
+	image = models.ImageField(null=True, blank=True, upload_to="images/")
 
 	def __str__(self):
 		return(self.name)
