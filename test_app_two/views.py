@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings
-from .models import Deck
+from .models import Deck, Producer
 
 # Create your views here.
 
