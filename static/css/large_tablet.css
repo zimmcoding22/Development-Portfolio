@@ -1,0 +1,686 @@
+/*use command shift r to clear browser cache*/
+html, body { overflow-y: scroll; overflow-x:hidden; }
+
+body {
+  position: relative;
+}
+
+h1, h2, h4, h5, h6 {
+  color: #444444;
+}
+
+
+ul {
+  margin: 0;
+}
+
+img {
+  border-radius: 10%;
+  max-width: 100%
+  height: auto;
+}
+
+a:link {
+  text-decoration: none
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+} 
+
+
+button:focus {
+  outline: 0;
+  border: none;
+
+}
+
+input::placeholder {
+  color: #9E9C9C;
+  font-weight: bold;
+}
+
+textarea {
+  border: none;
+  background-color: #EEEDED;
+}
+
+.rocket {
+  position: absolute;
+  height: auto;
+  width: 5%;
+  top: 8.5%;
+  left: 80%;
+}
+
+.select {
+  border: .5px solid white;
+  outline: none;
+  background: #8DACCA;
+  border-radius: 5%;
+  color: white;
+}
+
+.unSelect {
+  background: none;
+  border: none;
+}
+
+.icon {
+  width: 35px;
+  height: auto;
+}
+
+.icon:hover {
+  width: 60px;
+  height: auto;
+}
+
+.bottomIcon {
+  width: 20px;
+  height: auto;
+}
+
+.bottomIcon:hover {
+  box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
+}
+
+.typewrite{
+  display: block;
+  font-size: 2em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  font-family: "Varela Round", Geneva;
+  padding: 20% 0;
+  color: navy;
+  position: absolute;
+  top: .4%;
+  left: 55%;
+  font-size: 22px;
+}
+
+#contactText {
+  position: absolute;
+  font-family: "Varela Round", Georgia, Impact, sans-serif;
+  color: #534D4C;
+  top: 10%;
+  left: 57%;
+}
+
+#contactParagraph {
+  position: absolute;
+  font-family: "Varela Round", Georgia, Impact, sans-serif;
+  color: #9E9C9C;
+  top: 30%;
+  left: 57%;
+  padding-right: 10%;
+  font-size: 14px;
+}
+
+#contactForm {
+  position: absolute;
+  background-color: white;
+  width: 40%;
+  height: 110%;
+  top: 5%;
+  left: 10%;
+  border-radius: 3%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#submit {
+  position: absolute;
+  width: 25%;
+  height: 10%;
+  top: 80%;
+  left: 70%;
+  border-radius: 25px;
+  border: none;
+  background-color: #C3DEE9;
+  font-family: "Varela Round", Georgia, Impact, sans-serif;
+  color: #534D4C;
+}
+
+#submit:hover {
+  color: white;
+  background-color: #8DACCA;
+  transition: .3s;
+}
+
+
+.form {
+  font-family: "Varela Round", Georgia, Impact, sans-serif;
+  color: black;
+  border-radius: 3%
+  font-size: 12px;
+  opacity: .4;
+  resize: none;
+  width: 300px;
+}
+
+#poleGameContainer {
+  position: absolute;
+  height: 15%;
+  width: 100%;
+  background-color: #F1FFFF;
+  bottom: 63%;
+}
+
+#poleGameTitle {
+  position: absolute;
+  bottom: 90%;
+  color: #0B2161;
+  white-space: nowrap;  
+  left: 45%;
+  opacity: 0;
+  font-family: "Varela Round", Georgia, Impact, sans-serif;
+}
+
+#poleGameVideo {
+  position: absolute;
+  top: 5%;
+  left: 70%;
+
+}
+
+#poleGameLogo {
+  position: absolute;
+  top: 10%;
+  left: 41%;
+}
+
+.picture {
+  width: 150px;
+  height: auto;
+}
+
+.verticalVid {
+  width: 280px;
+  height: auto;
+}
+
+
+#appStoreLogo {
+  position: absolute;
+  top: 45%;
+  left: 41%;
+  
+}
+
+
+#poleGameStack {
+  position: absolute;
+  height: auto;
+  width: 30%;
+  top: 50%;
+  text-align: center;
+  left: 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+}
+
+#poleGameDescription {
+  position: absolute;
+  top: 50%;
+  left: 11%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.poleGameInfo:hover {
+  color: #0B2161;
+  background-color: #EFF8FB;
+  height: 20%;
+  width: 20%;
+  transition: width .5s;
+  border: none;
+  text-align: left;
+  padding: 10px;
+
+}
+
+.poleGameInfo {
+  font-family: Geneva, Impact, sans-serif;
+  font-size: 14px;
+  border-radius: 25px;
+  background-color: #6ACAFF;
+  color: white;
+  text-align: center;
+  height: 7%;
+  width: 15%;
+ 
+}
+
+
+#tradingContainer {
+  position: absolute;
+  height: 15%;
+  width: 100%;
+  background-color: white;
+  bottom: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+#tradingDescription:hover {
+  position: absolute;
+  left: 70%;
+  top: 27%;
+  text-align: center;
+  font-family: Geneva, Impact, sans-serif;
+  border-radius: 25px;
+  color: #0B2161;
+  background-color: #D8F5D1;
+  height: auto;
+  width: 26%;
+  transition: width 1s, height .5s;
+  padding: 10px;
+}
+
+#tradingDescription {
+  position: absolute;
+  left: 74%;
+  top: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Geneva, Impact, sans-serif;
+  font-size: 12px;
+  border-radius: 25px;
+  background-color: #D8F5D1;
+  color: #0B2161;
+  height: 7%;
+  width: 15%;
+
+}
+
+#launchpadLogo {
+  position: absolute;
+  top: 2%;
+  left: 80%;
+}
+
+#tradingVideo {
+  position: absolute;
+  top: 5%;
+  left: 0%;
+}
+
+#tradingStack {
+  position: absolute;
+  text-align: center;
+  top: 54%;
+  left: 65%;
+  width: 32%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+}
+
+.horizontalVid {
+  width: 500px;
+  height: auto;
+}
+
+#bgchContainer {
+  position: absolute;
+  height: 15%;
+  width: 100%;
+  bottom: 28%;
+}
+
+#bgchVideo {
+  position: absolute;
+  top: 12%;
+  left: 0%;
+}
+
+#bgchLogo {
+  position: absolute;
+  top: 5%;
+  left: 80%;
+}
+
+#bgchDescription {
+  position: absolute;
+  top: 100%;
+  left: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+
+}
+
+#bgchDescription:hover {
+  position: absolute;
+  top: 0%;
+  left: 70%;
+}
+
+#bgchStack {
+  position: absolute;
+  height: auto;
+  width: 22%;
+  top: 100%;
+  text-align: center;
+  left: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.bgchInfo:hover {
+  color: #0B2161;
+  background-color: #EFF8FB;
+  height: 20%;
+  width: 25%;
+  transition: width .5s;
+  border: none;
+  text-align: left;
+  padding: 10px;
+
+}
+
+.bgchInfo {
+  font-family: Geneva, Impact, sans-serif;
+  border-radius: 25px;
+  background-color: #6ACAFF;
+  color: white;
+  text-align: center;
+  height: 7%;
+  width: 15%;
+ 
+}
+
+/*part of bgch*/
+#teeTimesTitle {
+  position: absolute;
+  top: 2%;
+  color: #0B2161;
+  white-space: nowrap;  
+  left: 45%;
+  opacity: 0;
+  font-family: "Varela Round", Georgia, Impact, sans-serif;
+}
+
+
+#title {
+  position: absolute;
+  font-family: "Varela Round", Geneva;
+  font-weight: bold;
+  font-style: italic;
+  top: 3.5%;
+  left: 45%;
+  white-space: nowrap;  
+  font-size: 20px;
+  color: navy;
+
+}
+
+
+#titleVid {
+  position: absolute; 
+  right: 0; 
+  top: 0%;
+  width: 100%; 
+  height: auto; 
+  z-index: -100;
+  background-size: cover;
+  overflow: hidden;
+  visibility: visible;
+}
+
+#titleDiv {
+  top: 120px;
+/*  background-color: #546BBF;
+*/width: 100%;
+  height: 100px;
+}
+
+
+#fitnessAppContainer {
+  height: 12%;
+  width: 100%;
+  background-color: #FFFDE8;
+  position: absolute;
+  bottom: 43%;
+}
+
+#fitnessAppTitle {
+  position: absolute;
+  bottom: 90%;
+  color: #0B2161;
+  white-space: nowrap;  
+  opacity: 0;
+  left: 37%;
+  font-family: "Varela Round", Georgia, Impact, sans-serif;
+}
+
+#fitnessAppVideo {
+  position: absolute;
+  top: 15%;
+  left: 25%;
+}
+
+#fitnessAppDescription:hover {
+  position: absolute;
+  left: 2.5%;
+  top: 20%;
+  text-align: center;
+  font-family: Geneva, Impact, sans-serif;
+  font-size: 14px;
+  border-radius: 25px;
+  color: #0B2161;
+  background-color: #EFF8FB;
+  height: auto;
+  width: 20%;
+  transition: width 1s, height .5s;
+  background-color: #FFF79E;
+  padding: 5px;
+}
+
+#fitnessAppDescription {
+  position: absolute;
+  left: 4%;
+  top: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Geneva, Impact, sans-serif;
+  font-size: 14px;
+  border-radius: 25px;
+  background-color: #D6CD6A;
+  color: white;
+  height: 7%;
+  width: 15%;
+
+}
+
+#fitnessAppStack {
+  position: absolute;
+  height: 50%;
+  width: 10%;
+  top: 20%;
+  text-align: center;
+  left: 86%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  
+}
+
+.hide {
+  opacity: 0;
+}
+.show {
+  opacity: 1;
+}
+.content {
+  height:4200px;
+}
+.fullpage {
+  position: relative;
+}
+
+#footer {
+    position: absolute;
+    background-color: #EFF8FB;
+    font-size:25px;
+    line-height: 3.5;
+    width: 1000%;
+    height: 1000px;
+    bottom: 8%;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+
+  }
+
+#footerBottom {
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+  height: 20%;
+  background-color: white;
+}
+
+#social-media-links {
+  position: absolute;
+  left: 4.93%;
+  top: 72%;
+  width: 1%;
+  height: 10%;
+}
+
+#footerSeal {
+  position: absolute;
+  left: 4.5%;
+  top: -5%;
+
+}
+
+#contactDiv {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  height: 8%;
+  bottom: 80%;
+}
+
+.activeLink {
+  border: 1px solid black;
+  height: 75px;
+  width: 50px;
+}
+
+.bg-steel {
+  background-color: white;
+  height: 130px;
+
+}
+
+
+.moving-header {
+  background-color: #C3DEE9;
+  height: 95px;
+  transition: height .5s;
+}
+
+
+.links {
+ 
+  color: gray;
+  padding: 10px;
+
+}
+
+.links:hover {
+  color: #C3DEE9;
+
+}
+
+.moving-links {
+  color: white;
+  padding: 10px;
+}
+
+.moving-links:hover {
+  background-color: #8DACCA;
+  border-radius: 5%;
+  color: white;
+}
+
+
+.content-section {
+  background: red;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
