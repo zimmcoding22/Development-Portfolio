@@ -1,0 +1,434 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Media queries-->
+    <!-- mobile -->
+	<link rel="stylesheet" type = "text/css" media="only screen and (max-width: 480px)" href="{% static 'css/cards_mobile.css' %}">
+
+	<!-- small tablet -->
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 484px) and (max-width: 767px)" href="{% static 'css/cards_small_tablet.css' %}">
+
+	<!-- large tablet -->
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 768px) and (max-width: 980px)" href="{% static 'css/cards_large_tablet.css' %}">
+
+	<!-- laptop/desktop tablet -->
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 981px) and (max-width: 1440px)" href="{% static 'css/cards_main.css' %}">
+
+	<!-- large desktop -->
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 1441px)" href="{% static 'css/cards_large_screen.css' %} ">
+
+	<!-- Prevent smartphones from scaling pages down -->
+	<meta name="viewport" content="initial-scale=1">
+
+	<title>cards</title>
+</head>
+
+<body>
+	<header>
+		<div id="logo_wrapper">
+			<img id="logo" src="{% static 'ace_king.png' %}"/>
+			<h1 id="logo_text">JZ cards</h1>
+		</div>
+		<div id="search">
+			<div id="search_wrapper">
+				<img id="search_icon" src="{% static 'search_icon.png' %}"/>
+				<input type="text" id="form" name="search_content" placeholder="search deck name, brand, or creator">
+			</div>
+			<img id="x_icon" src="{% static 'x_icon.png' %}"/>
+		</div>
+		<div id="links_wrapper">
+			<div id="links">
+				<button class="links">Collection</button>
+				<button class="links">Tricks</button>
+			</div>
+		</div>
+	</header>
+
+<!-- add box shadow to search box and remove when clicking off of it. Display an x icon to clear form if it isn't empty. Create a dropdown containing suggestions -->
+<script type = "text/javascript">
+
+	//add/remove box shadow from search bar when it is clicked on/when user clicks away
+	function addRemoveSearchBoxShadow(event) {
+  		// console.log("target:", event.target.id);
+  		let x_icon_opacity = window.getComputedStyle(x_icon).getPropertyValue('opacity');
+  		if (event.target.id === "form" || event.target.id === "search_icon" || (event.target.id === "x_icon" && x_icon_opacity === '0')) {
+  			searchElement.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2)";
+  			searchElement.style.border = "none";
+  		} else {
+  			//click is outside of search box
+  			searchElement.style.boxShadow = "none";
+  			searchElement.style.borderStyle = "solid";
+  			searchElement.style.borderColor = "lightgray";
+  			searchElement.style.borderWidth = ".5px";
+  		}
+  	}
+
+  	function highlightSuggestion(event) {
+		//console.clear()
+	 	var x = document.elementFromPoint(event.clientX, event.clientY);
+	 	var dropdown = document.getElementById("dropdown_wrapper");
+	 	//figure out which suggestion div we are in
+	 	var suggestion = "";
+	 	try { //throws exception if x.id doesnt exist. If mouseover an element with suggestion box class name, we assign suggestion to whichever element without a null id (either x or its parent)
+		 	if ((x.id !== "" && document.getElementById(x.id).className === "suggestion_box") || (x.parentElement.id !== "" && document.getElementById(x.parentElement.id).className === "suggestion_box") || (x.parentElement.parentElement.id !== "" && document.getElementById(x.parentElement.parentElement.id).className === "suggestion_box")) {
+		 		//console.log("success");
+		 		if (document.getElementById(x.id)) {
+		 			suggestion = document.getElementById(x.id);
+		 		} else if (document.getElementById(x.parentElement.id)) {
+		 			suggestion = document.getElementById(x.parentElement.id);
+		 		} else {
+		 			suggestion = document.getElementById(x.parentElement.parentElement.id);
+		 		}
+		 	}
+		} catch (TypeError) {}
+		//unhighlight if mouse moves away
+		try {
+			for (var [key, value] of Object.entries(id_dict)) { //if suggestion is empty, we no longer have the mouse on one of the suggestion boxes
+				if (id_dict[key] == true) { //element with this id is currently highlighted and needs to be reset
+					id_dict[key] = false;
+					document.getElementById(key).style.boxShadow = null;
+				}
+			}
+		} catch (TypeError) {}
+		if (dropdown && suggestion !== "") {  //id dict is used to keep track of which suggestion divs are currently highlighted
+			id_dict[suggestion.id] = true;
+			suggestion.style.boxShadow = "0px 8px 8px -10px #888, 0px -8px 8px -10px #888";
+	 		suggestion.style.transition = "box-shadow 0.2s ease-in-out";
+		}
+	}
+
+  	//clears search field
+  	function clearForm(event) {
+  		document.getElementById("form").value = "";
+  		xIcon.style.opacity = '0';
+  		xIcon.style.cursor = "text";
+  		var dropdown = document.getElementById("dropdown_wrapper");
+  		if (dropdown) {
+  			dropdown.remove();
+  		}
+  	}
+
+  	//determine how many divs to create based on results
+  	function createDivs(dropdown, list, which_tab) {
+  		var suggestionDivsThatContainIcons = [];
+  		for (let i = 1; i <= list.length; i++) {
+			//console.log("creating new div ", i);
+			var suggestionId = which_tab + "_suggestion_" + i.toString();
+			createSuggestionDiv(dropdown, suggestionId);
+			console.log("creating icon image");
+			{% for deck in deck_list %}
+				var d = "{{ deck }}", p = "{{ deck.producer }}";
+				if ((list[i-1].toLowerCase() === d.toLowerCase() || list[i-1].toLowerCase() === p.toLowerCase()) && !suggestionDivsThatContainIcons.includes(suggestionId)) {
+					suggestionDivsThatContainIcons.push(suggestionId); //only create one icon per suggestion
+					if (which_tab === "deck") {
+						var image = "{{ deck.image.url }}";
+					} else {
+						var image = "{{ producer.p.image }}"
+						{% for producer in producer_list %}
+							if ("{{ producer }}" === p) {
+								var image = "{{ producer.image.url }}";
+							}
+						{% endfor %}
+					}
+					createIconImage(suggestionId, image);
+				}
+			{% endfor %}			
+			createFullNameWrapper(suggestionId, list[i-1]);
+			createSelectionImage(suggestionId);
+			if (i === 3) { //cap at 3 suggestions per tab
+				break;
+			}
+		}
+  	}
+
+  	//return # of decks offered by a given producer
+  	function getNumItems(current_producers_returned) {
+  		//populate producers dict
+  		let producers_dict = {};
+  		{% for deck in deck_list %}
+  			p = "{{ deck.producer }}";
+  			if (!(p in producers_dict))	 {
+  				producers_dict[p] = 1;
+  			} else {
+  				producers_dict[p]++;
+  			}
+  		{% endfor %}
+  		return(producers_dict);
+  	}
+
+  	//construct dropdown according to results
+  	function dropdownLayout(parent, current_decks_returned, current_producers_returned) {
+  		var d = createDropdown(parent);
+  		var dropdown = d[0];
+  		var deckNameWrapper = d[1];
+  		var producerNameWrapper = d[2];
+  		dropdown.appendChild(deckNameWrapper); //only used once
+		deckNameWrapper.appendChild(deckName);
+		createDivs(dropdown, current_decks_returned, "deck");
+		dropdown.appendChild(producerNameWrapper); //only used once
+		producerNameWrapper.appendChild(producerName);
+		createDivs(dropdown, current_producers_returned, "producer");
+		dropdown.appendChild(searchAllWrapper);
+		document.getElementById("search_all_wrapper").className = "suggestion_box";
+		id_dict["search_all_wrapper"] = false;
+		searchAllWrapper.appendChild(searchAll);
+  	}
+
+  	// deck and producer suggestions
+  	function createSuggestionDiv(dropdown, which_suggestion) {
+  		suggestion = document.createElement("div");
+		suggestion.setAttribute("id", which_suggestion);
+		suggestion.style.position = "relative";
+		suggestion.style.width = "100%";
+		suggestion.style.minHeight = "50px";
+		suggestion.style.maxHeight = "50px";
+		if (which_suggestion.substr(-1) === '1') {
+			suggestion.style.borderTop = ".1px solid lightgray";
+		} 
+		suggestion.style.borderBottom = ".1px solid lightgray";
+		suggestion.style.display = "flex";
+		suggestion.style.flexDirection = "row";
+		suggestion.style.justifyContent = "left";
+		suggestion.style.alignItems = "center";
+		suggestion.style.paddingLeft = "10px";//these four lines are to allow box shadow to extend full width of suggestion divs
+		suggestion.style.paddingRight = "10px";//overflow:auto is used w/dropdown to clip edges
+		suggestion.style.marginLeft = "-10px";
+		suggestion.style.marginRight = "-10px";
+		suggestion.style.cursor = "pointer";
+		dropdown.appendChild(suggestion);
+		document.getElementById(which_suggestion).className = "suggestion_box";
+		id_dict[which_suggestion] = false;
+  	}
+
+  	//wrapper for full name of decks or producers
+  	function createFullNameWrapper(parent, name) {
+  		fullNameWrapper = document.createElement("div");
+		fullNameWrapper.style.position = "relative";
+		fullNameWrapper.style.width = "60%";
+		fullNameWrapper.style.display = "flex";
+		fullNameWrapper.style.justifyContent = "left";
+		fullNameWrapper.style.alignItems = "center";
+		fullNameWrapper.style.left = "5%";
+		fullName = document.createElement("h5");
+		text = document.createTextNode(name)//this will be queried from the database
+		fullName.appendChild(text);
+		fullName.style.position = "relative";
+	    fullName.style.fontFamily = "Verdana, copperplate, Impact, sans-serif";
+		fullName.style.fontWeight = "bold";
+		fullName.style.fontSize = "8px";
+		fullName.style.color = "black";
+		fullName.style.marginBottom = "7%";
+		fullNameWrapper.appendChild(fullName);
+		parentSubString = parent.slice(0, -1);
+		if (parentSubString === "producer_suggestion_") {
+			fullName.style.marginBottom = "10%";
+			numItems = document.createElement("h4");
+			if (getNumItems()[name] === 1) {
+				var itemString = " item";
+			} else {
+				var itemString = " items";
+			}
+			text = document.createTextNode(getNumItems()[name].toString() + itemString);//this will be queried from the database
+			numItems.appendChild(text);
+			numItems.style.position = "absolute";
+		    numItems.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
+			numItems.style.fontWeight = "bold";
+			numItems.style.fontSize = "8px";
+			numItems.style.color = "gray";
+			numItems.style.marginTop = "14%";
+			numItems.style.left = "1px";
+			fullNameWrapper.appendChild(numItems);
+		}
+		document.getElementById(parent).appendChild(fullNameWrapper);
+  	}
+
+  	//image on left of suggestion div
+  	function createIconImage(parent, img) {
+  		console.log("creating icon image");
+  		image = document.createElement("img");
+		image.src = img;
+		image.style.position = "relative";
+		image.style.width = "6%";
+		image.style.maxHeight = "70%";
+		image.style.left = "2%";
+		image.style.borderRadius = "2px";
+		document.getElementById(parent).appendChild(image);
+		
+  	}
+
+  	//image on far right of suggestion div
+  	function createSelectionImage(parent) {
+  		//console.log("creating suggestion image");
+  		selectionImage = document.createElement("img");
+		selectionImage.src = "{% static 'spade.png' %}";
+		selectionImage.style.position = "relative";
+		selectionImage.style.width = "3%";
+		selectionImage.style.maxHeight = "20px";
+		selectionImage.style.left = "30%";
+		selectionImage.style.borderRadius = "5px";
+		document.getElementById(parent).appendChild(selectionImage);
+  	}
+
+  	function createDropdown(parent) {
+		//dropdown wrapper
+		var dropdown = document.createElement("div");
+  		dropdown.setAttribute("id", "dropdown_wrapper");
+		dropdown.style.position = "fixed";
+		dropdown.style.width = "30%";
+		dropdown.style.minWidth = "440px";
+		dropdown.style.backgroundColor = "white";
+		dropdown.style.borderRadius = "5px";
+		dropdown.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05)";
+		dropdown.style.top = "37px";
+		dropdown.style.display = "flex";
+		dropdown.style.flexDirection = "column";
+		dropdown.style.overflow = "auto";
+		parent.appendChild(dropdown);
+		//deck name wrapper div
+		deckNameWrapper = document.createElement("div");
+		deckNameWrapper.setAttribute("id", "deck_name_wrapper");
+		deckNameWrapper.style.position = "relative";
+		deckNameWrapper.style.top = "2%";
+		deckNameWrapper.style.width = "100%";
+		deckNameWrapper.style.height = "18%";
+		//suggestions by deck name
+		deckName = document.createElement("h5");
+		deckName.setAttribute("id", "deck_name");
+		text = document.createTextNode("DECKS");
+		deckName.appendChild(text);
+		deckName.style.position = "relative";
+		deckName.style.top = "-2px"; //keep away from very top so that div doesn't disrupt border radius
+		deckName.style.left = "2%";
+		deckName.style.width = "98%";
+		deckName.style.height = "12%";
+		deckName.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
+		deckName.style.fontWeight = "bold";
+		deckName.style.fontSize = "8px";
+		deckName.style.color = "gray";
+		//producer name wrapper div
+		producerNameWrapper = document.createElement("div");
+		producerNameWrapper.style.position = "relative";
+		producerNameWrapper.style.width = "100%";
+		producerNameWrapper.style.height = "18%";
+		//suggestions by producer name
+		producerName = document.createElement("h5");
+		//producerName.setAttribute("id", "producer_name");
+		text = document.createTextNode("PRODUCERS");
+		producerName.appendChild(text);
+		producerName.style.position = "relative";
+		producerName.style.left = "2%";
+		producerName.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
+		producerName.style.fontWeight = "bold";
+		producerName.style.fontSize = "8px";
+		producerName.style.color = "gray";
+		//search all wrapper div
+		searchAllWrapper = document.createElement("div");
+		searchAllWrapper.setAttribute("id", "search_all_wrapper");
+		searchAllWrapper.style.position = "relative";
+		searchAllWrapper.style.width = "100%";
+		searchAllWrapper.style.height = "17%";
+		searchAllWrapper.style.paddingLeft = "10px";//these four lines are to allow box shadow to extend full width of suggestion divs
+		searchAllWrapper.style.paddingRight = "10px";
+		searchAllWrapper.style.marginLeft = "-10px";
+		searchAllWrapper.style.marginRight = "-10px";
+		searchAllWrapper.style.paddingBottom = "10px";
+		searchAllWrapper.style.marginBottom = "-10px";
+		searchAllWrapper.style.cursor = "pointer";
+		//press enter to search all
+		searchAll = document.createElement("h5");
+		//searchAll.setAttribute("id", "search_all");
+		text = document.createTextNode("Press Enter to search all items");
+		searchAll.appendChild(text);
+		searchAll.style.position = "relative";
+		searchAll.style.left = "2%";
+		searchAll.style.fontSize = "8px";
+		searchAll.style.color = "gray";
+		searchAll.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
+		return([dropdown, deckNameWrapper, producerNameWrapper]);
+  	}
+
+  	//handle keyboard events while user is typing. Display x icon/ dropdown menu
+  	function displaySearchElements(event) {
+  		var numDecksChanged = false, numProducersChanged = false;
+  		//dont display x if any of these keys are hit
+  		const omit_keys = ["Tab", "CapsLock", "Shift", "Control", "Backspace", "ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Meta", "Enter", "Alt", "Escape"];
+  		console.log("key:", event.key);
+  		//toggle currentDecksReturned as characters are removed
+  		if (event.key === "Backspace") {
+  			var inputString = searchBox.value.substring(0, searchBox.value.length - 1);
+  		} else {
+  			var inputString = searchBox.value + event.key;
+  		}
+  		inputString = inputString.toLowerCase();
+  		//console.log("input string:", inputString);
+  		var currentDecksReturned = [], currentProducersReturned = [];
+  		{% for deck in deck_list %}  //use django to pull from database
+  			var d = "{{ deck }}", p = "{{ deck.producer }}";
+  			if (inputString.length > 0 && (d.toLowerCase().startsWith(inputString))) { //check if prefix exists
+				//console.log("deck in js:", d);
+				currentDecksReturned.push(d);
+			}
+			if (inputString.length > 0 && (p.toLowerCase().startsWith(inputString)) && !currentProducersReturned.includes(p)) {
+				currentProducersReturned.push(p);
+
+			}
+		{% endfor %}
+		// console.log("currentDecksReturned list:", currentDecksReturned);
+		// console.log("currentProducersReturned list:", currentProducersReturned);
+  		if (!omit_keys.includes(event.key)) {
+  			xIcon.style.opacity = '1';
+  			xIcon.style.cursor = "pointer";
+  		}
+  		if (currentDecksReturned.length !== previousNumDecksReturned) { //monitor changes in number of results
+			//console.log("currentDecksReturned length has changed");
+			previousNumDecksReturned = currentDecksReturned.length;
+			numDecksChanged = true;
+		} 
+		if (currentProducersReturned.length !== previousNumProducersReturned) {
+			previousNumProducersReturned = currentProducersReturned.length;
+			numProducersChanged = true;
+		}
+  		var dropdown = document.getElementById("dropdown_wrapper");
+  		if (((currentDecksReturned.length === 0 && currentProducersReturned.length === 0) || inputString.length === 0 || numDecksChanged || numProducersChanged) && dropdown) {
+  			dropdown.remove();
+  		}
+  		dropdown = document.getElementById("dropdown_wrapper"); //update status of dropdown
+  		if (!dropdown && (currentDecksReturned.length > 0 || currentProducersReturned.length > 0)) { //if it's not there and there are decks or producers returned
+  			dropdown = document.createElement("div");
+  			dropdown.setAttribute("id", "dropdown_wrapper");
+  			//createDropdown(dropdown, currentDecksReturned, currentProducersReturned);
+  			dropdownLayout(searchElement, currentDecksReturned, currentProducersReturned);
+  		} 
+  		if (inputString !== "") {
+  			xIcon.style.opacity = '1';
+  			xIcon.style.cursor = "pointer";
+  		} else {
+  			xIcon.style.opacity = '0';
+    		xIcon.style.cursor = "text";
+	    }
+  	}
+
+  	var searchBox = document.getElementById("form");
+	var xIcon = document.getElementById("x_icon");
+	var searchElement = document.getElementById("search");
+	var previousNumDecksReturned = 0, previousNumProducersReturned = 0;
+	var id_dict = {};
+	searchElement.addEventListener("click", addRemoveSearchBoxShadow);
+	document.body.addEventListener("click", addRemoveSearchBoxShadow); 
+	document.addEventListener("mousemove", highlightSuggestion);
+	searchBox.addEventListener("keydown", displaySearchElements)
+	xIcon.addEventListener("click", clearForm);
+
+</script>
+
+</body>
+
+</html>
+
+
+
+
