@@ -48,6 +48,20 @@
 		</div>
 	</header>
 
+	<div id="body_wrapper">
+		
+		<h1 id="page_description">
+		  <span>Card</span>
+		  <span>Collection</span>
+		  <span>And</span>
+		  <span>Sleight</span>
+		  <span>Of</span>
+		  <span>Hand</span>
+		  <span>Reel</span>
+		</h1>
+	
+	</div>
+
 <!-- add box shadow to search box and remove when clicking off of it. Display an x icon to clear form if it isn't empty. Create a dropdown containing suggestions -->
 <script type = "text/javascript">
 
@@ -119,7 +133,6 @@
 			//console.log("creating new div ", i);
 			var suggestionId = which_tab + "_suggestion_" + i.toString();
 			createSuggestionDiv(dropdown, suggestionId);
-			console.log("creating icon image");
 			{% for deck in deck_list %}
 				var d = "{{ deck }}", p = "{{ deck.producer }}";
 				if ((list[i-1].toLowerCase() === d.toLowerCase() || list[i-1].toLowerCase() === p.toLowerCase()) && !suggestionDivsThatContainIcons.includes(suggestionId)) {
@@ -166,6 +179,21 @@
   		var dropdown = d[0];
   		var deckNameWrapper = d[1];
   		var producerNameWrapper = d[2];
+  		var page_description_animation = document.getElementById("page_description");
+  		if (page_description_animation) {
+	  		document.getElementById("page_description").remove(); //remove first time dropdown is displayed and replace with wrapper div for search results
+	  		var results_wrapper = document.createElement("div"); //this will contain visual display of results selected from dropdown
+	  		results_wrapper.setAttribute("id", "results_wrapper");
+	  		//results_wrapper.style.backgroundColor = "yellow";
+	  		results_wrapper.style.width = "800px";
+	  		results_wrapper.style.height = "200px";
+	  		results_wrapper.style.display = "flex";
+	  		results_wrapper.style.flexDirection = "row";
+	  		results_wrapper.style.justifyContent = "center";
+	  		results_wrapper.style.alignItems = "top";
+	  		results_wrapper.style.flexWrap = "wrap"
+	  		document.getElementById("body_wrapper").appendChild(results_wrapper);
+	  	}
   		dropdown.appendChild(deckNameWrapper); //only used once
 		deckNameWrapper.appendChild(deckName);
 		createDivs(dropdown, current_decks_returned, "deck");
@@ -178,10 +206,170 @@
 		searchAllWrapper.appendChild(searchAll);
   	}
 
+  	//organizes how results are displayed in results wrapper div
+  	function displayResults(id, name) {
+  		console.log("display results function");
+  		//delete all children of results wrapper before displaying results again
+  		var currentResults = document.getElementById("results_wrapper").childNodes; //MOOSE
+  		//refer to https://stackoverflow.com/questions/28316289/javascript-remove-not-removing-all-elements
+  		for (var i = currentResults.length - 1; i >=0; i--) {  //going in reverse to preserve iterations. 
+  			currentResults[i].parentNode.removeChild(currentResults[i]);
+  		}
+
+
+  		document.getElementById("dropdown_wrapper").remove();
+  		console.log("id:", id);
+  		function createResult(result, width, height, name) {
+  			result.style.position = "relative";
+  			result.style.display = "flex";
+  			result.style.justifyContent = "center";
+  			result.style.backgroundColor = "lightblue";
+  			result.style.width = width;
+  			result.style.height = height;
+  			result.style.margin = "5%";
+  			result.style.borderRadius = "5%";
+  			let deckName = document.createElement("h5");
+  			let text = document.createTextNode(name)//this will be queried from the database
+			deckName.appendChild(text);
+			result.appendChild(deckName);
+  			result.style.zIndex = -1; //dropdown should show in front of results
+  			document.getElementById("results_wrapper").appendChild(result);
+  		}
+  		if (id[0] === 'd') { //if a specific deck is selected, only one div is created
+  			//console.log("creating result for:", document.getElementById(id + ' ' + name));
+  			let result = document.createElement("div");
+  			result.setAttribute("id", id + ' ' + name);
+  			createResult(result, "300px", "350px", name);
+  	// 		let deckName = document.createElement("h5");
+  	// 		let text = document.createTextNode(name)//this will be queried from the database
+			// deckName.appendChild(text);
+			// result.appendChild(deckName);
+  		} else {
+  			let decks_by_producer = [];
+  			{% for deck in deck_list %}
+  				producer = "{{ deck.producer }}";
+  				if (name === producer) {
+  					decks_by_producer.push("{{ deck }}");
+  				}
+  			{% endfor %}
+  			console.log(decks_by_producer);
+  			for (i in decks_by_producer) {
+  				let result = document.createElement("div");
+  				result.setAttribute("id", id + ' ' + decks_by_producer[i]);
+  				//console.log("creating result for:", document.getElementById(id + ' ' + name));
+  				createResult(result, "150px", "200px", decks_by_producer[i]);
+  			}
+
+  		}
+
+
+
+
+  		//going to have to create a new result div for each result, but just start with one for now
+  		// var w = "150px";
+  		// let result = document.createElement("div");
+  		// result.style.position = "relative";
+  		// result.style.backgroundColor = "red";
+  		// result.style.width = w;
+  		// //result.style.minWidth = "100px";
+  		// result.style.height = "200px";
+  		// result.style.margin = "2%";
+  		// let result2 = document.createElement("div");
+  		// result2.style.position = "relative";
+  		// result2.style.backgroundColor = "red";
+  		// result2.style.width = w;
+  		// //result2.style.minWidth = "100px";
+  		// result2.style.height = "200px";
+  		// result2.style.margin = "2%";
+  		// let result3 = document.createElement("div");
+  		// result3.style.position = "relative";
+  		// result3.style.backgroundColor = "red";
+  		// result3.style.width = w;
+  		// //result3.style.minWidth = "100px";
+  		// result3.style.height = "200px";
+  		// result3.style.margin = "2%";
+  		// let result4 = document.createElement("div");
+  		// result4.style.position = "relative";
+  		// result4.style.backgroundColor = "red";
+  		// result4.style.width = w;
+  		// //result4.style.minWidth = "100px";
+  		// result4.style.height = "200px";
+  		// result4.style.margin = "2%";
+  		// let result5 = document.createElement("div");
+  		// result5.style.position = "relative";
+  		// result5.style.backgroundColor = "red";
+  		// result5.style.width = w;
+  		// //result5.style.minWidth = "100px";
+  		// result5.style.height = "200px";
+  		// result5.style.margin = "2%";
+  		// let result6 = document.createElement("div");
+  		// result6.style.position = "relative";
+  		// result6.style.backgroundColor = "red";
+  		// result6.style.width = w;
+  		// //result6.style.minWidth = "100px";
+  		// result6.style.height = "200px";
+  		// result6.style.margin = "2%";
+  		// let result7 = document.createElement("div");
+  		// result7.style.position = "relative";
+  		// result7.style.backgroundColor = "red";
+  		// result7.style.width = w;
+  		// //result7.style.minWidth = "100px";
+  		// result7.style.height = "200px";
+  		// result7.style.margin = "2%";
+  		// let result8 = document.createElement("div");
+  		// result8.style.position = "relative";
+  		// result8.style.backgroundColor = "red";
+  		// result8.style.width = w;
+  		// //result8.style.minWidth = "100px";
+  		// result8.style.height = "200px";
+  		// result8.style.margin = "2%";
+  		// document.getElementById("results_wrapper").appendChild(result); 
+  		// document.getElementById("results_wrapper").appendChild(result2);
+  		// document.getElementById("results_wrapper").appendChild(result3);
+  		// document.getElementById("results_wrapper").appendChild(result4);
+  		// document.getElementById("results_wrapper").appendChild(result5);
+  		// document.getElementById("results_wrapper").appendChild(result6);
+  		//document.getElementById("results_wrapper").appendChild(result7);
+  		//document.getElementById("results_wrapper").appendChild(result8);
+
+  	}
+
+  	//handles suggestion div click
+  	function clickDivSuggestion(event) {
+  		let id = undefined, text = undefined;
+  		let elem = document.getElementById(event.path[1].id);
+  		//if click is on text node
+  		if (elem === null) {
+  			elem = document.getElementById(event.path[2].id);
+  			id = elem.id;
+  			text = elem.firstChild.nextSibling.firstChild.textContent;
+  			//console.log(elem.firstChild.nextSibling.firstChild.textContent);
+  			displayResults(id, text);
+  		} else {
+  			elem = elem.id;
+  			let div_id = event.path[0].id;
+  			if (elem === "dropdown_wrapper") {
+  				elem = document.getElementById(div_id);
+  				id = elem.id;
+  				text = elem.firstChild.nextSibling.firstChild.textContent;
+  				//console.log(elem.firstChild.nextSibling.firstChild.textContent);
+  				 displayResults(id, text);
+  			} else {
+  				elem = document.getElementById(elem);
+  				id = elem.id;
+  				text = elem.firstChild.nextSibling.firstChild.textContent;
+  				//console.log(elem.firstChild.nextSibling.firstChild.textContent);
+  				displayResults(id, text);
+  			}
+  		}
+  	}
+
+
   	// deck and producer suggestions
   	function createSuggestionDiv(dropdown, which_suggestion) {
-  		suggestion = document.createElement("div");
+  		let suggestion = document.createElement("div");
 		suggestion.setAttribute("id", which_suggestion);
+		//suggestion.setAttribute("onclick", "testButton()");
 		suggestion.style.position = "relative";
 		suggestion.style.width = "100%";
 		suggestion.style.minHeight = "50px";
@@ -206,7 +394,7 @@
 
   	//wrapper for full name of decks or producers
   	function createFullNameWrapper(parent, name) {
-  		fullNameWrapper = document.createElement("div");
+  		let fullNameWrapper = document.createElement("div");
 		fullNameWrapper.style.position = "relative";
 		fullNameWrapper.style.width = "60%";
 		fullNameWrapper.style.display = "flex";
@@ -226,7 +414,7 @@
 		parentSubString = parent.slice(0, -1);
 		if (parentSubString === "producer_suggestion_") {
 			fullName.style.marginBottom = "10%";
-			numItems = document.createElement("h4");
+			let numItems = document.createElement("h4");
 			if (getNumItems()[name] === 1) {
 				var itemString = " item";
 			} else {
@@ -243,13 +431,15 @@
 			numItems.style.left = "1px";
 			fullNameWrapper.appendChild(numItems);
 		}
-		document.getElementById(parent).appendChild(fullNameWrapper);
+		var parent = document.getElementById(parent);
+		parent.appendChild(fullNameWrapper);
+		parent.addEventListener("click", clickDivSuggestion);
   	}
 
   	//image on left of suggestion div
   	function createIconImage(parent, img) {
-  		console.log("creating icon image");
-  		image = document.createElement("img");
+  		//console.log("creating icon image");
+  		let image = document.createElement("img");
 		image.src = img;
 		image.style.position = "relative";
 		image.style.width = "6%";
@@ -424,6 +614,7 @@
 	xIcon.addEventListener("click", clearForm);
 
 </script>
+<script src="{% static 'animations.js' %}" type="text/javascript"></script>
 
 </body>
 

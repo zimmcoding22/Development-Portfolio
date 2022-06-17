@@ -262,18 +262,16 @@ function setLinkClass(c) {
 function fadeIn(element) {
   var id = setInterval(frame, 5);
   var opc = 0;
-  var width = window.innerWidth;
+  // var width = window.innerWidth;
   function frame() {
-	if (opc == 1) {
-	    clearInterval(id);
-	    //console.log("full opacity: " + opc);
-	} else {
-		opc+=.005;
-		var newOpc = opc.toString();
-		element.style.opacity = newOpc;
-		
-	/* code to change the element style */ 
-	}
+		if (opc == 1) {
+		    clearInterval(id);
+		    //console.log("full opacity: " + opc);
+		} else {
+			opc+=.005;
+			var newOpc = opc.toString();
+			element.style.opacity = newOpc;
+		}
   }
 }
 
