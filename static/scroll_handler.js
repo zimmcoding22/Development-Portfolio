@@ -257,6 +257,8 @@ function setLinkClass(c) {
 	cardsLink.className = c;
 }
 
+var testMsg = "import has worked";
+//export {testMsg};
 
 //ANIMATIONS
 function fadeIn(element) {

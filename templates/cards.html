@@ -42,8 +42,8 @@
 		</div>
 		<div id="links_wrapper">
 			<div id="links">
-				<button class="links">Collection</button>
-				<button class="links">Tricks</button>
+				<button id="collection" class="links">Collection</button>
+				<button id="tricks" class="links">Tricks</button>
 			</div>
 		</div>
 	</header>
@@ -184,8 +184,8 @@
 	  		document.getElementById("page_description").remove(); //remove first time dropdown is displayed and replace with wrapper div for search results
 	  		var results_wrapper = document.createElement("div"); //this will contain visual display of results selected from dropdown
 	  		results_wrapper.setAttribute("id", "results_wrapper");
-	  		//results_wrapper.style.backgroundColor = "yellow";
-	  		results_wrapper.style.width = "800px";
+	  		//results_wrapper.style.backgroundColor = "yellow"; //for debugging
+	  		results_wrapper.style.width = "1000px";
 	  		results_wrapper.style.height = "200px";
 	  		results_wrapper.style.display = "flex";
 	  		results_wrapper.style.flexDirection = "row";
@@ -206,44 +206,59 @@
 		searchAllWrapper.appendChild(searchAll);
   	}
 
+  	function destroyElements(results) {
+  	  	//refer to https://stackoverflow.com/questions/28316289/javascript-remove-not-removing-all-elements
+		for (var i = results.length - 1; i >=0; i--) { 
+  			results[i].parentNode.removeChild(results[i]);
+  		}
+  	}
+
+  	function whichResult(event) {
+  		//get name and id for create result
+  		if (event.target.id === '') { //user has clicked on the h5
+  			var n = event.path[0].innerText;
+  			var i = event.path[1].id;
+  		} else {
+  			var n = event.target.id.slice(22);
+  			var i = event.path[0].id;
+  		}
+  		var currentResults = document.getElementById("results_wrapper").childNodes;
+  		destroyElements(currentResults);
+  		createResult(i, "300px", "350px", n);
+  	}
+
+  	//append results to DOM
+  	function createResult(id, width, height, name) {
+		var result = document.createElement("div");
+		console.log(id + ' ' + name);
+		result.setAttribute("id", id + ' ' + name);
+		result.style.position = "relative";
+		result.style.display = "flex";
+		result.style.justifyContent = "center";
+		result.style.backgroundColor = "lightblue";
+		result.style.width = width;
+		result.style.height = height;
+		result.style.margin = "5%";
+		result.style.borderRadius = "5%";
+		result.addEventListener("click", whichResult);
+		let deckName = document.createElement("h5");
+		let text = document.createTextNode(name)//this will be queried from the database
+		deckName.appendChild(text);
+		result.appendChild(deckName);
+		document.getElementById("results_wrapper").appendChild(result);
+
+  	}
+
   	//organizes how results are displayed in results wrapper div
   	function displayResults(id, name) {
   		console.log("display results function");
   		//delete all children of results wrapper before displaying results again
-  		var currentResults = document.getElementById("results_wrapper").childNodes; //MOOSE
-  		//refer to https://stackoverflow.com/questions/28316289/javascript-remove-not-removing-all-elements
-  		for (var i = currentResults.length - 1; i >=0; i--) {  //going in reverse to preserve iterations. 
-  			currentResults[i].parentNode.removeChild(currentResults[i]);
-  		}
-
-
+  		var currentResults = document.getElementById("results_wrapper").childNodes;
+  		destroyElements(currentResults);
   		document.getElementById("dropdown_wrapper").remove();
-  		console.log("id:", id);
-  		function createResult(result, width, height, name) {
-  			result.style.position = "relative";
-  			result.style.display = "flex";
-  			result.style.justifyContent = "center";
-  			result.style.backgroundColor = "lightblue";
-  			result.style.width = width;
-  			result.style.height = height;
-  			result.style.margin = "5%";
-  			result.style.borderRadius = "5%";
-  			let deckName = document.createElement("h5");
-  			let text = document.createTextNode(name)//this will be queried from the database
-			deckName.appendChild(text);
-			result.appendChild(deckName);
-  			result.style.zIndex = -1; //dropdown should show in front of results
-  			document.getElementById("results_wrapper").appendChild(result);
-  		}
   		if (id[0] === 'd') { //if a specific deck is selected, only one div is created
   			//console.log("creating result for:", document.getElementById(id + ' ' + name));
-  			let result = document.createElement("div");
-  			result.setAttribute("id", id + ' ' + name);
-  			createResult(result, "300px", "350px", name);
-  	// 		let deckName = document.createElement("h5");
-  	// 		let text = document.createTextNode(name)//this will be queried from the database
-			// deckName.appendChild(text);
-			// result.appendChild(deckName);
+  			createResult(id, "300px", "350px", name);
   		} else {
   			let decks_by_producer = [];
   			{% for deck in deck_list %}
@@ -254,84 +269,9 @@
   			{% endfor %}
   			console.log(decks_by_producer);
   			for (i in decks_by_producer) {
-  				let result = document.createElement("div");
-  				result.setAttribute("id", id + ' ' + decks_by_producer[i]);
-  				//console.log("creating result for:", document.getElementById(id + ' ' + name));
-  				createResult(result, "150px", "200px", decks_by_producer[i]);
+  				createResult(id, "200px", "250px", decks_by_producer[i]);
   			}
-
   		}
-
-
-
-
-  		//going to have to create a new result div for each result, but just start with one for now
-  		// var w = "150px";
-  		// let result = document.createElement("div");
-  		// result.style.position = "relative";
-  		// result.style.backgroundColor = "red";
-  		// result.style.width = w;
-  		// //result.style.minWidth = "100px";
-  		// result.style.height = "200px";
-  		// result.style.margin = "2%";
-  		// let result2 = document.createElement("div");
-  		// result2.style.position = "relative";
-  		// result2.style.backgroundColor = "red";
-  		// result2.style.width = w;
-  		// //result2.style.minWidth = "100px";
-  		// result2.style.height = "200px";
-  		// result2.style.margin = "2%";
-  		// let result3 = document.createElement("div");
-  		// result3.style.position = "relative";
-  		// result3.style.backgroundColor = "red";
-  		// result3.style.width = w;
-  		// //result3.style.minWidth = "100px";
-  		// result3.style.height = "200px";
-  		// result3.style.margin = "2%";
-  		// let result4 = document.createElement("div");
-  		// result4.style.position = "relative";
-  		// result4.style.backgroundColor = "red";
-  		// result4.style.width = w;
-  		// //result4.style.minWidth = "100px";
-  		// result4.style.height = "200px";
-  		// result4.style.margin = "2%";
-  		// let result5 = document.createElement("div");
-  		// result5.style.position = "relative";
-  		// result5.style.backgroundColor = "red";
-  		// result5.style.width = w;
-  		// //result5.style.minWidth = "100px";
-  		// result5.style.height = "200px";
-  		// result5.style.margin = "2%";
-  		// let result6 = document.createElement("div");
-  		// result6.style.position = "relative";
-  		// result6.style.backgroundColor = "red";
-  		// result6.style.width = w;
-  		// //result6.style.minWidth = "100px";
-  		// result6.style.height = "200px";
-  		// result6.style.margin = "2%";
-  		// let result7 = document.createElement("div");
-  		// result7.style.position = "relative";
-  		// result7.style.backgroundColor = "red";
-  		// result7.style.width = w;
-  		// //result7.style.minWidth = "100px";
-  		// result7.style.height = "200px";
-  		// result7.style.margin = "2%";
-  		// let result8 = document.createElement("div");
-  		// result8.style.position = "relative";
-  		// result8.style.backgroundColor = "red";
-  		// result8.style.width = w;
-  		// //result8.style.minWidth = "100px";
-  		// result8.style.height = "200px";
-  		// result8.style.margin = "2%";
-  		// document.getElementById("results_wrapper").appendChild(result); 
-  		// document.getElementById("results_wrapper").appendChild(result2);
-  		// document.getElementById("results_wrapper").appendChild(result3);
-  		// document.getElementById("results_wrapper").appendChild(result4);
-  		// document.getElementById("results_wrapper").appendChild(result5);
-  		// document.getElementById("results_wrapper").appendChild(result6);
-  		//document.getElementById("results_wrapper").appendChild(result7);
-  		//document.getElementById("results_wrapper").appendChild(result8);
-
   	}
 
   	//handles suggestion div click
@@ -363,7 +303,6 @@
   			}
   		}
   	}
-
 
   	// deck and producer suggestions
   	function createSuggestionDiv(dropdown, which_suggestion) {
@@ -477,6 +416,7 @@
 		dropdown.style.display = "flex";
 		dropdown.style.flexDirection = "column";
 		dropdown.style.overflow = "auto";
+		dropdown.style.zIndex = 1;
 		parent.appendChild(dropdown);
 		//deck name wrapper div
 		deckNameWrapper = document.createElement("div");
@@ -609,12 +549,14 @@
 	var id_dict = {};
 	searchElement.addEventListener("click", addRemoveSearchBoxShadow);
 	document.body.addEventListener("click", addRemoveSearchBoxShadow); 
+	//document.body.addEventListener("click", clickResult);
 	document.addEventListener("mousemove", highlightSuggestion);
-	searchBox.addEventListener("keydown", displaySearchElements)
+	searchBox.addEventListener("keydown", displaySearchElements);
 	xIcon.addEventListener("click", clearForm);
+   	
 
 </script>
-<script src="{% static 'animations.js' %}" type="text/javascript"></script>
+<script src="{% static 'header.js' %}" type="text/javascript"></script>
 
 </body>
 
