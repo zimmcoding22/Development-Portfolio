@@ -65,6 +65,46 @@
 <!-- add box shadow to search box and remove when clicking off of it. Display an x icon to clear form if it isn't empty. Create a dropdown containing suggestions -->
 <script type = "text/javascript">
 
+	//fade in animation
+	function fadeIn(element) {
+    	var id = setInterval(frame, 3);
+    	var opc = 0;
+		function frame() {
+			if (opc == 1) {
+				clearInterval(id);
+			} else {
+				opc+=.005;
+				var newOpc = opc.toString();
+				element.style.opacity = newOpc;
+			}
+	  	}
+	}	
+
+	async function sleep(seconds) {
+		return(new Promise((resolve) => setTimeout(resolve, seconds * 1000)));
+	}
+
+	async function displayProducerCollection(event) {
+		//remove display elements and show producer title
+		var producer_title = document.getElementById("producer_title");
+		if (!producer_title) {
+			try {
+				var currentResults = document.getElementById("body_wrapper").childNodes;
+				destroyElements(currentResults);
+			} catch {
+				document.getElementById("page_description").remove();
+			}
+			if (!document.getElementById("results_wrapper")) { //if user clicks collection tab before anything else
+				createResultsWrapper();
+			}
+			createTitle("producer_title", "Producers");
+			{% for p in producer_list %}
+				await sleep(.1);
+				createResult("producer", "200px", "250px", "{{ p }}");
+			{% endfor %}
+		}
+	}
+
 	//add/remove box shadow from search bar when it is clicked on/when user clicks away
 	function addRemoveSearchBoxShadow(event) {
   		// console.log("target:", event.target.id);
@@ -82,14 +122,12 @@
   	}
 
   	function highlightSuggestion(event) {
-		//console.clear()
 	 	var x = document.elementFromPoint(event.clientX, event.clientY);
 	 	var dropdown = document.getElementById("dropdown_wrapper");
 	 	//figure out which suggestion div we are in
 	 	var suggestion = "";
 	 	try { //throws exception if x.id doesnt exist. If mouseover an element with suggestion box class name, we assign suggestion to whichever element without a null id (either x or its parent)
 		 	if ((x.id !== "" && document.getElementById(x.id).className === "suggestion_box") || (x.parentElement.id !== "" && document.getElementById(x.parentElement.id).className === "suggestion_box") || (x.parentElement.parentElement.id !== "" && document.getElementById(x.parentElement.parentElement.id).className === "suggestion_box")) {
-		 		//console.log("success");
 		 		if (document.getElementById(x.id)) {
 		 			suggestion = document.getElementById(x.id);
 		 		} else if (document.getElementById(x.parentElement.id)) {
@@ -130,7 +168,6 @@
   	function createDivs(dropdown, list, which_tab) {
   		var suggestionDivsThatContainIcons = [];
   		for (let i = 1; i <= list.length; i++) {
-			//console.log("creating new div ", i);
 			var suggestionId = which_tab + "_suggestion_" + i.toString();
 			createSuggestionDiv(dropdown, suggestionId);
 			{% for deck in deck_list %}
@@ -173,26 +210,60 @@
   		return(producers_dict);
   	}
 
+  	function createResultsWrapper() {
+  		var results_wrapper = document.createElement("div"); //this will contain visual display of results selected from dropdown
+  		results_wrapper.setAttribute("id", "results_wrapper");
+  		results_wrapper.style.position = "relative";
+  		results_wrapper.style.width = "1000px";
+  		results_wrapper.style.height = "200px";
+  		results_wrapper.style.top = "3%";
+  		results_wrapper.style.display = "flex";
+  		results_wrapper.style.flexDirection = "row";
+  		results_wrapper.style.justifyContent = "center";
+  		results_wrapper.style.alignItems = "top";
+  		results_wrapper.style.flexWrap = "wrap"
+  		document.getElementById("body_wrapper").appendChild(results_wrapper);
+  	}
+
+  	function createTitle(id, text) {
+  		var producerTitle = document.createElement("h1");
+		producerTitle.setAttribute("id", id);
+		producerTitle.style.position = "absolute";
+		producerTitle.style.textAlign = "center";
+		producerTitle.style.color = "gray";
+		producerTitle.style.opacity = "0";
+		producerTitle.style.fontFamily = "'Varela Round', Georgia, Impact, sans-serif";
+		let t = document.createTextNode(text);
+		producerTitle.appendChild(t);
+		body_wrapper = document.getElementById("body_wrapper");
+		body_wrapper.appendChild(producerTitle);
+		fadeIn(producerTitle);
+  	}
+
   	//construct dropdown according to results
   	function dropdownLayout(parent, current_decks_returned, current_producers_returned) {
-  		var d = createDropdown(parent);
+  		var d = createDropdown(parent, current_decks_returned, current_producers_returned);
+  		if (current_decks_returned.length === 0 && current_producers_returned.length === 0) { //display no items found
+  			console.log("no items found");
+  			return;
+  		}
   		var dropdown = d[0];
   		var deckNameWrapper = d[1];
   		var producerNameWrapper = d[2];
+  		var deckName = d[3];
+  		var producerName = d[4];
   		var page_description_animation = document.getElementById("page_description");
-  		if (page_description_animation) {
-	  		document.getElementById("page_description").remove(); //remove first time dropdown is displayed and replace with wrapper div for search results
-	  		var results_wrapper = document.createElement("div"); //this will contain visual display of results selected from dropdown
-	  		results_wrapper.setAttribute("id", "results_wrapper");
-	  		//results_wrapper.style.backgroundColor = "yellow"; //for debugging
-	  		results_wrapper.style.width = "1000px";
-	  		results_wrapper.style.height = "200px";
-	  		results_wrapper.style.display = "flex";
-	  		results_wrapper.style.flexDirection = "row";
-	  		results_wrapper.style.justifyContent = "center";
-	  		results_wrapper.style.alignItems = "top";
-	  		results_wrapper.style.flexWrap = "wrap"
-	  		document.getElementById("body_wrapper").appendChild(results_wrapper);
+  		var producer_title = document.getElementById("producer_title");
+  		if (page_description_animation || producer_title) {
+  			if (page_description_animation) {
+	  			page_description_animation.remove(); //remove first time dropdown is displayed and replace with wrapper div for results
+	  		}
+	  		if (producer_title) {
+	  			producer_title.remove();
+	  		}
+	  		if (!document.getElementById("results_wrapper")) {
+	  			createResultsWrapper();
+	  		}
 	  	}
   		dropdown.appendChild(deckNameWrapper); //only used once
 		deckNameWrapper.appendChild(deckName);
@@ -204,6 +275,7 @@
 		document.getElementById("search_all_wrapper").className = "suggestion_box";
 		id_dict["search_all_wrapper"] = false;
 		searchAllWrapper.appendChild(searchAll);
+		searchAllWrapper.addEventListener("click", clickDivSuggestion);
   	}
 
   	function destroyElements(results) {
@@ -213,25 +285,47 @@
   		}
   	}
 
+  	//handles when any deck in list of decks by producer is clicked on
   	function whichResult(event) {
   		//get name and id for create result
   		if (event.target.id === '') { //user has clicked on the h5
   			var n = event.path[0].innerText;
   			var i = event.path[1].id;
   		} else {
-  			var n = event.target.id.slice(22);
+  			var n = event.target.id.slice(20);  //will always start with a number (# of producers found). Find # of digits between here and first space
+  			let digitCount = 0;
+  			for (const c of n) {
+  				if (isNaN(parseInt(c))) {
+  					break;
+  				}
+  				digitCount++;
+  			}
+  			n = event.target.id.slice(20 + digitCount);
   			var i = event.path[0].id;
   		}
-  		var currentResults = document.getElementById("results_wrapper").childNodes;
+  		var currentResults = document.getElementById("body_wrapper").childNodes;
   		destroyElements(currentResults);
-  		createResult(i, "300px", "350px", n);
+  		createResultsWrapper();
+  		if (event.target.parentElement.id.slice(0, 9) === "producer ") { //display all decks by producer
+  			var n = event.target.parentElement.id.slice(9);
+  			var i = event.target.parentElement.id;
+  			displayResults(i, n);
+  		} else if (event.target.id.slice(0, 9) === "producer ") {
+  			var n = event.target.id.slice(9);
+  			var i = event.target.id;
+  			displayResults(i, n);
+  		} else {
+  			createResult('', "300px", "350px", n);
+  		}
   	}
 
   	//append results to DOM
   	function createResult(id, width, height, name) {
 		var result = document.createElement("div");
-		console.log(id + ' ' + name);
-		result.setAttribute("id", id + ' ' + name);
+		if (!id === '' || id === "producer") { //make sure id hasn't already been set
+			result.setAttribute("id", id + ' ' + name);
+			result.setAttribute("className", "result");
+		}
 		result.style.position = "relative";
 		result.style.display = "flex";
 		result.style.justifyContent = "center";
@@ -246,20 +340,24 @@
 		deckName.appendChild(text);
 		result.appendChild(deckName);
 		document.getElementById("results_wrapper").appendChild(result);
+		window.scrollTo(0, 0);
+		
 
   	}
 
   	//organizes how results are displayed in results wrapper div
-  	function displayResults(id, name) {
-  		console.log("display results function");
+  	async function displayResults(id, name) {
   		//delete all children of results wrapper before displaying results again
-  		var currentResults = document.getElementById("results_wrapper").childNodes;
+  		let currentResults = document.getElementById("body_wrapper").childNodes;
   		destroyElements(currentResults);
-  		document.getElementById("dropdown_wrapper").remove();
+  		let d = document.getElementById("dropdown_wrapper");
+  		if (d) {
+  			d.remove();
+  		}
+  		createResultsWrapper();
   		if (id[0] === 'd') { //if a specific deck is selected, only one div is created
-  			//console.log("creating result for:", document.getElementById(id + ' ' + name));
   			createResult(id, "300px", "350px", name);
-  		} else {
+  		} else { //display all decks by a given producer
   			let decks_by_producer = [];
   			{% for deck in deck_list %}
   				producer = "{{ deck.producer }}";
@@ -267,15 +365,59 @@
   					decks_by_producer.push("{{ deck }}");
   				}
   			{% endfor %}
-  			console.log(decks_by_producer);
+  			createTitle("decks_by_producer_title", "Decks By " + name);
   			for (i in decks_by_producer) {
+  				await sleep(.1);
   				createResult(id, "200px", "250px", decks_by_producer[i]);
   			}
   		}
   	}
 
+  	//handle if user clicks searchAll or presses enter when there are search results
+  	function displaySearchAll(children) {
+  		for (var i = 0; i < children.length; i++) {
+			let child = children[i];
+			if (child.id === "producer_name_wrapper" && child.nextSibling.id === "producer_suggestion_1") { //get info of first producer
+				console.log("name:", child.nextSibling.innerText); 
+				let t = child.nextSibling.innerText;
+				for (var j = 0; j < t.length; j++) {
+					if (t.charAt(j) === "\n") {
+						break;
+					}
+				}
+				t = t.slice(0, j);
+				displayResults("producer_suggestion_1", t);
+			} 
+			if (child.id === "producer_name_wrapper" && child.nextSibling.id !== "producer_suggestion_1") { //found decks but no producers
+				let t = children[1].innerText;
+				displayResults("deck_suggestion_1", t);
+			}
+		}
+  	}
+
+  	function pressEnterHandler(event) {
+  		let enter = 13;
+  		let dropdown = document.getElementById("dropdown_wrapper");
+  		if (event.keyCode === enter && dropdown) {
+  			let children = dropdown.childNodes;
+  			displaySearchAll(children);
+  		}
+  	}
+
   	//handles suggestion div click
   	function clickDivSuggestion(event) {
+  		console.clear();
+  		//handle search all
+  		console.log(event.path);
+  		if (event.target.id === "search_all_wrapper" || event.target.parentElement.id === "search_all_wrapper") {
+  			if (event.path[0].nodeName === "H5") {
+  				var children = event.path[2].childNodes;
+  			} else {
+  				var children = event.path[1].childNodes;	
+  			}
+  			displaySearchAll(children);
+  			return;
+  		}
   		let id = undefined, text = undefined;
   		let elem = document.getElementById(event.path[1].id);
   		//if click is on text node
@@ -283,7 +425,6 @@
   			elem = document.getElementById(event.path[2].id);
   			id = elem.id;
   			text = elem.firstChild.nextSibling.firstChild.textContent;
-  			//console.log(elem.firstChild.nextSibling.firstChild.textContent);
   			displayResults(id, text);
   		} else {
   			elem = elem.id;
@@ -292,13 +433,11 @@
   				elem = document.getElementById(div_id);
   				id = elem.id;
   				text = elem.firstChild.nextSibling.firstChild.textContent;
-  				//console.log(elem.firstChild.nextSibling.firstChild.textContent);
-  				 displayResults(id, text);
+  				displayResults(id, text);
   			} else {
   				elem = document.getElementById(elem);
   				id = elem.id;
   				text = elem.firstChild.nextSibling.firstChild.textContent;
-  				//console.log(elem.firstChild.nextSibling.firstChild.textContent);
   				displayResults(id, text);
   			}
   		}
@@ -377,7 +516,6 @@
 
   	//image on left of suggestion div
   	function createIconImage(parent, img) {
-  		//console.log("creating icon image");
   		let image = document.createElement("img");
 		image.src = img;
 		image.style.position = "relative";
@@ -391,7 +529,6 @@
 
   	//image on far right of suggestion div
   	function createSelectionImage(parent) {
-  		//console.log("creating suggestion image");
   		selectionImage = document.createElement("img");
 		selectionImage.src = "{% static 'spade.png' %}";
 		selectionImage.style.position = "relative";
@@ -402,7 +539,7 @@
 		document.getElementById(parent).appendChild(selectionImage);
   	}
 
-  	function createDropdown(parent) {
+  	function createDropdown(parent, current_decks_returned, current_producers_returned) {
 		//dropdown wrapper
 		var dropdown = document.createElement("div");
   		dropdown.setAttribute("id", "dropdown_wrapper");
@@ -418,6 +555,21 @@
 		dropdown.style.overflow = "auto";
 		dropdown.style.zIndex = 1;
 		parent.appendChild(dropdown);
+		if (current_decks_returned.length === 0 && current_producers_returned.length === 0) {
+			dropdown.style.height = "30px";
+			let noItems = document.createElement("h5");
+			text = document.createTextNode("No items found");
+			noItems.appendChild(text);
+			noItems.style.position = "relative";
+			noItems.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
+			noItems.style.fontWeight = "bold";
+			noItems.style.fontSize = "8px";
+			noItems.style.color = "gray";
+			noItems.style.left = "2%";
+			noItems.style.top = "-3px";
+			dropdown.appendChild(noItems);
+			return;
+		}
 		//deck name wrapper div
 		deckNameWrapper = document.createElement("div");
 		deckNameWrapper.setAttribute("id", "deck_name_wrapper");
@@ -441,12 +593,13 @@
 		deckName.style.color = "gray";
 		//producer name wrapper div
 		producerNameWrapper = document.createElement("div");
+		producerNameWrapper.setAttribute("id", "producer_name_wrapper");
 		producerNameWrapper.style.position = "relative";
 		producerNameWrapper.style.width = "100%";
 		producerNameWrapper.style.height = "18%";
 		//suggestions by producer name
 		producerName = document.createElement("h5");
-		//producerName.setAttribute("id", "producer_name");
+		producerName.setAttribute("id", "producer_name");
 		text = document.createTextNode("PRODUCERS");
 		producerName.appendChild(text);
 		producerName.style.position = "relative";
@@ -471,14 +624,14 @@
 		//press enter to search all
 		searchAll = document.createElement("h5");
 		//searchAll.setAttribute("id", "search_all");
-		text = document.createTextNode("Press Enter to search all items");
+		text = document.createTextNode("Press Enter to search items");
 		searchAll.appendChild(text);
 		searchAll.style.position = "relative";
 		searchAll.style.left = "2%";
 		searchAll.style.fontSize = "8px";
 		searchAll.style.color = "gray";
 		searchAll.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
-		return([dropdown, deckNameWrapper, producerNameWrapper]);
+		return([dropdown, deckNameWrapper, producerNameWrapper, deckName, producerName]);
   	}
 
   	//handle keyboard events while user is typing. Display x icon/ dropdown menu
@@ -486,20 +639,20 @@
   		var numDecksChanged = false, numProducersChanged = false;
   		//dont display x if any of these keys are hit
   		const omit_keys = ["Tab", "CapsLock", "Shift", "Control", "Backspace", "ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Meta", "Enter", "Alt", "Escape"];
-  		console.log("key:", event.key);
   		//toggle currentDecksReturned as characters are removed
   		if (event.key === "Backspace") {
   			var inputString = searchBox.value.substring(0, searchBox.value.length - 1);
   		} else {
   			var inputString = searchBox.value + event.key;
   		}
+  		if (event.key === "Enter") {
+  			return;
+  		}
   		inputString = inputString.toLowerCase();
-  		//console.log("input string:", inputString);
   		var currentDecksReturned = [], currentProducersReturned = [];
   		{% for deck in deck_list %}  //use django to pull from database
   			var d = "{{ deck }}", p = "{{ deck.producer }}";
   			if (inputString.length > 0 && (d.toLowerCase().startsWith(inputString))) { //check if prefix exists
-				//console.log("deck in js:", d);
 				currentDecksReturned.push(d);
 			}
 			if (inputString.length > 0 && (p.toLowerCase().startsWith(inputString)) && !currentProducersReturned.includes(p)) {
@@ -523,14 +676,13 @@
 			numProducersChanged = true;
 		}
   		var dropdown = document.getElementById("dropdown_wrapper");
-  		if (((currentDecksReturned.length === 0 && currentProducersReturned.length === 0) || inputString.length === 0 || numDecksChanged || numProducersChanged) && dropdown) {
+  		if (((currentDecksReturned.length === 0 && currentProducersReturned.length === 0) || inputString.length === 0 || numDecksChanged || numProducersChanged) && dropdown) { 
   			dropdown.remove();
   		}
   		dropdown = document.getElementById("dropdown_wrapper"); //update status of dropdown
-  		if (!dropdown && (currentDecksReturned.length > 0 || currentProducersReturned.length > 0)) { //if it's not there and there are decks or producers returned
+  		if (!dropdown && ((currentDecksReturned.length > 0 || currentProducersReturned.length > 0) || (currentDecksReturned.length === 0 && currentProducersReturned.length === 0 && inputString.length !== 0))) { //if it's not there and there are decks or producers returned or it's not there and there aren't any results, but form isn't empty
   			dropdown = document.createElement("div");
   			dropdown.setAttribute("id", "dropdown_wrapper");
-  			//createDropdown(dropdown, currentDecksReturned, currentProducersReturned);
   			dropdownLayout(searchElement, currentDecksReturned, currentProducersReturned);
   		} 
   		if (inputString !== "") {
@@ -547,16 +699,24 @@
 	var searchElement = document.getElementById("search");
 	var previousNumDecksReturned = 0, previousNumProducersReturned = 0;
 	var id_dict = {};
+	var collectionTab = document.getElementById("collection");
+	var logo = document.getElementById("logo_wrapper");
 	searchElement.addEventListener("click", addRemoveSearchBoxShadow);
 	document.body.addEventListener("click", addRemoveSearchBoxShadow); 
 	//document.body.addEventListener("click", clickResult);
 	document.addEventListener("mousemove", highlightSuggestion);
 	searchBox.addEventListener("keydown", displaySearchElements);
 	xIcon.addEventListener("click", clearForm);
+	//make producers title appear if clicked to start
+	collectionTab.addEventListener("click", displayProducerCollection);
+	collectionTab.addEventListener("click", clearForm);
+	document.addEventListener("keypress", pressEnterHandler);
+	logo.addEventListener("click", () => {
+  		location.reload();
+	});
    	
 
 </script>
-<script src="{% static 'header.js' %}" type="text/javascript"></script>
 
 </body>
 
