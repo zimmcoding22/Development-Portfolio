@@ -98,10 +98,12 @@
 				createResultsWrapper();
 			}
 			createTitle("producer_title", "Producers");
+			creatingElements = true;
 			{% for p in producer_list %}
 				await sleep(.1);
-				createResult("producer", "200px", "250px", "{{ p }}");
+				createResult("producer", "200px", "250px", "{{ p }}", "{{ p.image.url }}");
 			{% endfor %}
+			creatingElements = false;
 		}
 	}
 
@@ -222,6 +224,7 @@
   		results_wrapper.style.justifyContent = "center";
   		results_wrapper.style.alignItems = "top";
   		results_wrapper.style.flexWrap = "wrap"
+  		results_wrapper.style.padding = "20px";
   		document.getElementById("body_wrapper").appendChild(results_wrapper);
   	}
 
@@ -287,62 +290,104 @@
 
   	//handles when any deck in list of decks by producer is clicked on
   	function whichResult(event) {
-  		//get name and id for create result
-  		if (event.target.id === '') { //user has clicked on the h5
-  			var n = event.path[0].innerText;
-  			var i = event.path[1].id;
-  		} else {
-  			var n = event.target.id.slice(20);  //will always start with a number (# of producers found). Find # of digits between here and first space
-  			let digitCount = 0;
-  			for (const c of n) {
-  				if (isNaN(parseInt(c))) {
-  					break;
-  				}
-  				digitCount++;
-  			}
-  			n = event.target.id.slice(20 + digitCount);
-  			var i = event.path[0].id;
-  		}
-  		var currentResults = document.getElementById("body_wrapper").childNodes;
-  		destroyElements(currentResults);
-  		createResultsWrapper();
-  		if (event.target.parentElement.id.slice(0, 9) === "producer ") { //display all decks by producer
-  			var n = event.target.parentElement.id.slice(9);
-  			var i = event.target.parentElement.id;
-  			displayResults(i, n);
-  		} else if (event.target.id.slice(0, 9) === "producer ") {
-  			var n = event.target.id.slice(9);
-  			var i = event.target.id;
-  			displayResults(i, n);
-  		} else {
-  			createResult('', "300px", "350px", n);
-  		}
+  		if (!creatingElements) {
+	  		//get name and id for create result
+	  		if (event.target.id === '') { //user has clicked on the h5
+	  			var n = event.path[0].innerText;
+	  			var i = event.path[1].id;
+	  		} else {
+	  			var n = event.target.id.slice(20);  //always starts with a number (# of producers found). Find # of digits between here and first space
+	  			let digitCount = 0;
+	  			for (const c of n) {
+	  				if (isNaN(parseInt(c))) {
+	  					break;
+	  				}
+	  				digitCount++;
+	  			}
+	  			n = event.target.id.slice(20 + digitCount);
+	  			var i = event.path[0].id;
+	  		}
+	  		var currentResults = document.getElementById("body_wrapper").childNodes;
+	  		destroyElements(currentResults);
+	  		createResultsWrapper();
+	  		if (event.target.parentElement.id.slice(0, 9) === "producer ") { //display all decks by producer
+	  			var n = event.target.parentElement.id.slice(9);
+	  			var i = event.target.parentElement.id;
+	  			displayResults(i, n);
+	  		} else {
+	  			let name = i.slice(5);
+	  			if (name.includes("suggestion")) { //if single deck is selected directly from search
+	  				let index = 0;
+	  				for (const c of name) {
+	  					index++;
+	  					if (c === ' ') {
+	  						break;
+	  					}
+	  				}
+	  				name = name.slice(index);
+	  			}
+	  			createResult("deck", "300px", "400px", name);
+	  		}
+	  	}
   	}
 
   	//append results to DOM
-  	function createResult(id, width, height, name) {
+  	function createResult(id, width, height, name, image) {
 		var result = document.createElement("div");
-		if (!id === '' || id === "producer") { //make sure id hasn't already been set
-			result.setAttribute("id", id + ' ' + name);
-			result.setAttribute("className", "result");
-		}
+		result.setAttribute("id", id + ' ' + name);
+		result.setAttribute("className", "result");
+		document.getElementById("results_wrapper").appendChild(result);
 		result.style.position = "relative";
 		result.style.display = "flex";
-		result.style.justifyContent = "center";
-		result.style.backgroundColor = "lightblue";
+		result.style.alignItems = "center";
 		result.style.width = width;
 		result.style.height = height;
 		result.style.margin = "5%";
 		result.style.borderRadius = "5%";
+		result.style.cursor = "pointer";
 		result.addEventListener("click", whichResult);
-		let deckName = document.createElement("h5");
-		let text = document.createTextNode(name)//this will be queried from the database
-		deckName.appendChild(text);
-		result.appendChild(deckName);
-		document.getElementById("results_wrapper").appendChild(result);
-		window.scrollTo(0, 0);
-		
-
+		console.log("result id:", result.id);
+		if (image !== undefined) {
+			createResultImage(result.id, image);
+		} else { //this is for when a specific deck is selected. Result div will be created differently
+			result.style.backgroundColor = "#FFEBE6";
+			//get image
+			{% for deck in deck_list %}
+				if ("{{ deck }}" === name) {
+					var i = "{{ deck.image.url }}";
+					var c = "{{ deck.cost }}";
+					var f = "{{ deck.finish }}";
+					console.log("deck: ", "{{ deck }}", "name:", name, "cost:", c);
+				}
+			{% endfor %}
+			result.style.flexDirection = "column";
+			let img = document.createElement("img");
+			img.src = i;
+			img.style.position = "relative";
+			img.style.borderRadius = "5%";
+			img.style.width = "65%";
+			img.style.height = "70%";
+			img.style.marginTop = "-3%";
+			let deckName = document.createElement("h6");
+			let text = document.createTextNode(name)//this will be queried from the database
+			deckName.appendChild(text);
+			deckName.style.marginTop = "4%";
+			deckName.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
+			let cost = document.createElement("h5");
+			text = document.createTextNode("Price $" + c);
+			cost.appendChild(text);
+			cost.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
+			let finish = document.createElement("h5");
+			text = document.createTextNode("Finish - " + f);
+			finish.appendChild(text);
+			finish.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
+			finish.style.marginTop = "-5%";
+			result.appendChild(deckName);
+			result.appendChild(img);
+			result.appendChild(cost);
+			result.appendChild(finish);
+		}
+		window.scrollTo(0, 0); //bring user back to top of page whenever new results are toggled
   	}
 
   	//organizes how results are displayed in results wrapper div
@@ -356,20 +401,23 @@
   		}
   		createResultsWrapper();
   		if (id[0] === 'd') { //if a specific deck is selected, only one div is created
-  			createResult(id, "300px", "350px", name);
+  			console.log("id:", id, "name:", name);
+  			createResult(id, "300px", "400px", name);
   		} else { //display all decks by a given producer
-  			let decks_by_producer = [];
+  			createTitle("decks_by_producer_title", "Decks By " + name);
+  			let decks_by_producer = {};
   			{% for deck in deck_list %}
   				producer = "{{ deck.producer }}";
   				if (name === producer) {
-  					decks_by_producer.push("{{ deck }}");
+  					decks_by_producer["{{ deck }}"] = "{{ deck.image.url }}";
   				}
   			{% endfor %}
-  			createTitle("decks_by_producer_title", "Decks By " + name);
-  			for (i in decks_by_producer) {
+  			creatingElements = true;
+  			for (var [key, value] of Object.entries(decks_by_producer)) {
   				await sleep(.1);
-  				createResult(id, "200px", "250px", decks_by_producer[i]);
+  				createResult("deck", "200px", "250px", key, value);
   			}
+  			creatingElements = false;
   		}
   	}
 
@@ -406,7 +454,6 @@
 
   	//handles suggestion div click
   	function clickDivSuggestion(event) {
-  		console.clear();
   		//handle search all
   		console.log(event.path);
   		if (event.target.id === "search_all_wrapper" || event.target.parentElement.id === "search_all_wrapper") {
@@ -514,9 +561,25 @@
 		parent.addEventListener("click", clickDivSuggestion);
   	}
 
+
+  	//image for results
+  	function createResultImage(parent, img) {
+  		let image = document.createElement("img");
+  		image.src = img;
+  		image.style.position = "relative";
+  		image.style.width = "100%";
+  		image.style.height = "100%";
+  		if (parent === "producer Best Cardist Alive") { //shoudnt do this, but couldn't find many suitable images.
+  			image.style.height = "70%";
+  		}
+  		image.style.borderRadius = "5%";
+  		image.style.bottom = "3%";
+  		document.getElementById(parent).appendChild(image);
+  	}
+
   	//image on left of suggestion div
   	function createIconImage(parent, img) {
-  		let image = document.createElement("img");
+   		let image = document.createElement("img");
 		image.src = img;
 		image.style.position = "relative";
 		image.style.width = "6%";
@@ -524,16 +587,15 @@
 		image.style.left = "2%";
 		image.style.borderRadius = "2px";
 		document.getElementById(parent).appendChild(image);
-		
   	}
 
   	//image on far right of suggestion div
   	function createSelectionImage(parent) {
-  		selectionImage = document.createElement("img");
+  		let selectionImage = document.createElement("img");
 		selectionImage.src = "{% static 'spade.png' %}";
 		selectionImage.style.position = "relative";
-		selectionImage.style.width = "3%";
-		selectionImage.style.maxHeight = "20px";
+		selectionImage.style.width = "2.5%";
+		selectionImage.style.maxHeight = "15px";
 		selectionImage.style.left = "30%";
 		selectionImage.style.borderRadius = "5px";
 		document.getElementById(parent).appendChild(selectionImage);
@@ -543,17 +605,18 @@
 		//dropdown wrapper
 		var dropdown = document.createElement("div");
   		dropdown.setAttribute("id", "dropdown_wrapper");
-		dropdown.style.position = "fixed";
+		dropdown.style.position = "absolute";
 		dropdown.style.width = "30%";
 		dropdown.style.minWidth = "440px";
 		dropdown.style.backgroundColor = "white";
 		dropdown.style.borderRadius = "5px";
 		dropdown.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05)";
-		dropdown.style.top = "37px";
+		dropdown.style.top = "100%";
 		dropdown.style.display = "flex";
 		dropdown.style.flexDirection = "column";
 		dropdown.style.overflow = "auto";
 		dropdown.style.zIndex = 1;
+		dropdown.style.overflowY = "hidden";
 		parent.appendChild(dropdown);
 		if (current_decks_returned.length === 0 && current_producers_returned.length === 0) {
 			dropdown.style.height = "30px";
@@ -701,6 +764,7 @@
 	var id_dict = {};
 	var collectionTab = document.getElementById("collection");
 	var logo = document.getElementById("logo_wrapper");
+	var creatingElements = false; //used to ensure user cant click on a result while they are still being created/displayed on screen
 	searchElement.addEventListener("click", addRemoveSearchBoxShadow);
 	document.body.addEventListener("click", addRemoveSearchBoxShadow); 
 	//document.body.addEventListener("click", clickResult);
