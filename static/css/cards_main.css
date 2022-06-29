@@ -26,6 +26,18 @@ button:hover {
 	cursor: pointer;
 }
 
+#triangle {
+	transition: .5s;
+	position: absolute;
+	left: 2000px;
+}
+
+#triangle:hover {
+	fill: lightgray;
+	transition: .5s;
+	cursor: pointer;
+}
+
 #body_wrapper {
 	width: 100%;
 	height: 1000px;

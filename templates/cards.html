@@ -59,6 +59,10 @@
 		  <span>Hand</span>
 		  <span>Reel</span>
 		</h1>
+
+		<!-- <svg width="200" height="200">
+			<path transform="rotate(90 20 20)" id="triangle" d="M100,0 l100,200 h-200z" fill="#FFEBE6"/>
+		</svg>	 -->
 	
 	</div>
 
@@ -84,6 +88,7 @@
 		return(new Promise((resolve) => setTimeout(resolve, seconds * 1000)));
 	}
 
+	//show all deck creators
 	async function displayProducerCollection(event) {
 		//remove display elements and show producer title
 		var producer_title = document.getElementById("producer_title");
@@ -107,13 +112,62 @@
 		}
 	}
 
+	//showcase carousel of tricks
+	function displayTrickReel(event) {
+		var currentResults = document.getElementById("body_wrapper").childNodes;
+		destroyElements(currentResults);
+		//create wrapper div to allow for video border radius
+		var body = document.getElementById("body_wrapper");
+		// var videoWrapper = document.createElement("div");
+		// videoWrapper.setAttribute("id", "video_wrapper");
+		// videoWrapper.style.position = "absolute";
+		// videoWrapper.style.width = "60%";
+		// videoWrapper.style.height = "60%";
+		// videoWrapper.style.top = "15%";
+		// videoWrapper.style.borderRadius = "2%";
+		// videoWrapper.style.overflow = "hidden";
+		// body.appendChild(videoWrapper);
+		// var displayVideo = document.createElement("video");
+		// displayVideo.setAttribute("id", "display_video");
+		// displayVideo.src = "{% static 'trading.mov' %}";
+		// displayVideo.controls = true;
+		// displayVideo.style.position = "relative";
+		// displayVideo.style.width = "100%";
+		// displayVideo.style.height = "100%";
+		// displayVideo.style.borderRadius = "3%";
+		// videoWrapper.appendChild(displayVideo);
+		// let ns = "http://www.w3.org/2000/svg";
+		// var svgContainer = document.createElement("div");
+		// svgContainer.setAttribute("id", "svg_container");
+		// svgContainer.style.position = "relative";
+		// // svgContainer.style.width = "100%";
+		// // svgContainer.style.height = "100%";
+		// svgContainer.style.left = "0%";
+		// svgContainer.style.top = "20%";
+		// var rightArrow = document.createElementNS(ns, "svg");
+		// rightArrow.setAttribute("id", "test_svg");
+		// // rightArrow.setAttribute("width", "200px");
+		// // rightArrow.setAttribute("height", "200px");
+		// var path = document.createElementNS(ns, "path");
+		// path.setAttribute("id", "triangle");
+		// path.setAttribute("d", "M50,0 l100,180 h-300z");
+		// path.setAttribute("fill", "#FFEBE6");
+		// path.setAttribute("transform", "rotate(-90 80 90)");
+		// rightArrow.appendChild(path);
+		// svgContainer.appendChild(rightArrow)
+		// body.appendChild(svgContainer);
+
+
+
+	}
+
 	//add/remove box shadow from search bar when it is clicked on/when user clicks away
-	function addRemoveSearchBoxShadow(event) {
-  		// console.log("target:", event.target.id);
+	function addRemoveSearchBorder(event) {
   		let x_icon_opacity = window.getComputedStyle(x_icon).getPropertyValue('opacity');
   		if (event.target.id === "form" || event.target.id === "search_icon" || (event.target.id === "x_icon" && x_icon_opacity === '0')) {
-  			searchElement.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2)";
-  			searchElement.style.border = "none";
+  			searchElement.style.border = "solid gray 1px";
+  			searchElement.style.transition = "0.15s";
+
   		} else {
   			//click is outside of search box
   			searchElement.style.boxShadow = "none";
@@ -291,6 +345,8 @@
   	//handles when any deck in list of decks by producer is clicked on
   	function whichResult(event) {
   		if (!creatingElements) {
+  			console.log("ID:", event.target.id);
+  			console.log("PARENT ID", event.target.parentElement.id);
 	  		//get name and id for create result
 	  		if (event.target.id === '') { //user has clicked on the h5
 	  			var n = event.path[0].innerText;
@@ -313,6 +369,7 @@
 	  		if (event.target.parentElement.id.slice(0, 9) === "producer ") { //display all decks by producer
 	  			var n = event.target.parentElement.id.slice(9);
 	  			var i = event.target.parentElement.id;
+	  			//console.log('i:', i, 'n:', n);
 	  			displayResults(i, n);
 	  		} else {
 	  			let name = i.slice(5);
@@ -332,7 +389,7 @@
   	}
 
   	//append results to DOM
-  	function createResult(id, width, height, name, image) {
+  	async function createResult(id, width, height, name, image) {
 		var result = document.createElement("div");
 		result.setAttribute("id", id + ' ' + name);
 		result.setAttribute("className", "result");
@@ -345,12 +402,13 @@
 		result.style.margin = "5%";
 		result.style.borderRadius = "5%";
 		result.style.cursor = "pointer";
-		result.addEventListener("click", whichResult);
 		console.log("result id:", result.id);
 		if (image !== undefined) {
 			createResultImage(result.id, image);
+			result.addEventListener("click", whichResult);
 		} else { //this is for when a specific deck is selected. Result div will be created differently
 			result.style.backgroundColor = "#FFEBE6";
+			result.style.cursor = "default";
 			//get image
 			{% for deck in deck_list %}
 				if ("{{ deck }}" === name) {
@@ -368,24 +426,36 @@
 			img.style.width = "65%";
 			img.style.height = "70%";
 			img.style.marginTop = "-3%";
+			img.style.opacity = "0";
 			let deckName = document.createElement("h6");
 			let text = document.createTextNode(name)//this will be queried from the database
 			deckName.appendChild(text);
 			deckName.style.marginTop = "4%";
 			deckName.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
+			deckName.style.opacity = "0";
 			let cost = document.createElement("h6");
 			text = document.createTextNode("Price $" + c);
 			cost.appendChild(text);
 			cost.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
+			cost.style.opacity = "0";
 			let finish = document.createElement("h6");
 			text = document.createTextNode("Finish - " + f);
 			finish.appendChild(text);
 			finish.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
 			finish.style.marginTop = "-5%";
+			finish.style.opacity = "0";
 			result.appendChild(deckName);
+			let sleepTime = .15;
+			fadeIn(deckName);
+			await sleep(sleepTime);
 			result.appendChild(img);
+			fadeIn(img);
+			await sleep(sleepTime);
 			result.appendChild(cost);
+			fadeIn(cost);
+			await sleep(sleepTime);
 			result.appendChild(finish);
+			fadeIn(finish);
 		}
 		window.scrollTo(0, 0); //bring user back to top of page whenever new results are toggled
   	}
@@ -763,10 +833,11 @@
 	var previousNumDecksReturned = 0, previousNumProducersReturned = 0;
 	var id_dict = {};
 	var collectionTab = document.getElementById("collection");
+	var tricksTab = document.getElementById("tricks");
 	var logo = document.getElementById("logo_wrapper");
 	var creatingElements = false; //used to ensure user cant click on a result while they are still being created/displayed on screen
-	searchElement.addEventListener("click", addRemoveSearchBoxShadow);
-	document.body.addEventListener("click", addRemoveSearchBoxShadow); 
+	searchElement.addEventListener("click", addRemoveSearchBorder);
+	document.body.addEventListener("click", addRemoveSearchBorder); 
 	//document.body.addEventListener("click", clickResult);
 	document.addEventListener("mousemove", highlightSuggestion);
 	searchBox.addEventListener("keydown", displaySearchElements);
@@ -774,6 +845,8 @@
 	//make producers title appear if clicked to start
 	collectionTab.addEventListener("click", displayProducerCollection);
 	collectionTab.addEventListener("click", clearForm);
+	tricksTab.addEventListener("click", displayTrickReel);
+	tricksTab.addEventListener("click", clearForm);
 	document.addEventListener("keypress", pressEnterHandler);
 	logo.addEventListener("click", () => {
   		location.reload();
