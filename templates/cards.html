@@ -70,14 +70,18 @@
 <script type = "text/javascript">
 
 	//fade in animation
-	function fadeIn(element) {
+	function fadeIn(element, final_opc) {
     	var id = setInterval(frame, 3);
     	var opc = 0;
 		function frame() {
-			if (opc == 1) {
+			if (opc > final_opc) {
 				clearInterval(id);
 			} else {
-				opc+=.005;
+				if (final_opc === 1) {
+					opc+=.005;
+				} else {
+					opc+=.0005;
+				}
 				var newOpc = opc.toString();
 				element.style.opacity = newOpc;
 			}
@@ -112,53 +116,148 @@
 		}
 	}
 
+	function carousel(which_arrow) {
+		var changeCircle = (index, which_circle) => {
+			let c = document.getElementById("circle_" + index.toString());
+			if (which_circle) { //closed circle
+				c.src = "{% static 'filledCircle.png' %}";
+				c.style.width = "10%";
+				c.style.height = "25%";
+			} else {
+				c.src = "{% static 'circle.png' %}";
+				c.style.width = "8%";
+				c.style.height = "20%";
+			}
+			c.style.transition = ".25s";
+		}
+		if (which_arrow) { //left
+			if (carouselIndex === 0) {
+				return;
+			} else {
+				changeCircle(carouselIndex, false);
+				carouselIndex--;
+				changeCircle(carouselIndex, true);
+				document.getElementById("display_video").src = videos[carouselIndex];
+			}
+		} else {
+			if (carouselIndex === (videos.length-1)) {
+				return;
+			} else {
+				changeCircle(carouselIndex, false);
+				carouselIndex++;
+				changeCircle(carouselIndex, true);
+				document.getElementById("display_video").src = videos[carouselIndex];
+			}
+		}
+	}
+
+	function arrowClick(event) {
+		if (event.target.id === "left_arrow") {
+			carousel(true); //left
+		} else {
+			carousel(false);
+		}
+	}
+
 	//showcase carousel of tricks
 	function displayTrickReel(event) {
+		carouselIndex = 0;
 		var currentResults = document.getElementById("body_wrapper").childNodes;
 		destroyElements(currentResults);
-		//create wrapper div to allow for video border radius
+		var trickElementsWrapper = document.createElement("div");
+		trickElementsWrapper.setAttribute("id", "trick_elements_wrapper");
+		trickElementsWrapper.style.position = "relative";
+		trickElementsWrapper.style.width = "40%";
+		trickElementsWrapper.style.height = "55%";
+		trickElementsWrapper.style.top = "3%";
+		trickElementsWrapper.style.display = "flex";
+		trickElementsWrapper.style.flexDirection = "row";
+		trickElementsWrapper.style.alignItems = "center";
+		trickElementsWrapper.style.justifyContent = "space-between";
+		trickElementsWrapper.style.minWidth = "600px";
 		var body = document.getElementById("body_wrapper");
-		// var videoWrapper = document.createElement("div");
-		// videoWrapper.setAttribute("id", "video_wrapper");
-		// videoWrapper.style.position = "absolute";
-		// videoWrapper.style.width = "60%";
-		// videoWrapper.style.height = "60%";
-		// videoWrapper.style.top = "15%";
-		// videoWrapper.style.borderRadius = "2%";
-		// videoWrapper.style.overflow = "hidden";
-		// body.appendChild(videoWrapper);
-		// var displayVideo = document.createElement("video");
-		// displayVideo.setAttribute("id", "display_video");
-		// displayVideo.src = "{% static 'trading.mov' %}";
-		// displayVideo.controls = true;
-		// displayVideo.style.position = "relative";
-		// displayVideo.style.width = "100%";
-		// displayVideo.style.height = "100%";
-		// displayVideo.style.borderRadius = "3%";
-		// videoWrapper.appendChild(displayVideo);
-		// let ns = "http://www.w3.org/2000/svg";
-		// var svgContainer = document.createElement("div");
-		// svgContainer.setAttribute("id", "svg_container");
-		// svgContainer.style.position = "relative";
-		// // svgContainer.style.width = "100%";
-		// // svgContainer.style.height = "100%";
-		// svgContainer.style.left = "0%";
-		// svgContainer.style.top = "20%";
-		// var rightArrow = document.createElementNS(ns, "svg");
-		// rightArrow.setAttribute("id", "test_svg");
-		// // rightArrow.setAttribute("width", "200px");
-		// // rightArrow.setAttribute("height", "200px");
-		// var path = document.createElementNS(ns, "path");
-		// path.setAttribute("id", "triangle");
-		// path.setAttribute("d", "M50,0 l100,180 h-300z");
-		// path.setAttribute("fill", "#FFEBE6");
-		// path.setAttribute("transform", "rotate(-90 80 90)");
-		// rightArrow.appendChild(path);
-		// svgContainer.appendChild(rightArrow)
-		// body.appendChild(svgContainer);
-
-
-
+		createArrow = (rotation) => {
+			var arrow = document.createElement("img");
+			arrow.src = "{% static 'arrow.png' %}";
+			arrow.style.position = "relative";
+			arrow.style.width = "15%";
+			arrow.style.height = "15%";
+			arrow.style.opacity = ".2";
+			arrow.style.filter  = "invert(100%)";
+			arrow.style.transform = "rotate(" + rotation + "deg)";
+			arrow.style.cursor = "pointer";
+			arrow.draggable = false;
+			if (rotation === "90") {
+				arrow.setAttribute("id", "left_arrow");
+			} else {
+				arrow.setAttribute("id", "right_arrow");
+			}
+			arrow.onmouseover = () => {
+				arrow.style.opacity = ".6";
+				arrow.style.transition = ".5s";
+			}
+			arrow.onmouseout = () => {
+				arrow.style.opacity = ".2";
+				arrow.style.transition = ".5s";
+			}
+			trickElementsWrapper.appendChild(arrow);
+			fadeIn(arrow, .2);
+			arrow.addEventListener("click", arrowClick);
+		}
+		
+		var videoWrapper = document.createElement("div");
+		videoWrapper.setAttribute("id", "video_wrapper");
+		videoWrapper.style.position = "relative";
+		videoWrapper.style.width = "20%";
+		videoWrapper.style.height = "51%";
+		videoWrapper.style.minHeight = "535px";
+		videoWrapper.style.minWidth = "300px";
+		videoWrapper.style.borderRadius = "3%";
+		videoWrapper.style.overflow = "hidden";
+		videoWrapper.style.backgroundColor = "lightgray";
+		var displayVideo = document.createElement("video");
+		displayVideo.setAttribute("id", "display_video");
+		displayVideo.src = "{% static 'magicOne.mov' %}";
+		displayVideo.controls = true;
+		displayVideo.style.position = "relative";
+		displayVideo.style.width = "100%";
+		displayVideo.style.height = "100%";
+		videoWrapper.appendChild(displayVideo);
+		fadeIn(displayVideo, 1);
+		body.appendChild(trickElementsWrapper);
+		createArrow("90");
+		trickElementsWrapper.appendChild(videoWrapper);
+		createArrow("270");
+		var toggleIconWrapper = document.createElement("div");
+		toggleIconWrapper.setAttribute("id", "toggle_wrapper");
+		//toggleIconWrapper.style.backgroundColor = "lightgray";
+		toggleIconWrapper.style.position = "absolute";
+		toggleIconWrapper.style.width = "12%";
+		toggleIconWrapper.style.height = "7%";
+		toggleIconWrapper.style.minWidth = "180px";
+		toggleIconWrapper.style.minHeight = "55px";
+		toggleIconWrapper.style.top = "635px";
+		toggleIconWrapper.style.display = "flex";
+		toggleIconWrapper.style.flexDirection = "row";
+		toggleIconWrapper.style.justifyContent = "space-between";
+		toggleIconWrapper.style.alignItems = "center";
+		//add toggle circles
+		for (var i=0; i<videos.length; i++) {
+			var c = document.createElement("img");
+			c.setAttribute("id", "circle_" + i.toString());
+			c.style.position = "relative";
+			if (i === 0) {
+				c.src = "{% static 'filledCircle.png' %}";
+				c.style.width = "10%";
+				c.style.height = "25%";
+			} else {
+				c.src = "{% static 'circle.png' %}";
+				c.style.width = "8%"
+				c.style.height = "20%";
+			}
+			toggleIconWrapper.appendChild(c);
+		}
+		body.appendChild(toggleIconWrapper);
 	}
 
 	//add/remove box shadow from search bar when it is clicked on/when user clicks away
@@ -294,7 +393,7 @@
 		producerTitle.appendChild(t);
 		body_wrapper = document.getElementById("body_wrapper");
 		body_wrapper.appendChild(producerTitle);
-		fadeIn(producerTitle);
+		fadeIn(producerTitle, 1);
   	}
 
   	//construct dropdown according to results
@@ -446,16 +545,16 @@
 			finish.style.opacity = "0";
 			result.appendChild(deckName);
 			let sleepTime = .15;
-			fadeIn(deckName);
+			fadeIn(deckName, 1);
 			await sleep(sleepTime);
 			result.appendChild(img);
-			fadeIn(img);
+			fadeIn(img, 1);
 			await sleep(sleepTime);
 			result.appendChild(cost);
-			fadeIn(cost);
+			fadeIn(cost, 1);
 			await sleep(sleepTime);
 			result.appendChild(finish);
-			fadeIn(finish);
+			fadeIn(finish, 1);
 		}
 		window.scrollTo(0, 0); //bring user back to top of page whenever new results are toggled
   	}
@@ -835,10 +934,11 @@
 	var collectionTab = document.getElementById("collection");
 	var tricksTab = document.getElementById("tricks");
 	var logo = document.getElementById("logo_wrapper");
+	var videos = ["{% static 'magicOne.mov' %}", "{% static 'magicTwo.mov' %}", "{% static 'magicThree.mov' %}", "{% static 'magicFour.mov' %}", "{% static 'magicFive.mov' %}", "{% static 'magicSix.mov' %}"];
+	var carouselIndex;
 	var creatingElements = false; //used to ensure user cant click on a result while they are still being created/displayed on screen
 	searchElement.addEventListener("click", addRemoveSearchBorder);
 	document.body.addEventListener("click", addRemoveSearchBorder); 
-	//document.body.addEventListener("click", clickResult);
 	document.addEventListener("mousemove", highlightSuggestion);
 	searchBox.addEventListener("keydown", displaySearchElements);
 	xIcon.addEventListener("click", clearForm);
