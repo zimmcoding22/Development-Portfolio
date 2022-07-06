@@ -1,7 +1,6 @@
 /*use command shift r to clear browser cache*/
 html { overflow-y: scroll; overflow-x:hidden; }  /*prevent horizontal scrolling*/
 
-
 body {
 	margin: 0;
 	padding: 0;
@@ -42,6 +41,8 @@ button:hover {
 #page_description {
   font-family: "Verdana";
   font-style: italic;
+  font-size: 40px;
+  font-weight: bold;
   max-width: 40ch;
   text-align: center;
   transform: scale(0.94);
@@ -144,6 +145,7 @@ span:nth-child(18) {
 }
 
 #search {
+	position: relative;
 	background-color: white;
 	border-radius: 5px;
 	height: 50%;
@@ -155,8 +157,6 @@ span:nth-child(18) {
 	border-style: solid;
 	border-color: lightgray;
 	border-width: .5px;
-	position: relative;
-
 }
 
 #search input {
@@ -196,8 +196,7 @@ span:nth-child(18) {
 	width: auto;
 	position: absolute;
 	right: 2%;
-/*	margin-left: 28.5%;
-*/	padding-right: 1px;
+  padding-right: 1px;
 	opacity: 0;
 	cursor: text;
 	
@@ -207,9 +206,6 @@ span:nth-child(18) {
 	height: 40px;
 	width: auto;
 	margin-top: 2%;
-/*	cursor: pointer;
-*/	/*position: absolute;
-	left: 1.5%;*/
 
 }
 
@@ -219,8 +215,7 @@ span:nth-child(18) {
 	font-size: 20px;
 	font-weight: bold;
 	left: 5%;
-/*	cursor: pointer;
-*/
+
 }
 
 #logo_wrapper {
@@ -242,14 +237,11 @@ span:nth-child(18) {
 }
 
 #links {
-	width: 95%;
+	width: 100%;
 }
 
 .links {
 	color: black;
 	font-family: "copperplate", Geneva, Impact, sans-serif;
+	font-size: 14px;
 }
-
-
-
-

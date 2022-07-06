@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type = "text/css" media="only screen and (max-width: 480px)" href="{% static 'css/cards_mobile.css' %}">
 
 	<!-- small tablet -->
-	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 484px) and (max-width: 767px)" href="{% static 'css/cards_small_tablet.css' %}">
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 484px) and (max-width: 767px)" href="{% static 'css/cards_large_tablet.css' %}">
 
 	<!-- large tablet -->
 	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 768px) and (max-width: 980px)" href="{% static 'css/cards_large_tablet.css' %}">
@@ -50,7 +50,7 @@
 
 	<div id="body_wrapper">
 		
-		<h1 id="page_description">
+		<p id="page_description">
 		  <span>Card</span>
 		  <span>Collection</span>
 		  <span>And</span>
@@ -58,11 +58,7 @@
 		  <span>Of</span>
 		  <span>Hand</span>
 		  <span>Reel</span>
-		</h1>
-
-		<!-- <svg width="200" height="200">
-			<path transform="rotate(90 20 20)" id="triangle" d="M100,0 l100,200 h-200z" fill="#FFEBE6"/>
-		</svg>	 -->
+		</p>
 	
 	</div>
 
@@ -88,6 +84,26 @@
 	  	}
 	}	
 
+	function detectBrowser() {         
+         let userAgent = navigator.userAgent;
+         let browserName; 
+         if(userAgent.match(/chrome|chromium|crios/i)){
+             browserName = "chrome";
+           } else if(userAgent.match(/firefox|fxios/i)){
+             browserName = "firefox";
+           } else if(userAgent.match(/safari/i)){
+             browserName = "safari";
+           } else if(userAgent.match(/opr\//i)){
+             browserName = "opera";
+           } else if(userAgent.match(/edg/i)){
+             browserName = "edge";
+           } else{
+             browserName="No browser detection";
+           }
+          return(browserName);         
+    }
+
+    //used to create results display pause effect
 	async function sleep(seconds) {
 		return(new Promise((resolve) => setTimeout(resolve, seconds * 1000)));
 	}
@@ -115,6 +131,110 @@
 			creatingElements = false;
 		}
 	}
+
+	//append results to DOM
+  	async function createResult(id, width, height, name, image) {
+		var result = document.createElement("div");
+		result.setAttribute("id", id + ' ' + name);
+		result.setAttribute("className", "result");
+		document.getElementById("results_wrapper").appendChild(result);
+		result.style.position = "relative";
+		result.style.display = "flex";
+		result.style.alignItems = "center";
+		result.style.width = width;
+		result.style.height = height;
+		result.style.margin = "5%";
+		result.style.borderRadius = "5%";
+		result.style.cursor = "pointer";
+		console.log("result id:", result.id);
+		if (image !== undefined) {
+			createResultImage(result.id, image);
+			result.addEventListener("click", whichResult);
+		} else { //this is for when a specific deck is selected. Result div will be created differently
+			result.style.backgroundColor = "#FFEBE6";
+			result.style.cursor = "default";
+			result.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)";
+			//get image
+			{% for deck in deck_list %}
+				if ("{{ deck }}" === name) {
+					var i = "{{ deck.image.url }}";
+					var c = "{{ deck.cost }}";
+					var f = "{{ deck.finish }}";
+					console.log("deck: ", "{{ deck }}", "name:", name, "cost:", c);
+				}
+			{% endfor %}
+			result.style.flexDirection = "column";
+			let img = document.createElement("img");
+			img.src = i;
+			img.style.position = "relative";
+			img.style.borderRadius = "5%";
+			img.style.width = "65%";
+			img.style.height = "70%";
+			img.style.marginTop = "-3%";
+			img.style.opacity = "0";
+			let deckName = document.createElement("h6");
+			let text = document.createTextNode(name)//this will be queried from the database
+			deckName.appendChild(text);
+			deckName.style.marginTop = "4%";
+			deckName.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
+			deckName.style.opacity = "0";
+			let cost = document.createElement("h6");
+			text = document.createTextNode("Price $" + c);
+			cost.appendChild(text);
+			cost.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
+			cost.style.opacity = "0";
+			let finish = document.createElement("h6");
+			text = document.createTextNode("Finish - " + f);
+			finish.appendChild(text);
+			finish.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
+			finish.style.marginTop = "-5%";
+			finish.style.opacity = "0";
+			result.appendChild(deckName);
+			let sleepTime = .15;
+			fadeIn(deckName, 1);
+			await sleep(sleepTime);
+			result.appendChild(img);
+			fadeIn(img, 1);
+			await sleep(sleepTime);
+			result.appendChild(cost);
+			fadeIn(cost, 1);
+			await sleep(sleepTime);
+			result.appendChild(finish);
+			fadeIn(finish, 1);
+		}
+		window.scrollTo(0, 0); //bring user back to top of page whenever new results are toggled
+  	}
+
+  	//organizes how results are displayed in results wrapper div
+  	async function displayResults(id, name) {
+  		//delete all children of results wrapper before displaying results again
+  		let currentResults = document.getElementById("body_wrapper").childNodes;
+  		destroyElements(currentResults);
+  		let d = document.getElementById("dropdown_wrapper");
+  		if (d) {
+  			d.remove();
+  		}
+  		createResultsWrapper();
+  		if (id[0] === 'd') { //if a specific deck is selected, only one div is created
+  			console.log("id:", id, "name:", name);
+  			createResult(id, "300px", "400px", name);
+  		} else { //display all decks by a given producer
+  			createTitle("decks_by_producer_title", "Decks By " + name);
+  			let decks_by_producer = {};
+  			{% for deck in deck_list %}
+  				producer = "{{ deck.producer }}";
+  				if (name === producer) {
+  					decks_by_producer["{{ deck }}"] = "{{ deck.image.url }}";
+  				}
+  			{% endfor %}
+  			creatingElements = true;
+  			for (var [key, value] of Object.entries(decks_by_producer)) {
+  				await sleep(.1);
+  				createResult("deck", "200px", "250px", key, value);
+  			}
+  			creatingElements = false;
+  		}
+  	}
 
 	function carousel(which_arrow) {
 		var changeCircle = (index, which_circle) => {
@@ -222,6 +342,7 @@
 		displayVideo.style.position = "relative";
 		displayVideo.style.width = "100%";
 		displayVideo.style.height = "100%";
+		displayVideo.style.borderRadius= "inherit";
 		videoWrapper.appendChild(displayVideo);
 		fadeIn(displayVideo, 1);
 		body.appendChild(trickElementsWrapper);
@@ -230,7 +351,6 @@
 		createArrow("270");
 		var toggleIconWrapper = document.createElement("div");
 		toggleIconWrapper.setAttribute("id", "toggle_wrapper");
-		//toggleIconWrapper.style.backgroundColor = "lightgray";
 		toggleIconWrapper.style.position = "absolute";
 		toggleIconWrapper.style.width = "12%";
 		toggleIconWrapper.style.height = "7%";
@@ -389,6 +509,7 @@
 		producerTitle.style.color = "gray";
 		producerTitle.style.opacity = "0";
 		producerTitle.style.fontFamily = "'Varela Round', Georgia, Impact, sans-serif";
+		console.log("text in createTitle:", text);
 		let t = document.createTextNode(text);
 		producerTitle.appendChild(t);
 		body_wrapper = document.getElementById("body_wrapper");
@@ -444,12 +565,13 @@
   	//handles when any deck in list of decks by producer is clicked on
   	function whichResult(event) {
   		if (!creatingElements) {
-  			console.log("ID:", event.target.id);
-  			console.log("PARENT ID", event.target.parentElement.id);
+  			// console.log("ID:", event.target.id);
+  			// console.log("PARENT ID", event.target.parentElement.id);
+  			var path = event.composedPath();
 	  		//get name and id for create result
 	  		if (event.target.id === '') { //user has clicked on the h5
-	  			var n = event.path[0].innerText;
-	  			var i = event.path[1].id;
+	  			var n = event.composedPath()[0].innerText;
+	  			var i = event.composedPath()[1].id;
 	  		} else {
 	  			var n = event.target.id.slice(20);  //always starts with a number (# of producers found). Find # of digits between here and first space
 	  			let digitCount = 0;
@@ -460,7 +582,7 @@
 	  				digitCount++;
 	  			}
 	  			n = event.target.id.slice(20 + digitCount);
-	  			var i = event.path[0].id;
+	  			var i = event.composedPath()[0].id;
 	  		}
 	  		var currentResults = document.getElementById("body_wrapper").childNodes;
 	  		destroyElements(currentResults);
@@ -487,126 +609,42 @@
 	  	}
   	}
 
-  	//append results to DOM
-  	async function createResult(id, width, height, name, image) {
-		var result = document.createElement("div");
-		result.setAttribute("id", id + ' ' + name);
-		result.setAttribute("className", "result");
-		document.getElementById("results_wrapper").appendChild(result);
-		result.style.position = "relative";
-		result.style.display = "flex";
-		result.style.alignItems = "center";
-		result.style.width = width;
-		result.style.height = height;
-		result.style.margin = "5%";
-		result.style.borderRadius = "5%";
-		result.style.cursor = "pointer";
-		console.log("result id:", result.id);
-		if (image !== undefined) {
-			createResultImage(result.id, image);
-			result.addEventListener("click", whichResult);
-		} else { //this is for when a specific deck is selected. Result div will be created differently
-			result.style.backgroundColor = "#FFEBE6";
-			result.style.cursor = "default";
-			//get image
-			{% for deck in deck_list %}
-				if ("{{ deck }}" === name) {
-					var i = "{{ deck.image.url }}";
-					var c = "{{ deck.cost }}";
-					var f = "{{ deck.finish }}";
-					console.log("deck: ", "{{ deck }}", "name:", name, "cost:", c);
-				}
-			{% endfor %}
-			result.style.flexDirection = "column";
-			let img = document.createElement("img");
-			img.src = i;
-			img.style.position = "relative";
-			img.style.borderRadius = "5%";
-			img.style.width = "65%";
-			img.style.height = "70%";
-			img.style.marginTop = "-3%";
-			img.style.opacity = "0";
-			let deckName = document.createElement("h6");
-			let text = document.createTextNode(name)//this will be queried from the database
-			deckName.appendChild(text);
-			deckName.style.marginTop = "4%";
-			deckName.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
-			deckName.style.opacity = "0";
-			let cost = document.createElement("h6");
-			text = document.createTextNode("Price $" + c);
-			cost.appendChild(text);
-			cost.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
-			cost.style.opacity = "0";
-			let finish = document.createElement("h6");
-			text = document.createTextNode("Finish - " + f);
-			finish.appendChild(text);
-			finish.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
-			finish.style.marginTop = "-5%";
-			finish.style.opacity = "0";
-			result.appendChild(deckName);
-			let sleepTime = .15;
-			fadeIn(deckName, 1);
-			await sleep(sleepTime);
-			result.appendChild(img);
-			fadeIn(img, 1);
-			await sleep(sleepTime);
-			result.appendChild(cost);
-			fadeIn(cost, 1);
-			await sleep(sleepTime);
-			result.appendChild(finish);
-			fadeIn(finish, 1);
-		}
-		window.scrollTo(0, 0); //bring user back to top of page whenever new results are toggled
-  	}
-
-  	//organizes how results are displayed in results wrapper div
-  	async function displayResults(id, name) {
-  		//delete all children of results wrapper before displaying results again
-  		let currentResults = document.getElementById("body_wrapper").childNodes;
-  		destroyElements(currentResults);
-  		let d = document.getElementById("dropdown_wrapper");
-  		if (d) {
-  			d.remove();
-  		}
-  		createResultsWrapper();
-  		if (id[0] === 'd') { //if a specific deck is selected, only one div is created
-  			console.log("id:", id, "name:", name);
-  			createResult(id, "300px", "400px", name);
-  		} else { //display all decks by a given producer
-  			createTitle("decks_by_producer_title", "Decks By " + name);
-  			let decks_by_producer = {};
-  			{% for deck in deck_list %}
-  				producer = "{{ deck.producer }}";
-  				if (name === producer) {
-  					decks_by_producer["{{ deck }}"] = "{{ deck.image.url }}";
-  				}
-  			{% endfor %}
-  			creatingElements = true;
-  			for (var [key, value] of Object.entries(decks_by_producer)) {
-  				await sleep(.1);
-  				createResult("deck", "200px", "250px", key, value);
-  			}
-  			creatingElements = false;
-  		}
-  	}
-
   	//handle if user clicks searchAll or presses enter when there are search results
   	function displaySearchAll(children) {
   		for (var i = 0; i < children.length; i++) {
 			let child = children[i];
 			if (child.id === "producer_name_wrapper" && child.nextSibling.id === "producer_suggestion_1") { //get info of first producer
-				console.log("name:", child.nextSibling.innerText); 
+				console.log("name here:", child.nextSibling.innerText); 
 				let t = child.nextSibling.innerText;
-				for (var j = 0; j < t.length; j++) {
-					if (t.charAt(j) === "\n") {
-						break;
+				if (t.charAt(0) === "\n") { //for safari
+					for (var j = 1; j < t.length; j++) {
+						if (t.charCodeAt(j) === 10 && t.charCodeAt(j+1) === 10) {
+							break;
+						}
 					}
+					t = t.slice(1, j);
+				} else {
+					for (var j = 0; j < t.length; j++) {
+						if (t.charAt(j) === "\n") {
+							break;
+						}
+					}
+					t = t.slice(0, j);
 				}
-				t = t.slice(0, j);
 				displayResults("producer_suggestion_1", t);
 			} 
 			if (child.id === "producer_name_wrapper" && child.nextSibling.id !== "producer_suggestion_1") { //found decks but no producers
 				let t = children[1].innerText;
+				if (browser === "safari") {
+					let new_t = "";
+					for (var j = 1; j < t.length; j++) {
+						if (t.charCodeAt(j) === 10) {
+							continue;
+						}
+						new_t+=t.charAt(j);
+					}
+					t = new_t;
+				}
 				displayResults("deck_suggestion_1", t);
 			}
 		}
@@ -624,27 +662,27 @@
   	//handles suggestion div click
   	function clickDivSuggestion(event) {
   		//handle search all
-  		console.log(event.path);
+  		console.log(event.composedPath());
   		if (event.target.id === "search_all_wrapper" || event.target.parentElement.id === "search_all_wrapper") {
-  			if (event.path[0].nodeName === "H5") {
-  				var children = event.path[2].childNodes;
+  			if (event.composedPath()[0].nodeName === "H5") {
+  				var children = event.composedPath()[2].childNodes;
   			} else {
-  				var children = event.path[1].childNodes;	
+  				var children = event.composedPath()[1].childNodes;	
   			}
   			displaySearchAll(children);
   			return;
   		}
   		let id = undefined, text = undefined;
-  		let elem = document.getElementById(event.path[1].id);
+  		let elem = document.getElementById(event.composedPath()[1].id);
   		//if click is on text node
   		if (elem === null) {
-  			elem = document.getElementById(event.path[2].id);
+  			elem = document.getElementById(event.composedPath()[2].id);
   			id = elem.id;
   			text = elem.firstChild.nextSibling.firstChild.textContent;
   			displayResults(id, text);
   		} else {
   			elem = elem.id;
-  			let div_id = event.path[0].id;
+  			let div_id = event.composedPath()[0].id;
   			if (elem === "dropdown_wrapper") {
   				elem = document.getElementById(div_id);
   				id = elem.id;
@@ -717,7 +755,7 @@
 			text = document.createTextNode(getNumItems()[name].toString() + itemString);//this will be queried from the database
 			numItems.appendChild(text);
 			numItems.style.position = "absolute";
-		    numItems.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
+		    numItems.style.fontFamily = "Verdana, copperplate, Impact, sans-serif";
 			numItems.style.fontWeight = "bold";
 			numItems.style.fontSize = "8px";
 			numItems.style.color = "gray";
@@ -783,9 +821,10 @@
 		dropdown.style.top = "100%";
 		dropdown.style.display = "flex";
 		dropdown.style.flexDirection = "column";
-		dropdown.style.overflow = "auto";
+		//dropdown.style.overflow = "auto";
 		dropdown.style.zIndex = 1;
 		dropdown.style.overflowY = "hidden";
+		dropdown.style.overflowX = "hidden";
 		parent.appendChild(dropdown);
 		if (current_decks_returned.length === 0 && current_producers_returned.length === 0) {
 			dropdown.style.height = "30px";
@@ -793,10 +832,9 @@
 			text = document.createTextNode("No items found");
 			noItems.appendChild(text);
 			noItems.style.position = "relative";
-			noItems.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
-			noItems.style.fontWeight = "bold";
+			noItems.style.fontFamily = "Verdana, copperplate, Impact, sans-serif";
 			noItems.style.fontSize = "8px";
-			noItems.style.color = "gray";
+			noItems.style.color = "lightgray";
 			noItems.style.left = "2%";
 			noItems.style.top = "-3px";
 			dropdown.appendChild(noItems);
@@ -951,8 +989,9 @@
 	logo.addEventListener("click", () => {
   		location.reload();
 	});
-   	
-
+	var browser = detectBrowser();
+	console.log("browser:", browser);
+   
 </script>
 
 </body>
