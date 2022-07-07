@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type = "text/css" media="only screen and (max-width: 480px)" href="{% static 'css/cards_mobile.css' %}">
 
 	<!-- small tablet -->
-	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 484px) and (max-width: 767px)" href="{% static 'css/cards_large_tablet.css' %}">
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 484px) and (max-width: 767px)" href="{% static 'css/cards_small_tablet.css' %}">
 
 	<!-- large tablet -->
 	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 768px) and (max-width: 980px)" href="{% static 'css/cards_large_tablet.css' %}">
@@ -20,9 +20,6 @@
 
 	<!-- large desktop -->
 	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 1441px)" href="{% static 'css/cards_large_screen.css' %} ">
-
-	<!-- Prevent smartphones from scaling pages down -->
-	<meta name="viewport" content="initial-scale=1">
 
 	<title>cards</title>
 </head>
@@ -103,6 +100,31 @@
           return(browserName);         
     }
 
+    //returns data that determines positioning of certain elements as screen width fluctuates
+    function responsiveDesign(width) {
+    	if (width > 980) {
+    		var data = {"setDimensionsSingleDeck" : ["300px", "400px"], "setDimensionsMultiple" : ["200px", "250px"], "filledCircle" : ["10%", "25%"], "openCircle" : ["8%", "20%"], "trickReelArrows" : "15%", "videoWrapper" : ["300px", "535px"], "toggleIconWrapper" : "635px", "createTitle" : "h1", "suggestionDiv" : "50px", "fullNameWrapper" : ["8px", "7%"], "numItems" : ["8px", "14%"], "iconImage" : "6%", "selectionImage" : ["2.5%", "30%"], "dropdownWidth" : "440px", "suggestionDivText" : "8px"}
+    	} else if (width > 767 && width <= 980) {
+    		var data = {"setDimensionsSingleDeck" : ["250px", "300px"], "setDimensionsMultiple" : ["150px", "200px"], "filledCircle" : ["10%", "25%"], "openCircle" : ["8%", "20%"], "trickReelArrows" : "13%", "videoWrapper" : ["300px", "535px"], "toggleIconWrapper" : "635px", "createTitle" : "h2", "suggestionDiv" : "50px", "fullNameWrapper" : ["8px", "7%"], "numItems" : ["8px", "14%"], "iconImage" : "6%", "selectionImage" : ["2.5%", "30%"], "dropdownWidth" : "440px", "suggestionDivText" : "8px"}
+    	} else if (width > 483 && width <= 767) {
+    		var data = {"setDimensionsSingleDeck" : ["200px", "250px"], "setDimensionsMultiple" : ["100px", "150px"], "filledCircle" : ["8%", "20%"], "openCircle" : ["6%", "15%"], "trickReelArrows" : "12%", "videoWrapper" : ["252px", "450px"], "toggleIconWrapper" : "600px", "createTitle" : "h2", "suggestionDiv" : "40px", "fullNameWrapper" : ["6px", "9%"], "numItems" : ["6px", "19%"], "iconImage" : "8%", "selectionImage" : ["3%", "28%"], "dropdownWidth" : "260px", "suggestionDivText" : "6px"}
+    	} else {} //not done yet
+    	return(data);
+    }
+
+    //determine size of result divs
+    function setDimensions(is_deck_selection) {
+    	let w, h;
+    	if (is_deck_selection) {
+    		w = responsiveDesign(width)["setDimensionsSingleDeck"][0];
+    		h = responsiveDesign(width)["setDimensionsSingleDeck"][1];
+	    } else {
+	    	w = responsiveDesign(width)["setDimensionsMultiple"][0];
+    		h = responsiveDesign(width)["setDimensionsMultiple"][1];
+	    }
+    	return([w, h])
+    }
+
     //used to create results display pause effect
 	async function sleep(seconds) {
 		return(new Promise((resolve) => setTimeout(resolve, seconds * 1000)));
@@ -124,9 +146,10 @@
 			}
 			createTitle("producer_title", "Producers");
 			creatingElements = true;
+			let dimensions = setDimensions(false);
 			{% for p in producer_list %}
 				await sleep(.1);
-				createResult("producer", "200px", "250px", "{{ p }}", "{{ p.image.url }}");
+				createResult("producer", dimensions[0], dimensions[1], "{{ p }}", "{{ p.image.url }}");
 			{% endfor %}
 			creatingElements = false;
 		}
@@ -170,11 +193,20 @@
 			img.style.borderRadius = "5%";
 			img.style.width = "65%";
 			img.style.height = "70%";
-			img.style.marginTop = "-3%";
+			if (width === "300px") {
+				img.style.marginTop = "-3%";
+			} else if (width === "250px") {
+				img.style.marginTop = "-5%";
+			} else if (width === "200px") {
+				img.style.marginTop = "-2%";
+			} else {}
 			img.style.opacity = "0";
 			let deckName = document.createElement("h6");
 			let text = document.createTextNode(name)//this will be queried from the database
 			deckName.appendChild(text);
+			if (width === "200px") {
+				deckName.style.fontSize = "8px";
+			}
 			deckName.style.marginTop = "4%";
 			deckName.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
 			deckName.style.opacity = "0";
@@ -183,11 +215,24 @@
 			cost.appendChild(text);
 			cost.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
 			cost.style.opacity = "0";
+			if (width === "250px") {
+				cost.style.marginTop = "5%";
+			} else if (width === "200px") {
+				cost.style.marginTop = "5%";
+				cost.style.fontSize = "8px";
+			} else {}
 			let finish = document.createElement("h6");
 			text = document.createTextNode("Finish - " + f);
 			finish.appendChild(text);
 			finish.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
-			finish.style.marginTop = "-5%";
+			if (width === "300px") {
+				finish.style.marginTop = "-5%";
+			} else if (width === "250px") {
+				finish.style.marginTop = "-8%";
+			} else if (width === "200px") {
+				finish.style.marginTop = "-5%";
+				finish.style.fontSize = "8px";
+			} else {}
 			finish.style.opacity = "0";
 			result.appendChild(deckName);
 			let sleepTime = .15;
@@ -217,7 +262,8 @@
   		createResultsWrapper();
   		if (id[0] === 'd') { //if a specific deck is selected, only one div is created
   			console.log("id:", id, "name:", name);
-  			createResult(id, "300px", "400px", name);
+  			let dimensions = setDimensions(true);
+  			createResult(id, dimensions[0], dimensions[1], name);
   		} else { //display all decks by a given producer
   			createTitle("decks_by_producer_title", "Decks By " + name);
   			let decks_by_producer = {};
@@ -228,9 +274,10 @@
   				}
   			{% endfor %}
   			creatingElements = true;
+  			let dimensions = setDimensions(false);
   			for (var [key, value] of Object.entries(decks_by_producer)) {
   				await sleep(.1);
-  				createResult("deck", "200px", "250px", key, value);
+  				createResult("deck", dimensions[0], dimensions[1], key, value);
   			}
   			creatingElements = false;
   		}
@@ -241,12 +288,12 @@
 			let c = document.getElementById("circle_" + index.toString());
 			if (which_circle) { //closed circle
 				c.src = "{% static 'filledCircle.png' %}";
-				c.style.width = "10%";
-				c.style.height = "25%";
+				c.style.width = responsiveDesign(width)["filledCircle"][0];
+				c.style.height = responsiveDesign(width)["filledCircle"][1];
 			} else {
 				c.src = "{% static 'circle.png' %}";
-				c.style.width = "8%";
-				c.style.height = "20%";
+				c.style.width = responsiveDesign(width)["openCircle"][0];
+				c.style.height = responsiveDesign(width)["openCircle"][1];
 			}
 			c.style.transition = ".25s";
 		}
@@ -281,6 +328,7 @@
 
 	//showcase carousel of tricks
 	function displayTrickReel(event) {
+		width = window.innerWidth;
 		carouselIndex = 0;
 		var currentResults = document.getElementById("body_wrapper").childNodes;
 		destroyElements(currentResults);
@@ -300,8 +348,8 @@
 			var arrow = document.createElement("img");
 			arrow.src = "{% static 'arrow.png' %}";
 			arrow.style.position = "relative";
-			arrow.style.width = "15%";
-			arrow.style.height = "15%";
+			arrow.style.width = responsiveDesign(width)["trickReelArrows"];
+			arrow.style.height = responsiveDesign(width)["trickReelArrows"];
 			arrow.style.opacity = ".2";
 			arrow.style.filter  = "invert(100%)";
 			arrow.style.transform = "rotate(" + rotation + "deg)";
@@ -330,8 +378,8 @@
 		videoWrapper.style.position = "relative";
 		videoWrapper.style.width = "20%";
 		videoWrapper.style.height = "51%";
-		videoWrapper.style.minHeight = "535px";
-		videoWrapper.style.minWidth = "300px";
+		videoWrapper.style.minWidth = responsiveDesign(width)["videoWrapper"][0];
+		videoWrapper.style.minHeight = responsiveDesign(width)["videoWrapper"][1];
 		videoWrapper.style.borderRadius = "3%";
 		videoWrapper.style.overflow = "hidden";
 		videoWrapper.style.backgroundColor = "lightgray";
@@ -342,13 +390,17 @@
 		displayVideo.style.position = "relative";
 		displayVideo.style.width = "100%";
 		displayVideo.style.height = "100%";
-		displayVideo.style.borderRadius= "inherit";
+		displayVideo.style.borderRadius = "inherit";
 		videoWrapper.appendChild(displayVideo);
 		fadeIn(displayVideo, 1);
 		body.appendChild(trickElementsWrapper);
 		createArrow("90");
 		trickElementsWrapper.appendChild(videoWrapper);
 		createArrow("270");
+		if (width > 483 && width <= 767) {
+			document.getElementById("left_arrow").style.left = "10%";
+			document.getElementById("right_arrow").style.right = "10%";
+		}
 		var toggleIconWrapper = document.createElement("div");
 		toggleIconWrapper.setAttribute("id", "toggle_wrapper");
 		toggleIconWrapper.style.position = "absolute";
@@ -356,7 +408,7 @@
 		toggleIconWrapper.style.height = "7%";
 		toggleIconWrapper.style.minWidth = "180px";
 		toggleIconWrapper.style.minHeight = "55px";
-		toggleIconWrapper.style.top = "635px";
+		toggleIconWrapper.style.top = responsiveDesign(width)["toggleIconWrapper"];
 		toggleIconWrapper.style.display = "flex";
 		toggleIconWrapper.style.flexDirection = "row";
 		toggleIconWrapper.style.justifyContent = "space-between";
@@ -368,12 +420,12 @@
 			c.style.position = "relative";
 			if (i === 0) {
 				c.src = "{% static 'filledCircle.png' %}";
-				c.style.width = "10%";
-				c.style.height = "25%";
+				c.style.width = responsiveDesign(width)["filledCircle"][0];
+				c.style.height = responsiveDesign(width)["filledCircle"][1];
 			} else {
 				c.src = "{% static 'circle.png' %}";
-				c.style.width = "8%"
-				c.style.height = "20%";
+				c.style.width = responsiveDesign(width)["openCircle"][0];
+				c.style.height = responsiveDesign(width)["openCircle"][1];
 			}
 			toggleIconWrapper.appendChild(c);
 		}
@@ -502,7 +554,7 @@
   	}
 
   	function createTitle(id, text) {
-  		var producerTitle = document.createElement("h1");
+  		var producerTitle = document.createElement(responsiveDesign(width)["createTitle"]);
 		producerTitle.setAttribute("id", id);
 		producerTitle.style.position = "absolute";
 		producerTitle.style.textAlign = "center";
@@ -604,12 +656,13 @@
 	  				}
 	  				name = name.slice(index);
 	  			}
-	  			createResult("deck", "300px", "400px", name);
+	  			let dimensions = setDimensions(true);
+	  			createResult("deck", dimensions[0], dimensions[1], name);
 	  		}
 	  	}
   	}
 
-  	//handle if user clicks searchAll or presses enter when there are search results
+  	//handle if user clicks search all or presses enter when there are search results
   	function displaySearchAll(children) {
   		for (var i = 0; i < children.length; i++) {
 			let child = children[i];
@@ -633,7 +686,7 @@
 				}
 				displayResults("producer_suggestion_1", t);
 			} 
-			if (child.id === "producer_name_wrapper" && child.nextSibling.id !== "producer_suggestion_1") { //found decks but no producers
+			if (child.id === "producer_name_wrapper" && child.nextSibling.id !== "producer_suggestion_1") { //if found decks but no producers
 				let t = children[1].innerText;
 				if (browser === "safari") {
 					let new_t = "";
@@ -704,8 +757,7 @@
 		//suggestion.setAttribute("onclick", "testButton()");
 		suggestion.style.position = "relative";
 		suggestion.style.width = "100%";
-		suggestion.style.minHeight = "50px";
-		suggestion.style.maxHeight = "50px";
+		suggestion.style.minHeight = responsiveDesign(width)["suggestionDiv"];
 		if (which_suggestion.substr(-1) === '1') {
 			suggestion.style.borderTop = ".1px solid lightgray";
 		} 
@@ -739,13 +791,13 @@
 		fullName.style.position = "relative";
 	    fullName.style.fontFamily = "Verdana, copperplate, Impact, sans-serif";
 		fullName.style.fontWeight = "bold";
-		fullName.style.fontSize = "8px";
+		fullName.style.fontSize = responsiveDesign(width)["fullNameWrapper"][0];
+		fullName.style.marginBottom = responsiveDesign(width)["fullNameWrapper"][1];
 		fullName.style.color = "black";
-		fullName.style.marginBottom = "7%";
 		fullNameWrapper.appendChild(fullName);
 		parentSubString = parent.slice(0, -1);
 		if (parentSubString === "producer_suggestion_") {
-			fullName.style.marginBottom = "10%";
+			//fullName.style.marginBottom = "10%";
 			let numItems = document.createElement("h4");
 			if (getNumItems()[name] === 1) {
 				var itemString = " item";
@@ -757,9 +809,9 @@
 			numItems.style.position = "absolute";
 		    numItems.style.fontFamily = "Verdana, copperplate, Impact, sans-serif";
 			numItems.style.fontWeight = "bold";
-			numItems.style.fontSize = "8px";
 			numItems.style.color = "gray";
-			numItems.style.marginTop = "14%";
+			numItems.style.fontSize = responsiveDesign(width)["numItems"][0];
+			numItems.style.marginTop = responsiveDesign(width)["numItems"][1];
 			numItems.style.left = "1px";
 			fullNameWrapper.appendChild(numItems);
 		}
@@ -789,8 +841,7 @@
    		let image = document.createElement("img");
 		image.src = img;
 		image.style.position = "relative";
-		image.style.width = "6%";
-		image.style.maxHeight = "70%";
+		image.style.width = responsiveDesign(width)["iconImage"];
 		image.style.left = "2%";
 		image.style.borderRadius = "2px";
 		document.getElementById(parent).appendChild(image);
@@ -801,20 +852,21 @@
   		let selectionImage = document.createElement("img");
 		selectionImage.src = "{% static 'spade.png' %}";
 		selectionImage.style.position = "relative";
-		selectionImage.style.width = "2.5%";
 		selectionImage.style.maxHeight = "15px";
-		selectionImage.style.left = "30%";
+		selectionImage.style.width = responsiveDesign(width)["selectionImage"][0];
+		selectionImage.style.left = responsiveDesign(width)["selectionImage"][1];
 		selectionImage.style.borderRadius = "5px";
 		document.getElementById(parent).appendChild(selectionImage);
   	}
 
   	function createDropdown(parent, current_decks_returned, current_producers_returned) {
 		//dropdown wrapper
+		width = window.innerWidth;
 		var dropdown = document.createElement("div");
   		dropdown.setAttribute("id", "dropdown_wrapper");
 		dropdown.style.position = "absolute";
-		dropdown.style.width = "30%";
-		dropdown.style.minWidth = "440px";
+		//dropdown.style.width = "30%";
+		dropdown.style.minWidth = responsiveDesign(width)["dropdownWidth"];
 		dropdown.style.backgroundColor = "white";
 		dropdown.style.borderRadius = "5px";
 		dropdown.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05)";
@@ -859,7 +911,8 @@
 		deckName.style.height = "12%";
 		deckName.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
 		deckName.style.fontWeight = "bold";
-		deckName.style.fontSize = "8px";
+		var suggestionDivText = responsiveDesign(width)["suggestionDivText"];
+		deckName.style.fontSize = suggestionDivText;
 		deckName.style.color = "gray";
 		//producer name wrapper div
 		producerNameWrapper = document.createElement("div");
@@ -876,7 +929,7 @@
 		producerName.style.left = "2%";
 		producerName.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
 		producerName.style.fontWeight = "bold";
-		producerName.style.fontSize = "8px";
+		producerName.style.fontSize = suggestionDivText;
 		producerName.style.color = "gray";
 		//search all wrapper div
 		searchAllWrapper = document.createElement("div");
@@ -898,7 +951,7 @@
 		searchAll.appendChild(text);
 		searchAll.style.position = "relative";
 		searchAll.style.left = "2%";
-		searchAll.style.fontSize = "8px";
+		searchAll.style.fontSize = suggestionDivText;
 		searchAll.style.color = "gray";
 		searchAll.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
 		return([dropdown, deckNameWrapper, producerNameWrapper, deckName, producerName]);
@@ -990,7 +1043,15 @@
   		location.reload();
 	});
 	var browser = detectBrowser();
-	console.log("browser:", browser);
+	var width = window.screen.width;
+	window.addEventListener("resize", () => {
+		width = window.innerWidth;
+		var dropdown = document.getElementById("dropdown_wrapper");
+		if (dropdown) {
+			dropdown.remove();
+		}
+	});
+	var responsiveDesignDict = {}
    
 </script>
 
