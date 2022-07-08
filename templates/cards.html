@@ -4,7 +4,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1">
 	<!-- Media queries-->
     <!-- mobile -->
 	<link rel="stylesheet" type = "text/css" media="only screen and (max-width: 483px)" href="{% static 'css/cards_mobile.css' %}">
@@ -319,7 +319,7 @@
 				carouselIndex--;
 				changeCircle(carouselIndex, true);
 				document.getElementById("display_video").src = videos[carouselIndex];
-				document.getElementById("display_video").poster = "{% static 'form.png' %}"
+				//document.getElementById("display_video").poster = "{% static 'form.png' %}"
 			}
 		} else {
 			if (carouselIndex === (videos.length-1)) {
