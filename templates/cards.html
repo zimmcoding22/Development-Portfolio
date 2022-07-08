@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Media queries-->
     <!-- mobile -->
-	<link rel="stylesheet" type = "text/css" media="only screen and (max-width: 480px)" href="{% static 'css/cards_mobile.css' %}">
+	<link rel="stylesheet" type = "text/css" media="only screen and (max-width: 483px)" href="{% static 'css/cards_mobile.css' %}">
 
 	<!-- small tablet -->
 	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 484px) and (max-width: 767px)" href="{% static 'css/cards_small_tablet.css' %}">
@@ -108,7 +108,9 @@
     		var data = {"setDimensionsSingleDeck" : ["250px", "300px"], "setDimensionsMultiple" : ["150px", "200px"], "filledCircle" : ["10%", "25%"], "openCircle" : ["8%", "20%"], "trickReelArrows" : "13%", "videoWrapper" : ["300px", "535px"], "toggleIconWrapper" : "635px", "createTitle" : "h2", "suggestionDiv" : "50px", "fullNameWrapper" : ["8px", "7%"], "numItems" : ["8px", "14%"], "iconImage" : "6%", "selectionImage" : ["2.5%", "30%"], "dropdownWidth" : "440px", "suggestionDivText" : "8px"}
     	} else if (width > 483 && width <= 767) {
     		var data = {"setDimensionsSingleDeck" : ["200px", "250px"], "setDimensionsMultiple" : ["100px", "150px"], "filledCircle" : ["8%", "20%"], "openCircle" : ["6%", "15%"], "trickReelArrows" : "12%", "videoWrapper" : ["252px", "450px"], "toggleIconWrapper" : "600px", "createTitle" : "h2", "suggestionDiv" : "40px", "fullNameWrapper" : ["6px", "9%"], "numItems" : ["6px", "19%"], "iconImage" : "8%", "selectionImage" : ["3%", "28%"], "dropdownWidth" : "260px", "suggestionDivText" : "6px"}
-    	} else {} //not done yet
+    	} else { //mobile
+    		var data = {"setDimensionsSingleDeck" : ["175px", "225px"], "setDimensionsMultiple" : ["100px", "150px"], "filledCircle" : ["7%", "17%"], "openCircle" : ["5%", "12%"], "trickReelArrows" : "9%", "videoWrapper" : ["220px", "390px"], "toggleIconWrapper" : "600px", "createTitle" : "h4", "suggestionDiv" : "60px", "fullNameWrapper" : ["6px", "9%"], "numItems" : ["6px", "19%"], "iconImage" : "8%", "selectionImage" : ["3%", "28%"], "dropdownWidth" : "260px", "suggestionDivText" : "6px"}
+    	} 
     	return(data);
     }
 
@@ -199,13 +201,19 @@
 				img.style.marginTop = "-5%";
 			} else if (width === "200px") {
 				img.style.marginTop = "-2%";
-			} else {}
+			} else {
+				img.style.marginTop = "-3%";
+			}
 			img.style.opacity = "0";
 			let deckName = document.createElement("h6");
 			let text = document.createTextNode(name)//this will be queried from the database
 			deckName.appendChild(text);
 			if (width === "200px") {
 				deckName.style.fontSize = "8px";
+			}
+			if (width === "175px") {
+				deckName.style.fontSize = "7px";
+				deckName.style.fontWeight = "bold";
 			}
 			deckName.style.marginTop = "4%";
 			deckName.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
@@ -220,9 +228,12 @@
 			} else if (width === "200px") {
 				cost.style.marginTop = "5%";
 				cost.style.fontSize = "8px";
-			} else {}
+			} else {
+				cost.style.fontSize = "7px";
+				cost.style.marginTop = "5%";
+			}
 			let finish = document.createElement("h6");
-			text = document.createTextNode("Finish - " + f);
+			text = document.createTextNode("Finish: " + f);
 			finish.appendChild(text);
 			finish.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
 			if (width === "300px") {
@@ -232,7 +243,10 @@
 			} else if (width === "200px") {
 				finish.style.marginTop = "-5%";
 				finish.style.fontSize = "8px";
-			} else {}
+			} else {
+				finish.style.marginTop = "-5%";
+				finish.style.fontSize = "7px";
+			}
 			finish.style.opacity = "0";
 			result.appendChild(deckName);
 			let sleepTime = .15;
@@ -350,6 +364,9 @@
 			arrow.style.position = "relative";
 			arrow.style.width = responsiveDesign(width)["trickReelArrows"];
 			arrow.style.height = responsiveDesign(width)["trickReelArrows"];
+			if (width <= 483) {
+				arrow.style.top = "-12%";
+			}
 			arrow.style.opacity = ".2";
 			arrow.style.filter  = "invert(100%)";
 			arrow.style.transform = "rotate(" + rotation + "deg)";
@@ -380,6 +397,9 @@
 		videoWrapper.style.height = "51%";
 		videoWrapper.style.minWidth = responsiveDesign(width)["videoWrapper"][0];
 		videoWrapper.style.minHeight = responsiveDesign(width)["videoWrapper"][1];
+		if (width <= 483) {
+			videoWrapper.style.top = "-12%";
+		}
 		videoWrapper.style.borderRadius = "3%";
 		videoWrapper.style.overflow = "hidden";
 		videoWrapper.style.backgroundColor = "lightgray";
@@ -400,6 +420,11 @@
 		if (width > 483 && width <= 767) {
 			document.getElementById("left_arrow").style.left = "10%";
 			document.getElementById("right_arrow").style.right = "10%";
+		}
+		if (width <= 483) {
+			document.getElementById("left_arrow").style.left = "22%";
+			document.getElementById("right_arrow").style.right = "22%";
+			videoWrapper.style.bottom = "0%";
 		}
 		var toggleIconWrapper = document.createElement("div");
 		toggleIconWrapper.setAttribute("id", "toggle_wrapper");
@@ -537,6 +562,7 @@
   		return(producers_dict);
   	}
 
+  	//wrapper div for all results displayed on screen 
   	function createResultsWrapper() {
   		var results_wrapper = document.createElement("div"); //this will contain visual display of results selected from dropdown
   		results_wrapper.setAttribute("id", "results_wrapper");
@@ -561,7 +587,7 @@
 		producerTitle.style.color = "gray";
 		producerTitle.style.opacity = "0";
 		producerTitle.style.fontFamily = "'Varela Round', Georgia, Impact, sans-serif";
-		console.log("text in createTitle:", text);
+		//console.log("text in createTitle:", text);
 		let t = document.createTextNode(text);
 		producerTitle.appendChild(t);
 		body_wrapper = document.getElementById("body_wrapper");
@@ -1043,7 +1069,7 @@
   		location.reload();
 	});
 	var browser = detectBrowser();
-	var width = window.screen.width;
+	var width = window.innerWidth;
 	window.addEventListener("resize", () => {
 		width = window.innerWidth;
 		var dropdown = document.getElementById("dropdown_wrapper");
@@ -1051,7 +1077,7 @@
 			dropdown.remove();
 		}
 	});
-	var responsiveDesignDict = {}
+	
    
 </script>
 
