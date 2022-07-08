@@ -712,7 +712,7 @@
 			} 
 			if (child.id === "producer_name_wrapper" && child.nextSibling.id !== "producer_suggestion_1") { //if found decks but no producers
 				let t = children[1].innerText;
-				if (browser === "safari") {
+				if (browser === "safari" && width > 483) {
 					let new_t = "";
 					for (var j = 1; j < t.length; j++) {
 						if (t.charCodeAt(j) === 10) {
