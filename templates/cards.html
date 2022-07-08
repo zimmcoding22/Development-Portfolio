@@ -223,28 +223,25 @@
 			cost.appendChild(text);
 			cost.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
 			cost.style.opacity = "0";
-			if (width === "250px") {
-				cost.style.marginTop = "5%";
-			} else if (width === "200px") {
-				cost.style.marginTop = "5%";
+			cost.style.marginTop = "5%";
+			if (width === "200px") {
 				cost.style.fontSize = "8px";
-			} else {
+			}
+			if (width === "175px") {
 				cost.style.fontSize = "7px";
-				cost.style.marginTop = "5%";
 			}
 			let finish = document.createElement("h6");
 			text = document.createTextNode("Finish: " + f);
 			finish.appendChild(text);
 			finish.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
-			if (width === "300px") {
-				finish.style.marginTop = "-5%";
-			} else if (width === "250px") {
+			finish.style.marginTop = "-5%";
+			if (width === "250px") {
 				finish.style.marginTop = "-8%";
-			} else if (width === "200px") {
-				finish.style.marginTop = "-5%";
+			}
+			if (width === "200px") {
 				finish.style.fontSize = "8px";
-			} else {
-				finish.style.marginTop = "-5%";
+			} 
+			if (width === "175px") {
 				finish.style.fontSize = "7px";
 			}
 			finish.style.opacity = "0";
