@@ -732,6 +732,7 @@
 					}
 					t = new_t;
 				}
+				t = t.replace(/\s+/g,''); //remove whitespace
 				displayResults("deck_suggestion_1", t);
 			}
 		}
