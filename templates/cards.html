@@ -178,6 +178,7 @@
 			createResultImage(result.id, image);
 			result.addEventListener("click", whichResult);
 		} else { //this is for when a specific deck is selected. Result div will be created differently
+			console.log("ID:", result.id, "LENGTH:", name.length, "NAME:", name);
 			result.style.backgroundColor = "#FFEBE6";
 			result.style.cursor = "default";
 			result.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)";
