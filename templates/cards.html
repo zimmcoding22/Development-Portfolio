@@ -310,6 +310,8 @@
 			}
 			c.style.transition = ".25s";
 		}
+		let displayVideo = document.getElementById("display_video");
+		let v = 0, p = 1; //video/poster
 		if (which_arrow) { //left
 			if (carouselIndex === 0) {
 				return;
@@ -317,8 +319,8 @@
 				changeCircle(carouselIndex, false);
 				carouselIndex--;
 				changeCircle(carouselIndex, true);
-				document.getElementById("display_video").src = videos[carouselIndex];
-				document.getElementById("display_video").poster = "{% static 'onePoster.png' %}"
+				displayVideo.src = videos[carouselIndex][v];
+				displayVideo.poster = videos[carouselIndex][p];
 			}
 		} else {
 			if (carouselIndex === (videos.length-1)) {
@@ -327,7 +329,8 @@
 				changeCircle(carouselIndex, false);
 				carouselIndex++;
 				changeCircle(carouselIndex, true);
-				document.getElementById("display_video").src = videos[carouselIndex];
+				displayVideo.src = videos[carouselIndex][v];
+				displayVideo.poster = videos[carouselIndex][p];
 			}
 		}
 	}
@@ -1069,7 +1072,7 @@
 	var collectionTab = document.getElementById("collection");
 	var tricksTab = document.getElementById("tricks");
 	var logo = document.getElementById("logo_wrapper");
-	var videos = ["{% static 'magicOne.mov' %}", "{% static 'magicTwo.mov' %}", "{% static 'magicThree.mov' %}", "{% static 'magicFour.mov' %}", "{% static 'magicFive.mov' %}", "{% static 'magicSix.mov' %}"];
+	var videos = [["{% static 'magicOne.mov' %}", "{% static 'onePoster.png' %}"], ["{% static 'magicTwo.mov' %}", "{% static 'twoPoster.png' %}"], ["{% static 'magicThree.mov' %}", "{% static 'threePoster.png' %}"], ["{% static 'magicFour.mov' %}", "{% static 'fourPoster.png' %}"], ["{% static 'magicFive.mov' %}", "{% static 'fivePoster.png' %}"], ["{% static 'magicSix.mov' %}", "{% static 'sixPoster.png' %}"]];
 	var carouselIndex;
 	var creatingElements = false; //used to ensure user cant click on a result while they are still being created/displayed on screen
 	var browser = detectBrowser();
