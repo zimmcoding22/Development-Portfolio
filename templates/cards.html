@@ -691,7 +691,7 @@
   		for (var i = 0; i < children.length; i++) {
 			let child = children[i];
 			if (child.id === "producer_name_wrapper" && child.nextSibling.id === "producer_suggestion_1") { //get info of first producer
-				console.log("name here:", child.nextSibling.innerText); 
+				//console.log("name here:", child.nextSibling.innerText); 
 				let t = child.nextSibling.innerText;
 				if (t.charAt(0) === "\n") { //for safari
 					for (var j = 1; j < t.length; j++) {
@@ -711,7 +711,7 @@
 				displayResults("producer_suggestion_1", t);
 			} 
 			if (child.id === "producer_name_wrapper" && child.nextSibling.id !== "producer_suggestion_1") { //if found decks but no producers
-				console.log("hello");
+				//console.log("hello");
 				let t = children[1].innerText;
 				if (browser === "safari") {
 					let new_t = "";
