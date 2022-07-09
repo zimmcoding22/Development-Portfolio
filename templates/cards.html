@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1">
 	<!-- Media queries-->
     <!-- mobile -->
-	<link rel="stylesheet" type = "text/css" media="only screen and (max-width: 483px)" href="{% static 'css/cards_mobile.css' %}">
+	<link rel="stylesheet" type = "text/css" media="only screen and (max-width: 483px)" href="{% static 'css/cards_mobile_.css' %}">
 
 	<!-- small tablet -->
 	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 484px) and (max-width: 767px)" href="{% static 'css/cards_small_tablet.css' %}">
@@ -171,7 +171,7 @@
 		result.style.margin = "5%";
 		result.style.borderRadius = "5%";
 		result.style.cursor = "pointer";
-		console.log("result id:", result.id);
+		//console.log("result id:", result.id);
 		if (image !== undefined) {
 			createResultImage(result.id, image);
 			result.addEventListener("click", whichResult);
@@ -185,7 +185,7 @@
 					var i = "{{ deck.image.url }}";
 					var c = "{{ deck.cost }}";
 					var f = "{{ deck.finish }}";
-					console.log("deck: ", "{{ deck }}", "name:", name, "cost:", c);
+					//console.log("deck: ", "{{ deck }}", "name:", name, "cost:", c);
 				}
 			{% endfor %}
 			result.style.flexDirection = "column";
@@ -711,8 +711,9 @@
 				displayResults("producer_suggestion_1", t);
 			} 
 			if (child.id === "producer_name_wrapper" && child.nextSibling.id !== "producer_suggestion_1") { //if found decks but no producers
+				console.log("hello");
 				let t = children[1].innerText;
-				if (browser === "safari" && width > 483) {
+				if (browser === "safari") {
 					let new_t = "";
 					for (var j = 1; j < t.length; j++) {
 						if (t.charCodeAt(j) === 10) {
