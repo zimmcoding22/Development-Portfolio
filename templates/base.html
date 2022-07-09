@@ -66,7 +66,7 @@
 		  </nav>
 		</header>
 		<div id="titleDiv">
-			<video id="titleVid" autoplay="autoplay" muted src="{% static 'pole_game_coding.mov' %}">
+			<video id="titleVid" autoplay muted src="{% static 'pole_game_coding.mov' %}">
 	    	Your browser does not support the HTML5 Video element.
 			</video>
 			<h3>
@@ -138,7 +138,7 @@
 		    	Your browser does not support the HTML5 Vdeo element.
 				</video>
 			</div>
-			<div id="tradingDescription" onmouseover="this.innerHTML='Stocks/options day trading system capable of screening opportunities, evaluating trade logic, sizing positions, managing risk, sending orders, and logging data.';" onmouseout="this.innerHTML='What is it?';">
+			<div id="tradingDescription" onmouseover="this.innerHTML='Stock/options day trading system capable of screening opportunities, evaluating trade logic, sizing positions, managing risk, sending orders, and logging data.';" onmouseout="this.innerHTML='What is it?';">
 				What is it?
 			</div>
 			<div id="tradingStack">
@@ -235,5 +235,5 @@
 
 </html>
 
-$('html, body').stop().animate({scrollTop:$($anchor.attr('href')).offset().top,},1500,'easeInOutExpo');
+
 
