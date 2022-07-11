@@ -82,52 +82,54 @@
 	}	
 
 	function detectBrowser() {         
-         let userAgent = navigator.userAgent;
-         let browserName; 
-         if(userAgent.match(/chrome|chromium|crios/i)){
-             browserName = "chrome";
-           } else if(userAgent.match(/firefox|fxios/i)){
-             browserName = "firefox";
-           } else if(userAgent.match(/safari/i)){
-             browserName = "safari";
-           } else if(userAgent.match(/opr\//i)){
-             browserName = "opera";
-           } else if(userAgent.match(/edg/i)){
-             browserName = "edge";
-           } else{
-             browserName="No browser detection";
-           }
-          return(browserName);         
+		let userAgent = navigator.userAgent;
+    let browserName; 
+		if (userAgent.match(/chrome|chromium|crios/i)) {
+      browserName = "chrome";
+		}	else if(userAgent.match(/firefox|fxios/i)) {
+    	browserName = "firefox";
+    } else if(userAgent.match(/safari/i)) {
+    	browserName = "safari";
+    } else if(userAgent.match(/opr\//i)){
+      browserName = "opera";
+    } else if(userAgent.match(/edg/i)){
+      browserName = "edge";
+    } else{
+    	browserName="No browser detection";
     }
+    return(browserName);         
+  }
 
-    //returns data that determines positioning of certain elements as screen width fluctuates
-    function responsiveDesign(width) {
-    	if (width > 980) {
-    		var data = {"setDimensionsSingleDeck" : ["300px", "400px"], "setDimensionsMultiple" : ["200px", "250px"], "filledCircle" : ["10%", "25%"], "openCircle" : ["8%", "20%"], "trickReelArrows" : "15%", "videoWrapper" : ["300px", "535px"], "toggleIconWrapper" : "635px", "createTitle" : "h1", "suggestionDiv" : "50px", "fullNameWrapper" : ["8px", "7%"], "numItems" : ["8px", "14%"], "iconImage" : "6%", "selectionImage" : ["2.5%", "30%"], "dropdownWidth" : "440px", "suggestionDivText" : "8px"}
-    	} else if (width > 767 && width <= 980) {
-    		var data = {"setDimensionsSingleDeck" : ["250px", "300px"], "setDimensionsMultiple" : ["150px", "200px"], "filledCircle" : ["10%", "25%"], "openCircle" : ["8%", "20%"], "trickReelArrows" : "13%", "videoWrapper" : ["300px", "535px"], "toggleIconWrapper" : "635px", "createTitle" : "h2", "suggestionDiv" : "50px", "fullNameWrapper" : ["8px", "7%"], "numItems" : ["8px", "14%"], "iconImage" : "6%", "selectionImage" : ["2.5%", "30%"], "dropdownWidth" : "440px", "suggestionDivText" : "8px"}
-    	} else if (width > 483 && width <= 767) {
-    		var data = {"setDimensionsSingleDeck" : ["200px", "250px"], "setDimensionsMultiple" : ["100px", "150px"], "filledCircle" : ["8%", "20%"], "openCircle" : ["6%", "15%"], "trickReelArrows" : "12%", "videoWrapper" : ["252px", "450px"], "toggleIconWrapper" : "600px", "createTitle" : "h2", "suggestionDiv" : "40px", "fullNameWrapper" : ["6px", "9%"], "numItems" : ["6px", "19%"], "iconImage" : "8%", "selectionImage" : ["3%", "28%"], "dropdownWidth" : "260px", "suggestionDivText" : "6px"}
-    	} else { //mobile
-    		var data = {"setDimensionsSingleDeck" : ["175px", "225px"], "setDimensionsMultiple" : ["100px", "150px"], "filledCircle" : ["7%", "17%"], "openCircle" : ["5%", "12%"], "trickReelArrows" : "9%", "videoWrapper" : ["220px", "390px"], "toggleIconWrapper" : "600px", "createTitle" : "h4", "suggestionDiv" : "60px", "fullNameWrapper" : ["6px", "9%"], "numItems" : ["6px", "19%"], "iconImage" : "8%", "selectionImage" : ["3%", "28%"], "dropdownWidth" : "260px", "suggestionDivText" : "6px"}
-    	} 
-    	return(data);
+  //returns data that determines positioning of certain elements as screen width fluctuates
+  function responsiveDesign(width) {
+  	if (width > 1441) {
+  		var data = {"setDimensionsSingleDeck" : ["400px", "550px"], "setDimensionsMultiple" : ["300px", "400px"], "filledCircle" : ["10%", "25%"], "openCircle" : ["8%", "20%"], "trickReelArrows" : "17%", "videoWrapper" : ["400px", "710px"], "toggleIconWrapper" : "850px", "createTitle" : "h1", "suggestionDiv" : "70px", "fullNameWrapper" : ["11px", "5%"], "numItems" : ["11px", "9%"], "iconImage" : "4%", "selectionImage" : ["2%", "32%"], "dropdownWidth" : "440px", "suggestionDivText" : "12px", "deckSingleFontSize" : "16px"}
+  	} else if (width > 980 && width <= 1441) {
+  		var data = {"setDimensionsSingleDeck" : ["300px", "400px"], "setDimensionsMultiple" : ["200px", "250px"], "filledCircle" : ["10%", "25%"], "openCircle" : ["8%", "20%"], "trickReelArrows" : "15%", "videoWrapper" : ["300px", "535px"], "toggleIconWrapper" : "635px", "createTitle" : "h1", "suggestionDiv" : "50px", "fullNameWrapper" : ["8px", "7%"], "numItems" : ["8px", "14%"], "iconImage" : "6%", "selectionImage" : ["2.5%", "30%"], "dropdownWidth" : "440px", "suggestionDivText" : "8px"}
+  	} else if (width > 767 && width <= 980) {
+  		var data = {"setDimensionsSingleDeck" : ["250px", "300px"], "setDimensionsMultiple" : ["150px", "200px"], "filledCircle" : ["10%", "25%"], "openCircle" : ["8%", "20%"], "trickReelArrows" : "13%", "videoWrapper" : ["300px", "535px"], "toggleIconWrapper" : "635px", "createTitle" : "h2", "suggestionDiv" : "50px", "fullNameWrapper" : ["8px", "7%"], "numItems" : ["8px", "14%"], "iconImage" : "6%", "selectionImage" : ["2.5%", "30%"], "dropdownWidth" : "440px", "suggestionDivText" : "8px"}
+  	} else if (width > 483 && width <= 767) {
+  		var data = {"setDimensionsSingleDeck" : ["200px", "250px"], "setDimensionsMultiple" : ["100px", "150px"], "filledCircle" : ["8%", "20%"], "openCircle" : ["6%", "15%"], "trickReelArrows" : "12%", "videoWrapper" : ["252px", "450px"], "toggleIconWrapper" : "600px", "createTitle" : "h2", "suggestionDiv" : "40px", "fullNameWrapper" : ["6px", "9%"], "numItems" : ["6px", "19%"], "iconImage" : "8%", "selectionImage" : ["3%", "28%"], "dropdownWidth" : "260px", "suggestionDivText" : "6px", "deckSingleFontSize" : "8px"}
+  	} else { //mobile
+  		var data = {"setDimensionsSingleDeck" : ["175px", "225px"], "setDimensionsMultiple" : ["100px", "150px"], "filledCircle" : ["7%", "17%"], "openCircle" : ["5%", "12%"], "trickReelArrows" : "9%", "videoWrapper" : ["220px", "390px"], "toggleIconWrapper" : "600px", "createTitle" : "h4", "suggestionDiv" : "60px", "fullNameWrapper" : ["6px", "9%"], "numItems" : ["6px", "19%"], "iconImage" : "8%", "selectionImage" : ["3%", "28%"], "dropdownWidth" : "260px", "suggestionDivText" : "6px", "deckSingleFontSize" : "7px"}
+  	} 
+  	return(data);
+  }
+
+  //determine size of result divs
+  function setDimensions(is_deck_selection) {
+  	let w, h;
+  	if (is_deck_selection) {
+  		w = responsiveDesign(width)["setDimensionsSingleDeck"][0];
+  		h = responsiveDesign(width)["setDimensionsSingleDeck"][1];
+    } else {
+    	w = responsiveDesign(width)["setDimensionsMultiple"][0];
+  		h = responsiveDesign(width)["setDimensionsMultiple"][1];
     }
+  	return([w, h])
+  }
 
-    //determine size of result divs
-    function setDimensions(is_deck_selection) {
-    	let w, h;
-    	if (is_deck_selection) {
-    		w = responsiveDesign(width)["setDimensionsSingleDeck"][0];
-    		h = responsiveDesign(width)["setDimensionsSingleDeck"][1];
-	    } else {
-	    	w = responsiveDesign(width)["setDimensionsMultiple"][0];
-    		h = responsiveDesign(width)["setDimensionsMultiple"][1];
-	    }
-    	return([w, h])
-    }
-
-    //used to create results display pause effect
+  //used to create results display pause effect
 	async function sleep(seconds) {
 		return(new Promise((resolve) => setTimeout(resolve, seconds * 1000)));
 	}
@@ -158,7 +160,7 @@
 	}
 
 	//append results to DOM
-  	async function createResult(id, width, height, name, image) {
+  async function createResult(id, w, h, name, image) {
 		var result = document.createElement("div");
 		result.setAttribute("id", id + ' ' + name);
 		if (!document.getElementById("results_wrapper")) {
@@ -168,8 +170,8 @@
 		result.style.position = "relative";
 		result.style.display = "flex";
 		result.style.alignItems = "center";
-		result.style.width = width;
-		result.style.height = height;
+		result.style.width = w; 
+		result.style.height = h;
 		result.style.margin = "5%";
 		result.style.borderRadius = "5%";
 		result.style.cursor = "pointer";
@@ -184,9 +186,7 @@
 			//get image
 			{% for deck in deck_list %}
 				if ("{{ deck }}" === name) {
-					var i = "{{ deck.image.url }}";
-					var c = "{{ deck.cost }}";
-					var f = "{{ deck.finish }}";
+					var i = "{{ deck.image.url }}", c = "{{ deck.cost }}", f = "{{ deck.finish }}";
 					//console.log("deck: ", "{{ deck }}", "name:", name, "cost:", c);
 				}
 			{% endfor %}
@@ -197,26 +197,11 @@
 			img.style.borderRadius = "5%";
 			img.style.width = "65%";
 			img.style.height = "70%";
-			if (width === "300px") {
-				img.style.marginTop = "-3%";
-			} else if (width === "250px") {
-				img.style.marginTop = "-5%";
-			} else if (width === "200px") {
-				img.style.marginTop = "-2%";
-			} else {
-				img.style.marginTop = "-3%";
-			}
 			img.style.opacity = "0";
+			img.style.marginTop = "-3%";
 			let deckName = document.createElement("h6");
 			let text = document.createTextNode(name)//this will be queried from the database
 			deckName.appendChild(text);
-			if (width === "200px") {
-				deckName.style.fontSize = "8px";
-			}
-			if (width === "175px") {
-				deckName.style.fontSize = "7px";
-				deckName.style.fontWeight = "bold";
-			}
 			deckName.style.marginTop = "4%";
 			deckName.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
 			deckName.style.opacity = "0";
@@ -226,25 +211,25 @@
 			cost.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
 			cost.style.opacity = "0";
 			cost.style.marginTop = "5%";
-			if (width === "200px") {
-				cost.style.fontSize = "8px";
-			}
-			if (width === "175px") {
-				cost.style.fontSize = "7px";
-			}
 			let finish = document.createElement("h6");
 			text = document.createTextNode("Finish: " + f);
 			finish.appendChild(text);
 			finish.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
 			finish.style.marginTop = "-5%";
-			if (width === "250px") {
+			//responsive design tweaks
+			font_size = responsiveDesign(width)["deckSingleFontSize"]
+			cost.style.fontSize = font_size
+			finish.style.fontSize = font_size
+			deckName.style.fontSize = font_size
+			if (w === "250px") {
 				finish.style.marginTop = "-8%";
+				img.style.marginTop = "-5%";
 			}
-			if (width === "200px") {
-				finish.style.fontSize = "8px";
+			if (w === "200px") {
+				img.style.marginTop = "-2%";
 			} 
-			if (width === "175px") {
-				finish.style.fontSize = "7px";
+			if (w === "175px") {
+				deckName.style.fontWeight = "bold";
 			}
 			finish.style.opacity = "0";
 			result.appendChild(deckName);
@@ -261,40 +246,40 @@
 			fadeIn(finish, 1);
 		}
 		window.scrollTo(0, 0); //bring user back to top of page whenever new results are toggled
-  	}
+  }
 
-  	//organizes how results are displayed in results wrapper div
-  	async function displayResults(id, name) {
-  		//delete all children of results wrapper before displaying results again
-  		let currentResults = document.getElementById("body_wrapper").childNodes;
-  		destroyElements(currentResults);
-  		let d = document.getElementById("dropdown_wrapper");
-  		if (d) {
-  			d.remove();
-  		}
-  		createResultsWrapper();
-  		if (id[0] === 'd') { //if a specific deck is selected, only one div is created
-  			console.log("id:", id, "name:", name);
-  			let dimensions = setDimensions(true);
-  			createResult(id, dimensions[0], dimensions[1], name);
-  		} else { //display all decks by a given producer
-  			createTitle("decks_by_producer_title", "Decks By " + name);
-  			let decks_by_producer = {};
-  			{% for deck in deck_list %}
-  				producer = "{{ deck.producer }}";
-  				if (name === producer) {
-  					decks_by_producer["{{ deck }}"] = "{{ deck.image.url }}";
-  				}
-  			{% endfor %}
-  			creatingElements = true;
-  			let dimensions = setDimensions(false);
-  			for (var [key, value] of Object.entries(decks_by_producer)) {
-  				await sleep(.1);
-  				createResult("deck", dimensions[0], dimensions[1], key, value);
-  			}
-  			creatingElements = false;
-  		}
-  	}
+	//organizes how results are displayed in results wrapper div
+	async function displayResults(id, name) {
+		//delete all children of results wrapper before displaying results again
+		let currentResults = document.getElementById("body_wrapper").childNodes;
+		destroyElements(currentResults);
+		let d = document.getElementById("dropdown_wrapper");
+		if (d) {
+			d.remove();
+		}
+		createResultsWrapper();
+		if (id[0] === 'd') { //if a specific deck is selected, only one div is created
+			console.log("id:", id, "name:", name);
+			let dimensions = setDimensions(true);
+			createResult(id, dimensions[0], dimensions[1], name);
+		} else { //display all decks by a given producer
+			createTitle("decks_by_producer_title", "Decks By " + name);
+			let decks_by_producer = {};
+			{% for deck in deck_list %}
+				producer = "{{ deck.producer }}";
+				if (name === producer) {
+					decks_by_producer["{{ deck }}"] = "{{ deck.image.url }}";
+				}
+			{% endfor %}
+			creatingElements = true;
+			let dimensions = setDimensions(false);
+			for (var [key, value] of Object.entries(decks_by_producer)) {
+				await sleep(.1);
+				createResult("deck", dimensions[0], dimensions[1], key, value);
+			}
+			creatingElements = false;
+		}
+	}
 
 	function carousel(which_arrow) {
 		var changeCircle = (index, which_circle) => {
@@ -403,6 +388,9 @@
 		if (width <= 483) {
 			videoWrapper.style.top = "-12%";
 		}
+		if (width > 1441) {
+			videoWrapper.style.top = "15%";
+		}
 		videoWrapper.style.borderRadius = "3%";
 		videoWrapper.style.overflow = "hidden";
 		videoWrapper.style.backgroundColor = "lightgray";
@@ -463,21 +451,21 @@
 
 	//add/remove box shadow from search bar when it is clicked on/when user clicks away
 	function addRemoveSearchBorder(event) {
-  		let x_icon_opacity = window.getComputedStyle(x_icon).getPropertyValue('opacity');
-  		if (event.target.id === "form" || event.target.id === "search_icon" || (event.target.id === "x_icon" && x_icon_opacity === '0')) {
-  			searchElement.style.border = "solid gray 1px";
-  			searchElement.style.transition = "0.15s";
+		let x_icon_opacity = window.getComputedStyle(x_icon).getPropertyValue('opacity');
+		if (event.target.id === "form" || event.target.id === "search_icon" || (event.target.id === "x_icon" && x_icon_opacity === '0')) {
+			searchElement.style.border = "solid gray 1px";
+			searchElement.style.transition = "0.15s";
 
-  		} else {
-  			//click is outside of search box
-  			searchElement.style.boxShadow = "none";
-  			searchElement.style.borderStyle = "solid";
-  			searchElement.style.borderColor = "lightgray";
-  			searchElement.style.borderWidth = ".5px";
-  		}
-  	}
+		} else {
+			//click is outside of search box
+			searchElement.style.boxShadow = "none";
+			searchElement.style.borderStyle = "solid";
+			searchElement.style.borderColor = "lightgray";
+			searchElement.style.borderWidth = ".5px";
+		}
+  }
 
-  	function highlightSuggestion(event) {
+  function highlightSuggestion(event) {
 	 	var x = document.elementFromPoint(event.clientX, event.clientY);
 	 	var dropdown = document.getElementById("dropdown_wrapper");
 	 	//figure out which suggestion div we are in
@@ -509,21 +497,21 @@
 		}
 	}
 
-  	//clears search field
-  	function clearForm(event) {
-  		document.getElementById("form").value = "";
-  		xIcon.style.opacity = '0';
-  		xIcon.style.cursor = "text";
-  		var dropdown = document.getElementById("dropdown_wrapper");
-  		if (dropdown) {
-  			dropdown.remove();
-  		}
-  	}
+	//clears search field
+	function clearForm(event) {
+		document.getElementById("form").value = "";
+		xIcon.style.opacity = '0';
+		xIcon.style.cursor = "text";
+		var dropdown = document.getElementById("dropdown_wrapper");
+		if (dropdown) {
+			dropdown.remove();
+		}
+	}
 
-  	//determine how many divs to create based on results
-  	function createDivs(dropdown, list, which_tab) {
-  		var suggestionDivsThatContainIcons = [];
-  		for (let i = 1; i <= list.length; i++) {
+	//determine how many divs to create based on results
+	function createDivs(dropdown, list, which_tab) {
+		var suggestionDivsThatContainIcons = [];
+		for (let i = 1; i <= list.length; i++) {
 			var suggestionId = which_tab + "_suggestion_" + i.toString();
 			createSuggestionDiv(dropdown, suggestionId);
 			{% for deck in deck_list %}
@@ -549,82 +537,87 @@
 				break;
 			}
 		}
-  	}
+	}
 
-  	//return # of decks offered by a given producer
-  	function getNumItems(current_producers_returned) {
-  		//populate producers dict
-  		let producers_dict = {};
-  		{% for deck in deck_list %}
-  			p = "{{ deck.producer }}";
-  			if (!(p in producers_dict))	 {
-  				producers_dict[p] = 1;
-  			} else {
-  				producers_dict[p]++;
-  			}
-  		{% endfor %}
-  		return(producers_dict);
-  	}
+	//return # of decks offered by a given producer
+	function getNumItems(current_producers_returned) {
+		//populate producers dict
+		let producers_dict = {};
+		{% for deck in deck_list %}
+			p = "{{ deck.producer }}";
+			if (!(p in producers_dict))	 {
+				producers_dict[p] = 1;
+			} else {
+				producers_dict[p]++;
+			}
+		{% endfor %}
+		return(producers_dict);
+	}
 
-  	//wrapper div for all results displayed on screen 
-  	function createResultsWrapper() {
-  		var results_wrapper = document.createElement("div"); //this will contain visual display of results selected from dropdown
-  		results_wrapper.setAttribute("id", "results_wrapper");
-  		results_wrapper.style.position = "relative";
-  		results_wrapper.style.width = "1000px";
-  		results_wrapper.style.height = "200px";
-  		results_wrapper.style.top = "3%";
-  		results_wrapper.style.display = "flex";
-  		results_wrapper.style.flexDirection = "row";
-  		results_wrapper.style.justifyContent = "center";
-  		results_wrapper.style.alignItems = "top";
-  		results_wrapper.style.flexWrap = "wrap"
-  		results_wrapper.style.padding = "20px";
-  		document.getElementById("body_wrapper").appendChild(results_wrapper);
-  	}
+	//wrapper div for all results displayed on screen 
+	function createResultsWrapper() {
+		var results_wrapper = document.createElement("div"); //this will contain visual display of results selected from dropdown
+		results_wrapper.setAttribute("id", "results_wrapper");
+		results_wrapper.style.position = "relative";
+		results_wrapper.style.width = "1000px";
+		if (width > 1441) {
+			results_wrapper.style.width = "1500px";
+		}
+		results_wrapper.style.height = "200px";
+		results_wrapper.style.top = "3%";
+		results_wrapper.style.display = "flex";
+		results_wrapper.style.flexDirection = "row";
+		results_wrapper.style.justifyContent = "center";
+		results_wrapper.style.alignItems = "top";
+		results_wrapper.style.flexWrap = "wrap"
+		results_wrapper.style.padding = "20px";
+		document.getElementById("body_wrapper").appendChild(results_wrapper);
+	}
 
-  	function createTitle(id, text) {
-  		var producerTitle = document.createElement(responsiveDesign(width)["createTitle"]);
+	function createTitle(id, text) {
+		var producerTitle = document.createElement(responsiveDesign(width)["createTitle"]);
 		producerTitle.setAttribute("id", id);
 		producerTitle.style.position = "absolute";
 		producerTitle.style.textAlign = "center";
 		producerTitle.style.color = "gray";
 		producerTitle.style.opacity = "0";
 		producerTitle.style.fontFamily = "'Varela Round', Georgia, Impact, sans-serif";
-		//console.log("text in createTitle:", text);
+		if (width > 1441) {
+			producerTitle.style.fontSize = "45px";
+		}
 		let t = document.createTextNode(text);
 		producerTitle.appendChild(t);
 		body_wrapper = document.getElementById("body_wrapper");
 		body_wrapper.appendChild(producerTitle);
 		fadeIn(producerTitle, 1);
-  	}
+	}
 
-  	//construct dropdown according to results
-  	function dropdownLayout(parent, current_decks_returned, current_producers_returned) {
-  		var d = createDropdown(parent, current_decks_returned, current_producers_returned);
-  		if (current_decks_returned.length === 0 && current_producers_returned.length === 0) { //display no items found
-  			console.log("no items found");
-  			return;
+	//construct dropdown according to results
+	function dropdownLayout(parent, current_decks_returned, current_producers_returned) {
+		var d = createDropdown(parent, current_decks_returned, current_producers_returned);
+		if (current_decks_returned.length === 0 && current_producers_returned.length === 0) { //display no items found
+			//console.log("no items found");
+			return;
+		}
+		var dropdown = d[0];
+		var deckNameWrapper = d[1];
+		var producerNameWrapper = d[2];
+		var deckName = d[3];
+		var producerName = d[4];
+		var page_description_animation = document.getElementById("page_description");
+		var producer_title = document.getElementById("producer_title");
+		if (page_description_animation || producer_title) {
+			if (page_description_animation) {
+  			page_description_animation.remove(); //remove first time dropdown is displayed and replace with wrapper div for results
   		}
-  		var dropdown = d[0];
-  		var deckNameWrapper = d[1];
-  		var producerNameWrapper = d[2];
-  		var deckName = d[3];
-  		var producerName = d[4];
-  		var page_description_animation = document.getElementById("page_description");
-  		var producer_title = document.getElementById("producer_title");
-  		if (page_description_animation || producer_title) {
-  			if (page_description_animation) {
-	  			page_description_animation.remove(); //remove first time dropdown is displayed and replace with wrapper div for results
-	  		}
-	  		if (producer_title) {
-	  			producer_title.remove();
-	  		}
-	  		if (!document.getElementById("results_wrapper")) {
-	  			createResultsWrapper();
-	  		}
-	  	}
-  		dropdown.appendChild(deckNameWrapper); //only used once
+  		if (producer_title) {
+  			producer_title.remove();
+  		}
+  		if (!document.getElementById("results_wrapper")) {
+  			createResultsWrapper();
+  		}
+  	}
+		dropdown.appendChild(deckNameWrapper); //only used once
 		deckNameWrapper.appendChild(deckName);
 		createDivs(dropdown, current_decks_returned, "deck");
 		dropdown.appendChild(producerNameWrapper); //only used once
@@ -635,67 +628,66 @@
 		id_dict["search_all_wrapper"] = false;
 		searchAllWrapper.appendChild(searchAll);
 		searchAllWrapper.addEventListener("click", clickDivSuggestion);
-  	}
+	}
 
-  	function destroyElements(results) {
-  	  	//refer to https://stackoverflow.com/questions/28316289/javascript-remove-not-removing-all-elements
+	function destroyElements(results) {
+	  	//refer to https://stackoverflow.com/questions/28316289/javascript-remove-not-removing-all-elements
 		for (var i = results.length - 1; i >=0; i--) { 
-  			results[i].parentNode.removeChild(results[i]);
-  		}
+  		results[i].parentNode.removeChild(results[i]);
   	}
+  }
 
-  	//handles when any deck in list of decks by producer is clicked on
-  	function whichResult(event) {
-  		if (creatingElements) {
-  			return;
-  		}
+	//handles when any deck in list of decks by producer is clicked on
+	function whichResult(event) {
+		if (creatingElements) {
+			return;
+		}
 		// console.log("ID:", event.target.id);
 		// console.log("PARENT ID", event.target.parentElement.id);
 		var path = event.composedPath();
-  		//get name and id for create result
-  		if (event.target.id === '') { //user has clicked on the h5
-  			var n = event.composedPath()[0].innerText;
-  			var i = event.composedPath()[1].id;
-  		} else {
-  			var n = event.target.id.slice(20);  //always starts with a number (# of producers found). Find # of digits between here and first space
-  			let digitCount = 0;
-  			for (const c of n) {
-  				if (isNaN(parseInt(c))) {
-  					break;
-  				}
-  				digitCount++;
-  			}
-  			n = event.target.id.slice(20 + digitCount);
-  			var i = event.composedPath()[0].id;
-  		}
-  		var currentResults = document.getElementById("body_wrapper").childNodes;
-  		destroyElements(currentResults);
-  		createResultsWrapper();
-  		if (event.target.parentElement.id.slice(0, 9) === "producer ") { //display all decks by producer
-  			var n = event.target.parentElement.id.slice(9);
-  			var i = event.target.parentElement.id;
-  			//console.log('i:', i, 'n:', n);
-  			displayResults(i, n);
-  		} else {
-  			let name = i.slice(5);
-  			if (name.includes("suggestion")) { //if single deck is selected directly from search
-  				let index = 0;
-  				for (const c of name) {
-  					index++;
-  					if (c === ' ') {
-  						break;
-  					}
-  				}
-  				name = name.slice(index);
-  			}
-  			let dimensions = setDimensions(true);
-  			createResult("deck", dimensions[0], dimensions[1], name);
-	  	}
+		//get name and id for create result
+		if (event.target.id === '') { //user has clicked on the h5
+			var n = event.composedPath()[0].innerText;
+			var i = event.composedPath()[1].id;
+		} else {
+			var n = event.target.id.slice(20);  //always starts with a number (# of producers found). Find # of digits between here and first space
+			let digitCount = 0;
+			for (const c of n) {
+				if (isNaN(parseInt(c))) {
+					break;
+				}
+				digitCount++;
+			}
+			n = event.target.id.slice(20 + digitCount);
+			var i = event.composedPath()[0].id;
+		}
+		var currentResults = document.getElementById("body_wrapper").childNodes;
+		destroyElements(currentResults);
+		createResultsWrapper();
+		if (event.target.parentElement.id.slice(0, 9) === "producer ") { //display all decks by producer
+			var n = event.target.parentElement.id.slice(9);
+			var i = event.target.parentElement.id;
+			displayResults(i, n);
+		} else {
+			let name = i.slice(5);
+			if (name.includes("suggestion")) { //if single deck is selected directly from search
+				let index = 0;
+				for (const c of name) {
+					index++;
+					if (c === ' ') {
+						break;
+					}
+				}
+				name = name.slice(index);
+			}
+			let dimensions = setDimensions(true);
+			createResult("deck", dimensions[0], dimensions[1], name);
   	}
+	}
 
-  	//handle if user clicks search all or presses enter when there are search results
-  	function displaySearchAll(children) {
-  		for (var i = 0; i < children.length; i++) {
+	//handle if user clicks search all or presses enter when there are search results
+	function displaySearchAll(children) {
+		for (var i = 0; i < children.length; i++) {
 			let child = children[i];
 			if (child.id === "producer_name_wrapper" && child.nextSibling.id === "producer_suggestion_1") { //get info of first producer
 				//console.log("name here:", child.nextSibling.innerText); 
@@ -731,11 +723,10 @@
 					t = new_t;
 				}
 				t = t.trim(); //remove whitespace
-
 				displayResults("deck_suggestion_1", t);
 			}
 		}
-  	}
+	}
 
   	function pressEnterHandler(event) {
   		let enter = 13;
@@ -746,49 +737,48 @@
   		}
   	}
 
-  	//handles suggestion div click
-  	function clickDivSuggestion(event) {
-  		//handle search all
-  		console.log(event.composedPath());
-  		if (event.target.id === "search_all_wrapper" || event.target.parentElement.id === "search_all_wrapper") {
-  			if (event.composedPath()[0].nodeName === "H5") {
-  				var children = event.composedPath()[2].childNodes;
-  			} else {
-  				var children = event.composedPath()[1].childNodes;	
-  			}
-  			displaySearchAll(children);
-  			return;
-  		}
-  		let id = undefined, text = undefined;
-  		let elem = document.getElementById(event.composedPath()[1].id);
-  		//if click is on text node
-  		if (elem === null) {
-  			elem = document.getElementById(event.composedPath()[2].id);
-  			id = elem.id;
-  			text = elem.firstChild.nextSibling.firstChild.textContent;
-  			displayResults(id, text);
-  		} else {
-  			elem = elem.id;
-  			let div_id = event.composedPath()[0].id;
-  			if (elem === "dropdown_wrapper") {
-  				elem = document.getElementById(div_id);
-  				id = elem.id;
-  				text = elem.firstChild.nextSibling.firstChild.textContent;
-  				displayResults(id, text);
-  			} else {
-  				elem = document.getElementById(elem);
-  				id = elem.id;
-  				text = elem.firstChild.nextSibling.firstChild.textContent;
-  				displayResults(id, text);
-  			}
-  		}
-  	}
+	//handles suggestion div click
+	function clickDivSuggestion(event) {
+		//handle search all
+		console.log(event.composedPath());
+		if (event.target.id === "search_all_wrapper" || event.target.parentElement.id === "search_all_wrapper") {
+			if (event.composedPath()[0].nodeName === "H5") {
+				var children = event.composedPath()[2].childNodes;
+			} else {
+				var children = event.composedPath()[1].childNodes;	
+			}
+			displaySearchAll(children);
+			return;
+		}
+		let id = undefined, text = undefined;
+		let elem = document.getElementById(event.composedPath()[1].id);
+		//if click is on text node
+		if (elem === null) {
+			elem = document.getElementById(event.composedPath()[2].id);
+			id = elem.id;
+			text = elem.firstChild.nextSibling.firstChild.textContent;
+			displayResults(id, text);
+		} else {
+			elem = elem.id;
+			let div_id = event.composedPath()[0].id;
+			if (elem === "dropdown_wrapper") {
+				elem = document.getElementById(div_id);
+				id = elem.id;
+				text = elem.firstChild.nextSibling.firstChild.textContent;
+				displayResults(id, text);
+			} else {
+				elem = document.getElementById(elem);
+				id = elem.id;
+				text = elem.firstChild.nextSibling.firstChild.textContent;
+				displayResults(id, text);
+			}
+		}
+	}
 
-  	// deck and producer suggestions
-  	function createSuggestionDiv(dropdown, which_suggestion) {
-  		let suggestion = document.createElement("div");
+	// deck and producer suggestions
+	function createSuggestionDiv(dropdown, which_suggestion) {
+		let suggestion = document.createElement("div");
 		suggestion.setAttribute("id", which_suggestion);
-		//suggestion.setAttribute("onclick", "testButton()");
 		suggestion.style.position = "relative";
 		suggestion.style.width = "100%";
 		suggestion.style.minHeight = responsiveDesign(width)["suggestionDiv"];
@@ -808,11 +798,11 @@
 		dropdown.appendChild(suggestion);
 		document.getElementById(which_suggestion).className = "suggestion_box";
 		id_dict[which_suggestion] = false;
-  	}
+	}
 
-  	//wrapper for full name of decks or producers
-  	function createFullNameWrapper(parent, name) {
-  		let fullNameWrapper = document.createElement("div");
+	//wrapper for full name of decks or producers
+	function createFullNameWrapper(parent, name) {
+		let fullNameWrapper = document.createElement("div");
 		fullNameWrapper.style.position = "relative";
 		fullNameWrapper.style.width = "60%";
 		fullNameWrapper.style.display = "flex";
@@ -856,38 +846,38 @@
 		var parent = document.getElementById(parent);
 		parent.appendChild(fullNameWrapper);
 		parent.addEventListener("click", clickDivSuggestion);
-  	}
+	}
 
 
-  	//image for results
-  	function createResultImage(parent, img) {
-  		let image = document.createElement("img");
-  		image.src = img;
-  		image.style.position = "relative";
-  		image.style.width = "100%";
-  		image.style.height = "100%";
-  		if (parent === "producer Best Cardist Alive") { //shoudnt do this, but couldn't find many suitable images.
-  			image.style.height = "70%";
-  		}
-  		image.style.borderRadius = "5%";
-  		image.style.bottom = "3%";
-  		document.getElementById(parent).appendChild(image);
-  	}
+	//image for results
+	function createResultImage(parent, img) {
+		let image = document.createElement("img");
+		image.src = img;
+		image.style.position = "relative";
+		image.style.width = "100%";
+		image.style.height = "100%";
+		if (parent === "producer Best Cardist Alive") { //shoudnt do this, but couldn't find many suitable images.
+			image.style.height = "70%";
+		}
+		image.style.borderRadius = "5%";
+		image.style.bottom = "3%";
+		document.getElementById(parent).appendChild(image);
+	}
 
-  	//image on left of suggestion div
-  	function createIconImage(parent, img) {
-   		let image = document.createElement("img");
+	//image on left of suggestion div
+	function createIconImage(parent, img) {
+ 		let image = document.createElement("img");
 		image.src = img;
 		image.style.position = "relative";
 		image.style.width = responsiveDesign(width)["iconImage"];
 		image.style.left = "2%";
 		image.style.borderRadius = "2px";
 		document.getElementById(parent).appendChild(image);
-  	}
+	}
 
-  	//image on far right of suggestion div
-  	function createSelectionImage(parent) {
-  		let selectionImage = document.createElement("img");
+	//image on far right of suggestion div
+	function createSelectionImage(parent) {
+		let selectionImage = document.createElement("img");
 		selectionImage.src = "{% static 'spade.png' %}";
 		selectionImage.style.position = "relative";
 		selectionImage.style.maxHeight = "15px";
@@ -895,15 +885,15 @@
 		selectionImage.style.left = responsiveDesign(width)["selectionImage"][1];
 		selectionImage.style.borderRadius = "5px";
 		document.getElementById(parent).appendChild(selectionImage);
-  	}
+	}
 
-  	function createDropdown(parent, current_decks_returned, current_producers_returned) {
+	function createDropdown(parent, current_decks_returned, current_producers_returned) {
 		//dropdown wrapper
 		var dropdown = document.createElement("div");
   		dropdown.setAttribute("id", "dropdown_wrapper");
 		dropdown.style.position = "absolute";
 		dropdown.style.minWidth = responsiveDesign(width)["dropdownWidth"];
-		if (width < 483) {
+		if (width < 483 || width > 1441) {
 			dropdown.style.width = "100%";
 		}
 		dropdown.style.backgroundColor = "white";
@@ -917,13 +907,18 @@
 		dropdown.style.overflowX = "hidden";
 		parent.appendChild(dropdown);
 		if (current_decks_returned.length === 0 && current_producers_returned.length === 0) {
-			dropdown.style.height = "30px";
 			let noItems = document.createElement("h5");
 			text = document.createTextNode("No items found");
 			noItems.appendChild(text);
 			noItems.style.position = "relative";
 			noItems.style.fontFamily = "Verdana, copperplate, Impact, sans-serif";
-			noItems.style.fontSize = "8px";
+			if (width > 1441) { // not in responsive function because this is the only screen width that warrants changes
+				noItems.style.fontSize = "12px";
+				dropdown.style.height = "45px";
+			} else {
+				noItems.style.fontSize = "8px";
+				dropdown.style.height = "30px";
+			}
 			noItems.style.color = "lightgray";
 			noItems.style.left = "2%";
 			noItems.style.top = "-3px";
@@ -993,80 +988,79 @@
 		searchAll.style.color = "gray";
 		searchAll.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
 		return([dropdown, deckNameWrapper, producerNameWrapper, deckName, producerName]);
-  	}
+	}
 
-  	function keyUpDetector(event) {
-  		canTypeNewKey = true;
-  	}
+	function keyUpDetector(event) {
+		canTypeNewKey = true;
+	}
 
-  	//handle keyboard events while user is typing. Display x icon/ dropdown menu
-  	function displaySearchElements(event) {
-  		if (!canTypeNewKey) {
-  			return;
-  		} else {
-  			canTypeNewKey = false; //resets when keyUp event is fired to prevent input string from changing when key is being held down.
-  		}
-  		var numDecksChanged = false, numProducersChanged = false;
-  		//dont display x if any of these keys are hit
-  		const omit_keys = ["Tab", "CapsLock", "Shift", "Control", "Backspace", "ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Meta", "Enter", "Alt", "Escape"];
-  		//toggle currentDecksReturned as characters are removed
-  		if (event.key === "Backspace") {
-  			var inputString = searchBox.value.substring(0, searchBox.value.length - 1);
-  		} else {
-  			var inputString = searchBox.value + event.key;
-  		}
-  		if (event.key === "Enter") {
-  			return;
-  		}
-  		inputString = inputString.toLowerCase();
-  		console.log("input string: ", inputString);
-  		var currentDecksReturned = [], currentProducersReturned = [];
-  		{% for deck in deck_list %}  //use django to pull from database
-  			var d = "{{ deck }}", p = "{{ deck.producer }}";
-  			if (inputString.length > 0 && (d.toLowerCase().startsWith(inputString))) { //check if prefix exists
+	//handle keyboard events while user is typing. Display x icon/ dropdown menu
+	function displaySearchElements(event) {
+		if (!canTypeNewKey) {
+			return;
+		} else {
+			canTypeNewKey = false; //resets when keyUp event is fired to prevent input string from changing when key is being held down.
+		}
+		var numDecksChanged = false, numProducersChanged = false;
+		//dont display x if any of these keys are hit
+		const omit_keys = ["Tab", "CapsLock", "Shift", "Control", "Backspace", "ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Meta", "Enter", "Alt", "Escape"];
+		//toggle currentDecksReturned as characters are removed
+		if (event.key === "Backspace") {
+			var inputString = searchBox.value.substring(0, searchBox.value.length - 1);
+		} else {
+			var inputString = searchBox.value + event.key;
+		}
+		if (event.key === "Enter") {
+			return;
+		}
+		inputString = inputString.toLowerCase();
+		console.log("input string: ", inputString);
+		var currentDecksReturned = [], currentProducersReturned = [];
+		{% for deck in deck_list %}  //use django to pull from database
+			var d = "{{ deck }}", p = "{{ deck.producer }}";
+			if (inputString.length > 0 && (d.toLowerCase().startsWith(inputString))) { //check if prefix exists
 				currentDecksReturned.push(d);
 			}
 			if (inputString.length > 0 && (p.toLowerCase().startsWith(inputString)) && !currentProducersReturned.includes(p)) {
 				currentProducersReturned.push(p);
-
 			}
 		{% endfor %}
 		// console.log("currentDecksReturned list:", currentDecksReturned);
 		// console.log("currentProducersReturned list:", currentProducersReturned);
-  		if (!omit_keys.includes(event.key)) {
-  			xIcon.style.opacity = '1';
-  			xIcon.style.cursor = "pointer";
-  		}
-  		if (currentDecksReturned.length !== previousNumDecksReturned) { //monitor changes in number of results
-			//console.log("currentDecksReturned length has changed");
-			previousNumDecksReturned = currentDecksReturned.length;
-			numDecksChanged = true;
+		if (!omit_keys.includes(event.key)) {
+			xIcon.style.opacity = '1';
+			xIcon.style.cursor = "pointer";
+		}
+		if (currentDecksReturned.length !== previousNumDecksReturned) { //monitor changes in number of results
+		//console.log("currentDecksReturned length has changed");
+		previousNumDecksReturned = currentDecksReturned.length;
+		numDecksChanged = true;
 		} 
 		if (currentProducersReturned.length !== previousNumProducersReturned) {
 			previousNumProducersReturned = currentProducersReturned.length;
 			numProducersChanged = true;
 		}
-  		var dropdown = document.getElementById("dropdown_wrapper");
-  		if (((currentDecksReturned.length === 0 && currentProducersReturned.length === 0) || inputString.length === 0 || numDecksChanged || numProducersChanged) && dropdown) { 
-  			dropdown.remove();
-  		}
-  		dropdown = document.getElementById("dropdown_wrapper"); //update status of dropdown
-  		if (!dropdown && ((currentDecksReturned.length > 0 || currentProducersReturned.length > 0) || (currentDecksReturned.length === 0 && currentProducersReturned.length === 0 && inputString.length !== 0))) { //if not there and there are decks or producers returned or not there and there aren't any results, but form isn't empty
-  			dropdown = document.createElement("div");
-  			dropdown.setAttribute("id", "dropdown_wrapper");
-  			dropdownLayout(searchElement, currentDecksReturned, currentProducersReturned);
-  		} 
-  		if (inputString !== "") {
-  			xIcon.style.opacity = '1';
-  			xIcon.style.cursor = "pointer";
-  		} else {
-  			xIcon.style.opacity = '0';
-    		xIcon.style.cursor = "text";
-	    }
-  	}
+		var dropdown = document.getElementById("dropdown_wrapper");
+		if (((currentDecksReturned.length === 0 && currentProducersReturned.length === 0) || inputString.length === 0 || numDecksChanged || numProducersChanged) && dropdown) { 
+			dropdown.remove();
+		}
+		dropdown = document.getElementById("dropdown_wrapper"); //update status of dropdown
+		if (!dropdown && ((currentDecksReturned.length > 0 || currentProducersReturned.length > 0) || (currentDecksReturned.length === 0 && currentProducersReturned.length === 0 && inputString.length !== 0))) { //if not there and there are decks or producers returned or not there and there aren't any results, but form isn't empty
+			dropdown = document.createElement("div");
+			dropdown.setAttribute("id", "dropdown_wrapper");
+			dropdownLayout(searchElement, currentDecksReturned, currentProducersReturned);
+		} 
+		if (inputString !== "") {
+			xIcon.style.opacity = '1';
+			xIcon.style.cursor = "pointer";
+		} else {
+			xIcon.style.opacity = '0';
+  		xIcon.style.cursor = "text";
+    }
+	}
 
 
-  	var searchBox = document.getElementById("form");
+  var searchBox = document.getElementById("form");
 	var xIcon = document.getElementById("x_icon");
 	var searchElement = document.getElementById("search");
 	var previousNumDecksReturned = 0, previousNumProducersReturned = 0;
@@ -1109,7 +1103,3 @@
 </body>
 
 </html>
-
-
-
-
