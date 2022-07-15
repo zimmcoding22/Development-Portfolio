@@ -6,8 +6,7 @@
 	 <!-- Required meta tags -->
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" http-equiv="ScreenOrientation">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -22,10 +21,10 @@
 	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 768px) and (max-width: 980px)" href="{% static 'css/large_tablet.css' %}">
 
 	<!-- laptop/desktop tablet -->
-	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 981px) and (max-width: 1440px)" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 981px) and (max-width: 1450px)" href="{% static 'css/main.css' %}">
 
 	<!-- large desktop -->
-	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 1441px)" href="{% static 'css/large_screen.css' %} ">
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 1450px)" href="{% static 'css/large_screen.css' %}">
 
 	<!-- Prevent smartphones from scaling pages down -->
 	<title>JZ Archives</title>
@@ -36,131 +35,146 @@
 </head>
 
 <body>
-	<div class="fullpage">
-		<img id="rocket" class="rocket" src="{% static 'rocketAnimation.gif' %}"/>
-		<header class="site-header">
-		  <nav id="navid" class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-		    <div class="container">
-		      <img id="jzArchivesLogo" src="/static/logo_transparent.png" width="190" height="95" />
-		      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-		      <span class="navbar-toggler-icon"></span>
-		      </button>
-		      <div class="collapse navbar-collapse" id="navbarToggle">
-		        <div class="navbar-nav mr-auto">
-		        </div>
-		        <!-- Navbar Right Side -->
-		        <div id="links">
-		          <button onclick="scrollWin('home')" id="start" class="links">Home</button>
-		          <button onclick="scrollWin('contact')" id="contact" class="links">Contact</button>
-		          <button onclick="scrollWin('games')" id="games" class="links">Games</button>
-		          <button onclick="scrollWin('trading')" id="trading" class="links">Trading</button>
-		          <button onclick="scrollWin('web')" id="web" class="links">Web Apps</button>
-		          <a href="cards/" id="cards" class="links" target="_blank">Cards!</a>
-		        </div>
-		      </div>
-		    </div>
-		  </nav>
-		</header>
-		<div id="titleDiv">
-			<video id="titleVid" autoplay muted playsinline src="{% static 'pole_game_coding.mov' %}">
+	<img id="rocket" class="rocket" src="{% static 'rocketAnimation.gif' %}"/>
+	<header class="site-header">
+	  <nav id="navid" class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+	    <div class="container">
+	      <img id="jzArchivesLogo" src="/static/logo_transparent.png" width="190" height="95" />
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	      </button>
+	      <div class="collapse navbar-collapse" id="navbarToggle">
+	        <div class="navbar-nav mr-auto">
+	        </div>
+	        <!-- Navbar Right Side -->
+	        <div id="links">
+	          <!-- <button onclick="scrollWin('home')" id="start" class="links">Home</button> -->
+	          <button onclick="scrollTopAnimated('home')" id="start" class="links">Home</button>
+	          <button onclick="scrollTopAnimated('contact')" id="contact" class="links">Contact</button>
+	          <button onclick="scrollTopAnimated('games')" id="games" class="links">Games</button>
+	          <button onclick="scrollTopAnimated('trading')" id="trading" class="links">Trading</button>
+	          <button onclick="scrollTopAnimated('web')" id="web" class="links">Web Apps</button>
+	          <a href="cards/" id="cards" class="links" target="_blank">Cards!</a>
+	        </div>
+	      </div>
+	    </div>
+	  </nav>
+	</header>
+	<div id="bodyWrapper">
+		<video id="titleVid" autoplay playsinline src="{% static 'pole_game_coding.mov' %}"> <!-- removed audio from vid in quicktime to remove PictureinPicture icon in firefox -->
 	    	Your browser does not support the HTML5 Video element.
-			</video>
-			<h3>
-				<div class="typewrite" data-period="1000" data-type='["Web Applications", "Mobile Applications", "Games", "Trading Systems"]'></div>
-				<span class="wrap"></span>
-			</h3>
-			<p id="title">Jake Zimmerman Software Development</p>
+		</video>
+		<div id="titleContainer">
+			<div id="titleWrapper">
+				<p id="title">Jake Zimmerman Software Development</p>
+				<h3 id="typewrite">
+					<div class="typewrite" data-period="1000" data-type='["Web Applications", "Mobile Applications", "Games", "Trading Systems"]'></div>	
+ 				</h3>
+			</div>
 		</div>
-		<div id="contactDiv">
-			{% if message_name %}
-				<h1 id="contactText">Thanks for your message!</h1>
-			{% else %}
-				<h1 id="contactText">Leave a note...</h1>
-				<p id="contactParagraph"> Welcome to my personal development portfolio! Feel free to drop a comment or ask any questions.</p>
-			{% endif %}
-			<div id="contactForm">
-				<form method="POST">
-					{% csrf_token %}
-					<input type="text" class="form" name="message_name" placeholder="Full name"><br><br>
-					<input type="text" class="form" name="message_email" placeholder="Email"><br><br>
-					<textarea class="form" rows="4" name="message" placeholder="Write me"></textarea><br><br>
-					<input id="submit" type="submit" value="Send">
-				</form>
-			</div>	
+		<div id="contactContainer">
+			<div id="contactDivWrapper">
+				<div id="contactForm">
+					<form method="POST">
+						{% csrf_token %}
+						<input type="text" class="form" name="message_name" placeholder="Full name"><br><br>
+						<input type="text" class="form" name="message_email" placeholder="Email"><br><br>
+						<textarea class="form" rows="4" name="message" placeholder="Write me"></textarea><br><br>
+						<input id="submit" type="submit" value="Send">
+					</form>
+				</div>	
+				<div id="contactTitleWrapper">
+				{% if message_name %}
+					<h1 id="contactTitle">Thanks for your message!</h1>
+				{% else %}
+					<h1 id="contactTitle">Leave a note...</h1>
+					<p id="contactParagraph"> Welcome to my personal development portfolio! Feel free to drop a comment or ask any questions.</p>
+				{% endif %}
+				</div>
+			</div>
 		</div>
  		<div id="poleGameContainer">
-			<!--<h4 id="poleGameTitle">Pole Game</h4>-->
-			<div id="poleGameVideo" class="hide">
-				<video class="verticalVid" width="300" height="550" controls src="{% static 'poleGame.mov' %}" poster="{% static 'pole_game_poster.png' %}">
+ 			<div id="poleGameStackDescriptionWrapper">
+				<div id="poleGameDescription" onmouseover="this.innerHTML='A real world hockey mini game morphed into an iphone application. Available for download on the app store!';" onmouseout="this.innerHTML='What is it?';">
+					What is it?
+				</div> 
+				<div id="poleGameStack">
+					<a href="http://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/" target="_blank">
+						<img src="{% static 'csharp.svg' %}" class="icon"/>
+						<p>C#</p>
+					</a>
+					<a href="https://unity.com/" target="_blank">
+						<img src="{% static 'unityIcon.png' %}" class="icon"/>
+						<p>Unity</p>
+					</a>
+					<a href="https://www.audacityteam.org/" target="_blank">
+						<img src="{% static 'audacityIcon.png' %}" class="icon"/>
+						<p>Audacity</p>
+					</a>
+					<a href="https://www.figma.com/" target="_blank">
+						<img src="{% static 'figmaIcon.svg' %}" class="icon"/>
+						<p>Figma</p>
+					</a>
+					<a href="https://developer.apple.com/xcode/" target="_blank">
+						<img src="{% static 'xcodeIcon.png' %}" class="icon"/>
+						<p>Xcode</p>
+					</a>
+	 			</div>
+	 		</div>
+	 		<div id="poleGameIconWrapper">
+		 		<div id="poleGameLogo" class="hide">
+					<img class="picture" src="{% static 'poleGameIcon.png' %}"/>
+				</div>
+				<div id="appStoreLogo">
+					<img class="picture" src="{% static 'appStoreIcon.png' %}"/>
+				</div>
+			</div>
+			<div id="poleGameVideoWrapper" class="hide">
+				<video class="vid" controls src="{% static 'poleGame.mov' %}" poster="{% static 'pole_game_poster.png' %}">
 		    	Your browser does not support the HTML5 Vdeo element.
 				</video> 
 			</div>
-			<div id="poleGameLogo" class="hide">
-				<img class="picture" src="{% static 'poleGameIcon.png' %}" width="200" height=auto/>
-			</div>
-			<div id="appStoreLogo">
-				<img class="picture" src="{% static 'appStoreIcon.png' %}" width="200" height=auto/>
-			</div>
-			<div id="poleGameDescription" class="poleGameInfo" onmouseover="this.innerHTML='A real world hockey mini game morphed into an iphone application. Available for download on the app store!';" onmouseout="this.innerHTML='What is it?';">
-				What is it?
-			</div> 
-			<div id="poleGameStack">
-				<a href="http://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/" target="_blank">
-					<img src="{% static 'csharp.svg' %}" class="icon"/>
-					<p>C#</p>
-				</a>
-				<a href="https://unity.com/" target="_blank">
-					<img src="{% static 'unityIcon.png' %}" class="icon"/>
-					<p>Unity</p>
-				</a>
-				<a href="https://www.audacityteam.org/" target="_blank">
-					<img src="{% static 'audacityIcon.png' %}" class="icon"/>
-					<p>Audacity</p>
-				</a>
-				<a href="https://www.figma.com/" target="_blank">
-					<img src="{% static 'figmaIcon.svg' %}" class="icon"/>
-					<p>Figma</p>
-				</a>
-				<a href="https://developer.apple.com/xcode/" target="_blank">
-					<img src="{% static 'xcodeIcon.png' %}" class="icon"/>
-					<p>Xcode</p>
-				</a>
- 			</div>
 		</div>
 		<div id="tradingContainer">
-			<div id="launchpadLogo" class="hide"><img class="picture" src="{% static 'launchpad.png' %}" width="200" height="200"/></div>
-			<div id="tradingVideo" class="hide">
-				<video class="horizontalVid" width="800" height=auto controls src="{% static 'trading.mov' %}" poster="{% static 'trading_poster.png' %}">
+			<div id="tradingVideoWrapper" class="hide vid">
+				<video class="vid" controls src="{% static 'trading.mov' %}" poster="{% static 'trading_poster.png' %}">
 		    	Your browser does not support the HTML5 Vdeo element.
 				</video>
 			</div>
-			<div id="tradingDescription" onmouseover="this.innerHTML='Stock/options day trading system capable of screening opportunities, evaluating trade logic, sizing positions, managing risk, sending orders, and logging data.';" onmouseout="this.innerHTML='What is it?';">
-				What is it?
-			</div>
-			<div id="tradingStack">
-				<a href="https://interactivebrokers.com/en/home.php" target="_blank">
-					<img src="{% static 'ibkrLogo.png' %}" class="icon"/>
-					<p>Interactive Brokers</p>
-				</a>
-				<a href="https://github.com/burnash/gspread" target="_blank">
-					<img src="{% static 'sheetsLogo.png' %}" class="icon"/>
-					<p>Gspread</p>
-				</a>
-				<a href="https://interactivebrokers.github.io/tws-api/initial_setup.html" target="_blank">
-					<img src="{% static 'twsLogo.png' %}" class="icon"/>
-					<p>TWS Python API</p>
-				</a>
+			<div id="tradingInfoWrapper">
+				<div id="launchpadLogo" class="hide"><img class="picture" src="{% static 'launchpad.png' %}" width="200" height="200"/></div>
+				<div id="tradingDescription" onmouseover="this.innerHTML='Stock/options day trading system capable of screening opportunities, evaluating trade logic, sizing positions, managing risk, sending orders, and logging data.';" onmouseout="this.innerHTML='What is it?';">
+					What is it?
+				</div>
+				<div id="tradingStack">
+					<a href="https://interactivebrokers.com/en/home.php" target="_blank">
+						<img src="{% static 'ibkrLogo.png' %}" class="icon"/>
+						<p>Interactive Brokers</p>
+					</a>
+					<a href="https://github.com/burnash/gspread" target="_blank">
+						<img src="{% static 'sheetsLogo.png' %}" class="icon"/>
+						<p>Gspread</p>
+					</a>
+					<a href="https://interactivebrokers.github.io/tws-api/initial_setup.html" target="_blank">
+						<img src="{% static 'twsLogo.png' %}" class="icon"/>
+						<p>TWS Python API</p>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div id="fitnessAppContainer">
-			<h4 id="fitnessAppTitle">Workout Program Generator</h4>
-			<div id="fitnessAppVideo">
-				<video class="horizontalVid" controls="controls" width="700" height=auto src="{% static 'fitnessApp.mov' %}" poster="{% static 'fitness_poster.png' %}">
-		    	Your browser does not support the HTML5 Vdeo element.
-				</video>
+			<div id="fitnessAppDescriptionWrapper">
+				<div id="fitnessAppDescription" onmouseover="this.innerHTML='Personal application to generate and send a customized workout plan to a client automatically. It converts user input into an excel file with calculated weights and rep ranges, and then emails the client with the file attached.';" onmouseout="this.innerHTML='What is it?';">
+					What is it?
+				</div>
 			</div>
-			<div id="fitnessAppDescription" onmouseover="this.innerHTML='Personal application to generate and send a customized workout plan to a client quickly and easily. It converts user input into an excel file with calculated weights and rep ranges, and then emails the client with the file attached.';" onmouseout="this.innerHTML='What is it?';">
-				What is it?
+			<div id="fitnessTitleVideoWrapper">
+				<h4 id="fitnessAppTitle" class="hide">Workout Program Generator</h4>
+				<div id="fitnessAppVideoWrapper" class="hide">
+					<video class="vid" controls="controls" src="{% static 'fitnessApp.mov' %}" poster="{% static 'fitness_poster.png' %}">
+			    	Your browser does not support the HTML5 Vdeo element.
+					</video>
+				</div>
 			</div>
 			<div id="fitnessAppStack">
 				<a href="https://www.java.com/en/" target="_blank">
@@ -178,42 +192,38 @@
 			</div>
 		</div>
 		<div id="bgchContainer">
-			<h4 id="teeTimesTitle">Tee Time Sniper</h4>
-			<div id="bgchVideo" class="hide">
-				<video class="horizontalVid" controls="controls" width="700" height="450" src="{% static 'bgch.mov' %}" poster="{% static 'bgch_poster.png' %}">
-		    	Your browser does not support the HTML5 Video element.
-				</video>
+			<div id="bgchTitleVideoWrapper">
+				<h4 id="bgchTitle" class="hide">Tee Time Sniper</h4>
+				<div id="bgchVideoWrapper" class="hide">
+					<video class="vid" controls="controls" width="700" height="450" src="{% static 'bgch.mov' %}" poster="{% static 'bgch_poster.png' %}">
+			    	Your browser does not support the HTML5 Video element.
+					</video>
+				</div>
 			</div>
-			<div id="bgchLogo" class="hide"><img class="picture" src="{% static 'tee times emblem.png' %}" width="200" height="200"/></div>
-			<div id="bgchDescription" class="bgchInfo" onmouseover="this.innerHTML='Tee times hacker that made it possible to secure a time slot ahead of the rest of the online crowd during the pandemic';" onmouseout="this.innerHTML='What is it?';">
-				What is it?
-			</div> 
-			<div id="bgchStack">
-				<a href="https://selenium-python.readthedocs.io/" target="_blank">
-					<img src="{% static 'seleniumIcon.png' %}" class="icon"/>
-					<p>Selenium</p>
-				</a>
-				<a href="https://www.python.org/" target="_blank">
-					<img src="{% static 'pythonIcon.png' %}" class="icon"/>
-					<p>Python</p>
-				</a>
-				<a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">
-					<img src="{% static 'firefoxIcon.png' %}" class="icon"/>
-					<p>Firefox</p>
-				</a>
+			<div id="bgchStackLogoDescriptionWrapper">
+				<div id="bgchLogo" class="hide"><img class="picture" src="{% static 'tee times emblem.png' %}" width="200" height="200"/></div>
+				<div id="bgchDescription" onmouseover="this.innerHTML='Tee times hacker that made it possible to secure a time slot ahead of the rest of the online crowd during the pandemic.';" onmouseout="this.innerHTML='What is it?';">
+					What is it?
+				</div> 
+				<div id="bgchStack">
+					<a href="https://selenium-python.readthedocs.io/" target="_blank">
+						<img src="{% static 'seleniumIcon.png' %}" class="icon"/>
+						<p>Selenium</p>
+					</a>
+					<a href="https://www.python.org/" target="_blank">
+						<img src="{% static 'pythonIcon.png' %}" class="icon"/>
+						<p>Python</p>
+					</a>
+					<a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">
+						<img src="{% static 'firefoxIcon.png' %}" class="icon"/>
+						<p>Firefox</p>
+					</a>
+				</div>
 			</div>
-		</div>
-		
-		<div class="content"></div> <!--determines page size -->
-		
-		<!-- Optional JavaScript -->
-	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		</div> 
 	    <div id="footer">
 	    	<img src="{% static 'logo_transparent.png' %}" id="footerSeal" width="120" height="95"/>
-	    	<div id="social-media-links">
+	    	<div id="socialMediaLinks">
 	    		<a href="https://www.linkedin.com/in/jake-zimmerman-612862b2/" target="_blank">
 					<img src="{% static 'linkedinLogo.png' %}" class="bottomIcon"/>
 				</a>
@@ -223,23 +233,55 @@
 	    	</div>
 	    	<div id="footerBottom"></div>
 	    </div>
-	    <script src="{% static 'scroll_handler.js' %}" type="text/javascript"></script>
-	    <script src="{% static 'typewriter.js' %}" type="text/javascript"></script>
+	</div> <!-- body wrapper -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{% static 'scroll_handler.js' %}" type="text/javascript"></script>
+    <script src="{% static 'typewriter.js' %}" type="text/javascript"></script>
+    <script src="{% static 'jsUtils.js' %}" type="text/javascript"></script>
+
+    <script>
+
+    	//resize video elements for firefox/safari
+    	function resizeVideos() {
+    		var browser = detectBrowser();
+    		console.log("browser main:", browser);
+    		var poleGameVideoWrapper = document.getElementById("poleGameVideoWrapper");
+    		var tradingVideoWrapper = document.getElementById("tradingVideoWrapper");
+    		var fitnessAppVideoWrapper = document.getElementById("fitnessAppVideoWrapper");
+    		var bgchVideoWrapper = document.getElementById("bgchVideoWrapper");
+    		if (browser === "firefox" || browser === "safari") {
+    			poleGameVideoWrapper.style.width = "18%";
+    			poleGameVideoWrapper.style.minWidth = "270px";
+    			tradingVideoWrapper.style.height = "400px";
+    			fitnessAppVideoWrapper.style.height = "390px";
+    			bgchVideoWrapper.style.height = "410px";
+    		}
+    	}
+    	//reload page
+    	var logo = document.getElementById("jzArchivesLogo");
+    	logo.addEventListener("click", () => {
+  			location.reload();
+		});	
+    	resizeVideos();
+    	//animated scroll inspired by @litecoin.org
+    	function scrollTopAnimated(tab) {
+    		position = scrollWin(tab).toString();
+            $("html, body").animate(
+                { scrollTop: position }, 2000, "easeInOutExpo");
+        }
+
+     
+
+    </script>
 
 
-	    <script>
-
-	    	function detectResize(event) {
-	    		var width = window.innerWidth;
-	    		console.log("Width: ", width);
-	    	}
-
-
-
-	    	window.addEventListener("resize", detectResize);
-	    </script>
-
-	</div>
 </body>
 
 </html>

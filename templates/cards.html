@@ -59,6 +59,7 @@
 	
 	</div>
 
+<script src="{% static 'jsUtils.js' %}" type="text/javascript"></script>
 <!-- add box shadow to search box and remove when clicking off of it. Display an x icon to clear form if it isn't empty. Create a dropdown containing suggestions -->
 <script type = "text/javascript">
 
@@ -78,27 +79,8 @@
 				var newOpc = opc.toString();
 				element.style.opacity = newOpc;
 			}
-	  	}
+	  }
 	}	
-
-	function detectBrowser() {         
-		let userAgent = navigator.userAgent;
-    let browserName; 
-		if (userAgent.match(/chrome|chromium|crios/i)) {
-      browserName = "chrome";
-		}	else if(userAgent.match(/firefox|fxios/i)) {
-    	browserName = "firefox";
-    } else if(userAgent.match(/safari/i)) {
-    	browserName = "safari";
-    } else if(userAgent.match(/opr\//i)){
-      browserName = "opera";
-    } else if(userAgent.match(/edg/i)){
-      browserName = "edge";
-    } else{
-    	browserName="No browser detection";
-    }
-    return(browserName);         
-  }
 
   //returns data that determines positioning of certain elements as screen width fluctuates
   function responsiveDesign(width) {
@@ -1072,6 +1054,7 @@
 	var carouselIndex;
 	var creatingElements = false; //used to ensure user cant click on a result while they are still being created/displayed on screen
 	var browser = detectBrowser();
+	console.log("browser:", browser);
 	var width = window.innerWidth;
 	var canTypeNewKey = true;
 	searchElement.addEventListener("click", addRemoveSearchBorder);
@@ -1091,6 +1074,7 @@
 	});
 	window.addEventListener("resize", () => {
 		width = window.innerWidth;
+		console.log("cards inner width:", width)
 		var dropdown = document.getElementById("dropdown_wrapper");
 		if (dropdown) {
 			dropdown.remove();
