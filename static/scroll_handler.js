@@ -1,7 +1,7 @@
 bgchVideoWrapper = document.getElementById("bgchVideoWrapper");
 bgchVideoWrapperStyle = window.getComputedStyle(bgchVideoWrapper);
-bgchLogo = document.getElementById("bgchLogo");
-bgchLogoStyle = window.getComputedStyle(bgchLogo);
+bgchDiv = document.getElementById("bgchDiv");
+bgchDivStyle = window.getComputedStyle(bgchDiv);
 bgchTitle = document.getElementById("bgchTitle");
 bgchTitleStyle = window.getComputedStyle(bgchTitle);
 bgchDescription = document.getElementById("bgchDescription");
@@ -22,8 +22,8 @@ poleGameLogo = document.getElementById("poleGameLogo");
 poleGameLogoStyle = window.getComputedStyle(poleGameLogo);
 tradingVideoWrapper = document.getElementById("tradingVideoWrapper");
 tradingVideoWrapperStyle = window.getComputedStyle(tradingVideoWrapper);
-launchpadLogo = document.getElementById("launchpadLogo");
-launchpadLogoStyle = window.getComputedStyle(launchpadLogo);
+launchpadDiv = document.getElementById("launchpadDiv");
+launchpadDivStyle = window.getComputedStyle(launchpadDiv);
 navid = document.getElementById("navid");
 navidStyle = window.getComputedStyle(navid);
 homeLink = document.getElementById("start");
@@ -50,129 +50,94 @@ pole_game_animations = false;
 trading_animations = false;
 rocket_animation = false;
 animation_width = 1200; //screen widths less than this will not display animations for now
+var width;
 
 main_css_tabs = {"home" : 500, "contact" : 992, "games" : 1651, "trading" : 2290};
 tablet_css_tabs = {"home" : 380, "contact" : 862, "games" : 1421, "trading" : 1850};
 main_css_animations = {"pole_game" : 700, "trading" : 1100, "fitness" : 2100, "bgch_one" : 2500, "bgch_two" : 2650};
 tablet_css_animations = {"pole_game" : 700, "trading" : 1250, "fitness" : 1900, "bgch_one" : 2500, "bgch_two" : 2600};
-screen_width_dividers = {"main" : 1450, "tablet" : 981, "mobile" : 480};
-
-
-// function scrollWin(tab) { //scroll to appropriate tab
-// 	var width = window.innerWidth;
-// 	console.log("window width in scrollWin: " + width);
-// 	var y_value = 0;
-// 	if (tab == "home") {
-// 		y_value = 0;
-// 	} else if (tab == "contact") {
-// 		if (width >= screen_width_dividers["main"]) {
-// 			y_value = 500;
-// 		} else if (width >= screen_width_dividers["tablet"] && width < screen_width_dividers["main"]) {
-// 			y_value = 500;
-// 		} else {
-// 			y_value = 140;
-// 		}
-// 	} else if (tab == "games") {
-// 		if (width >= screen_width_dividers["main"]) {
-// 			y_value = 992;
-// 		} else if (width >= screen_width_dividers["tablet"] && width < screen_width_dividers["main"]) {
-// 			y_value = 1045;
-// 		} else {
-// 			y_value = 465;
-// 		}
-// 	} else if (tab == "trading") {
-// 		if (width >= screen_width_dividers["main"]) {
-// 			y_value = 1651;
-// 		} else if (width >= screen_width_dividers["tablet"] && width < screen_width_dividers["main"]) {
-// 			y_value = 1650;
-// 		} else {
-// 			y_value = 940;
-// 		}
-// 	} else { //web apps
-// 		if (width >= screen_width_dividers["main"]) {
-// 			y_value = 2290;
-// 		} else if (width >= screen_width_dividers["tablet"] && width < screen_width_dividers["main"]) {
-// 			y_value = 2225;
-// 		} else {
-// 			y_value = 1433;
-// 		}
-// 	}
-// 	window.scrollTo({
-// 	top: y_value,
-// 	behavior: 'smooth'
-// 	});
-// }
+screen_width_dividers = {"main" : 1450, "tablet" : 1024, "small_tablet" : 768, "mobile" : 483};
 
 
 function scrollWin(tab) { //scroll to appropriate tab
-	var width = window.innerWidth;
-	console.log("window width in scrollWin: " + width);
+	width = window.innerWidth;
 	var y_value = 0;
-	if (tab == "home") {
+	if (tab === "home") {
 		y_value = 0;
-	} else if (tab == "contact") {
+	} else if (tab === "contact") {
 		if (width >= screen_width_dividers["main"]) {
 			y_value = 500;
-		} else if (width >= screen_width_dividers["tablet"] && width < screen_width_dividers["main"]) {
+		} 
+		if (width >= screen_width_dividers["mobile"] && width < screen_width_dividers["main"]) {
 			y_value = 500;
-		} else {
-			y_value = 140;
+		} 
+		if (width < screen_width_dividers["mobile"]) {
+			y_value = 515;
 		}
-	} else if (tab == "games") {
+	} else if (tab === "games") {
 		if (width >= screen_width_dividers["main"]) {
 			y_value = 992;
-		} else if (width >= screen_width_dividers["tablet"] && width < screen_width_dividers["main"]) {
+		} 
+		if (width >= screen_width_dividers["small_tablet"] && width < screen_width_dividers["main"]) {
 			y_value = 1045;
-		} else {
-			y_value = 465;
+		} 
+		if (width < screen_width_dividers["small_tablet"]) {
+			y_value = 970;
 		}
-	} else if (tab == "trading") {
+	} else if (tab === "trading") {
 		if (width >= screen_width_dividers["main"]) {
 			y_value = 1651;
-		} else if (width >= screen_width_dividers["tablet"] && width < screen_width_dividers["main"]) {
-			y_value = 1650;
-		} else {
-			y_value = 940;
+		} 
+		if (width >= screen_width_dividers["small_tablet"] && width < screen_width_dividers["main"]) {
+			y_value = 1651;
+		} 
+		if (width < screen_width_dividers["small_tablet"]) {
+			y_value = 1550;
 		}
 	} else { //web apps
 		if (width >= screen_width_dividers["main"]) {
 			y_value = 2290;
-		} else if (width >= screen_width_dividers["tablet"] && width < screen_width_dividers["main"]) {
+		} 
+		if (width >= screen_width_dividers["small_tablet"] && width < screen_width_dividers["main"]) {
 			y_value = 2225;
-		} else {
-			y_value = 1433;
+		} 
+		if (width < screen_width_dividers["small_tablet"]) {
+			y_value = 2130;
 		}
 	}
 	return(y_value);
 }
 
 
-
-function myScrollFunc() {
+function scrollHandler() {
 	var y = window.scrollY;
-	var width = window.innerWidth;
+	width = window.innerWidth;
+	console.log("y:", y);
 	//if user scrolls down at all
 	//navbar
 	if (y > 100) {
 		navid.className = "navbar navbar-expand-md navbar-dark moving-header fixed-top";
   	setLinkClass("moving-links");
+  	//change size of logo
 		if (width > screen_width_dividers["mobile"]) {
   		jzArchivesLogo.style.width = "150px";
   		jzArchivesLogo.style.height = "80px";
   	} else {
-  		setLinkClass("links");
-  		jzArchivesLogo.style.width = "110px";
+  		jzArchivesLogo.style.width = "90px";
   		jzArchivesLogo.style.height = "70px";
   	}
-	  	jzArchivesLogo.style.transition = ".3s";
+	  jzArchivesLogo.style.transition = ".3s";
   } else { //we are at the top of the page
 		navid.className = "navbar navbar-expand-md navbar-dark bg-steel fixed-top";
   	setLinkClass("links");
-		if (width > screen_width_dividers["mobile"]) {
+		if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["tablet"]) {
+  		jzArchivesLogo.style.width = "160px";
+  		jzArchivesLogo.style.height = "85px";
+  	} else if (width > screen_width_dividers["tablet"] && width <= screen_width_dividers["main"]) {
   		jzArchivesLogo.style.width = "190px";
   		jzArchivesLogo.style.height = "95px";
   	} else {
-  		jzArchivesLogo.style.width = "130px";
+  		jzArchivesLogo.style.width = "100px";
   		jzArchivesLogo.style.height = "70px";
   	}
   }
@@ -209,9 +174,9 @@ function myScrollFunc() {
 	 	}
 	  if (y >= main_css_animations["trading"] && !trading_animations) {
   		tradingVideoWrapper.className = "show";
-  		launchpadLogo.className = "show";
+  		launchpadDiv.className = "show";
 	  	moveVideo(tradingVideoWrapper, "right");
-	  	moveLogoLeft(launchpadLogo, "trading");
+	  	moveLogoLeft(launchpadDiv, "trading");
 	  	trading_animations = true;
 	  }
 	  if (y >= main_css_animations["fitness"] && !fitness_animations) {
@@ -220,35 +185,38 @@ function myScrollFunc() {
 	  }
 	  if (y  >= main_css_animations["bgch_one"] && !bgch_animations_one) {
 			bgchVideoWrapper.className = "show";
-			bgchLogo.className = "show";
+			bgchDiv.className = "show";
 			fadeIn(bgchTitle);
 			moveVideo(bgchVideoWrapper, "right");
-			moveLogoLeft(bgchLogo, "bgch");
+			moveLogoLeft(bgchDiv, "bgch");
 			bgch_animations_one = true;	   
 	  }
 	  if (y > main_css_animations["bgch_two"] && !bgch_animations_two) {
   		moveDescriptionAndStackUp(bgchDescription, bgchStack, "bg2");
   		bgch_animations_two = true;
 	  } 
-	} else if (width > screen_width_dividers["tablet"] && width < screen_width_dividers["main"]) {
+	} else if (width > screen_width_dividers["mobile"] && width < screen_width_dividers["main"]) {
 	 	//configure animations for tablet here
 	 	if (y > 100 && y < tablet_css_tabs["home"]) {
 			setLinkClass("moving-links unSelect");
 			homeLink.className = "moving-links select";
-	  	} else if (y >= tablet_css_tabs["home"] && y < tablet_css_tabs["contact"]) { //we are at contact tab.
+	  } 
+	  if (y >= tablet_css_tabs["home"] && y < tablet_css_tabs["contact"]) { //we are at contact tab.
 			setLinkClass("moving-links unSelect");
 			contactLink.className = "moving-links select";
-	  	} else if (y >= tablet_css_tabs["contact"] && y < tablet_css_tabs["games"]) {
+	  } 
+	  if (y >= tablet_css_tabs["contact"] && y < tablet_css_tabs["games"]) {
 			setLinkClass("moving-links unSelect");
 			gamesLink.className = "moving-links select";				
-	  	} else if (y >= tablet_css_tabs["games"] && y < tablet_css_tabs["trading"]) {
+	  } 
+	  if (y >= tablet_css_tabs["games"] && y < tablet_css_tabs["trading"]) {
 	  		setLinkClass("moving-links unSelect");
 			tradingLink.className = "moving-links select";
-	  	} else if (y >= tablet_css_tabs["trading"]) {
+	  } 
+	  if (y >= tablet_css_tabs["trading"]) {
 	  		setLinkClass("moving-links unSelect");
 			webLink.className = "moving-links select";
-	  	} else {}
-	  	
+	  } 
   		//animations
 		if (y >= tablet_css_animations["pole_game"] && !pole_game_animations) {
 		 	fadeIn(poleGameLogo);
@@ -258,10 +226,10 @@ function myScrollFunc() {
 			pole_game_animations = true;
 	 	}
 	  if (y >= tablet_css_animations["trading"] && !trading_animations) {
-   		fadeIn(launchpadLogo);
+   		fadeIn(launchpadDiv);
    		fadeIn(tradingVideoWrapper);
 	   	moveVideo(tradingVideoWrapper, "right");
-	   	moveLogoLeft(launchpadLogo, "trading");
+	   	moveLogoLeft(launchpadDiv, "trading");
 	   	trading_animations = true;
 	  }
 	  if (y >= tablet_css_animations["fitness"] && !fitness_animations) {
@@ -270,11 +238,11 @@ function myScrollFunc() {
 		 	fitness_animations = true;
 	  }
 	  if (y  >= tablet_css_animations["bgch_one"] && !bgch_animations_one) {
-		 	bgchLogo.className = "show";
+		 	bgchDiv.className = "show";
 		 	fadeIn(bgchTitle);
 		 	fadeIn(bgchVideoWrapper);
 		 	moveVideo(bgchVideoWrapper, "right");
-		 	moveLogoLeft(bgchLogo, "bgch");
+		 	moveLogoLeft(bgchDiv, "bgch");
 		 	bgch_animations_one = true;	   
 	  }
 	  if (y > tablet_css_animations["bgch_two"] && !bgch_animations_two) {
@@ -285,8 +253,8 @@ function myScrollFunc() {
 		poleGameVideoWrapper.className = "show";
 		poleGameLogo.className = "show";
 		bgchVideoWrapper.className = "show";
-		bgchLogo.className = "show";
-		launchpadLogo.className = "show";
+		bgchDiv.className = "show";
+		launchpadDiv.className = "show";
 		tradingVideoWrapper.className = "show";
 	}
 }
@@ -305,11 +273,9 @@ function setLinkClass(c) {
 function fadeIn(element) {
   var id = setInterval(frame, 5);
   var opc = 0;
-  // var width = window.innerWidth;
   function frame() {
-		if (opc == 1) {
+		if (opc === 1) {
 		    clearInterval(id);
-		    //console.log("full opacity: " + opc);
 		} else {
 			opc+=.005;
 			var newOpc = opc.toString();
@@ -319,55 +285,66 @@ function fadeIn(element) {
 }
 
 //tag is being used as a direction too here.
-function setPositionAndTarget(which_animation, tag) { 
+function setPositionAndTarget(which_animation, tag) {  //May need a large screen too.
 	var width = window.innerWidth;
 	var pos = 0, target = 0;
 	if (width >= screen_width_dividers["main"]) {
-		if (which_animation == "video") {
+		if (which_animation === "video") {
 			target = 3;
-			if (tag == "left") {
+			if (tag === "left") {
 				pos = 70;
 				target = 67;
 			}
-		} else if (which_animation == "stack") {
+		} else if (which_animation === "stack") {
 			pos = 70;
 			target = 35;
-			if (tag == "pg") {
+			if (tag === "pg") {
 				target = 50;
 			}
 		} else { //logo
 			pos = 80;
 			target = 68;
-			if (tag == "trading") {
+			if (tag === "trading") {
 				target = 73;
 			}
 		} 
-	} else if (width >= screen_width_dividers["tablet"] && width < screen_width_dividers["main"]) {
-		if (which_animation == "video") {
-			if (tag == "left") {
-				pos = 0;
+	} else if (width >= screen_width_dividers["small_tablet"] && width < screen_width_dividers["main"]) {
+		if (which_animation === "video") {
+			target = 5;
+			if (tag === "left") {
 				target = -7;
-			} else {
-				pos = 0;
-				target = 3;
-			}
-		} else if (which_animation == "stack") {
+			} 
+		} else if (which_animation === "stack") {
 			pos = 200;
 			target = 140;
-			if (tag == "pg") {
+			if (tag === "pg") {
 				pos = 70;
 				target = 40;
 			}
 		} else { //logo
 			pos = 50;
 			target = 10;
-			if (tag == "bgch") {
+			if (tag === "bgch") {
 				target = 0;
 			}
 		} 
-
-	} else {
-		console.log("add more settings"); //for mobile. May need a large screen too.
+	} else {  //from mobile to small tablet. No animations on mobile because viewport is too small
+		if (which_animation === "video") {
+			target = 0;
+			if (tag === "left") {
+				target = -10;
+			} 
+		} else if (which_animation === "stack") {
+			pos = 40;
+			target = -50;
+			if (tag === "pg") {
+				pos = 120;
+				target = 75;
+			}
+		} else { //logo
+			pos = 100;
+			target = 60;
+		} 
 	}
 	return([pos, target]);
 }
@@ -378,11 +355,11 @@ function moveVideo(element, direction) {
 	var pos_and_target = setPositionAndTarget("video", direction);
 	var pos = pos_and_target[0], target = pos_and_target[1];
 	function frame() {
-		if (direction == "right") {
+		if (direction === "right") {
 			if (pos > target) {
 				clearInterval(id);
 			} else {
-				pos+=.015;
+				pos+=.035;
 				element.style.left = pos + '%';	
 			}
 		} else {
@@ -414,18 +391,25 @@ function moveDescriptionAndStackUp(description, stack, tag) {
 	var id = setInterval(frame, 5);
 	var pos_and_target = setPositionAndTarget("stack", tag);
 	var pos = pos_and_target[0], target = pos_and_target[1];
-	console.log("pos: " + pos + " target: " + target + " tag: " + tag);
+	//console.log("pos: " + pos + " target: " + target + " tag: " + tag);
 	function frame() {
 		if (pos < target) {
 			clearInterval(id);
 		} else {
-			if (tag == "pg") {
+			if (tag === "pg") {
 				pos-=.2;
 			} else {
 				pos-=.4;
 			}
-			if (tag == "pg" || tag == "bg2") {
-				description.style.top = pos/3 + '%';
+			if (tag === "pg" || tag === "bg2") {
+				var offset = pos/3;
+				if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["small_tablet"]) {
+					offset = pos/1.15;
+				}
+				if (width <= screen_width_dividers["mobile"]) {
+					offset = pos/3;
+				}
+				description.style.top = offset + '%';
 				stack.style.top = pos + '%';
 			} else { 
 				description.style.top = pos/3 + '%';
@@ -438,23 +422,22 @@ function moveDescriptionAndStackUp(description, stack, tag) {
 function animateRocket(rocket) {
 	var top_pos = 14, left_pos = 80, transform = 0; //starting position of rocket in css sheet
 	var target_one = 13, target_two = 70, target_three = 10.5, target_four = 80;
-	var l_speed = .055, t_speed = .1, d_speed = .2;
+	var l_speed = .055, t_speed = .1, d_speed = .1;
 	var movingUp = true, rotating = false, movingLeft = false, movingUpAndLeft = false, movingRight = false, curvingUp = false;
 	var direction = "left";
 	var firstMoveComplete = false, secondMoveComplete = false;
 	var width = window.innerWidth;
+	console.log("rocket width:", width);
 	if (width > screen_width_dividers["main"]) {
 		top_pos = 15, left_pos = 80, transform = 0; 
 	 	target_one = 10, target_two = 75, target_three = 10.5, target_four = 70;
 	}
-	// top_pos = 8.5, left_pos = 80, transform = 0; 
-	// target_one = 7, target_two = 70, target_three = 10.5, target_four = 80;
-	if (width <= screen_width_dividers["main"] && width > 775) {
-		top_pos = 90, left_pos = 80, transform = 0; 
-		target_one = 80, target_two = 70, target_three = 65, target_four = 80;				
+	if (width <= screen_width_dividers["main"] && width > screen_width_dividers["mobile"]) {
+		top_pos = 90, left_pos = 90, transform = 0; 
+		target_one = 80, target_two = 80, target_three = 65, target_four = 80;				
 	}
 	// mobile
-	if (width < 775) {
+	if (width <= screen_width_dividers["mobile"]) {
 		top_pos = 6, left_pos = 80, transform = 0; 
 		target_one = 5.5, target_two = 75, target_three = 5, target_four = 80;
 		l_speed = .055, t_speed = .005, d_speed = .005;
@@ -470,7 +453,7 @@ function animateRocket(rocket) {
 			rocket.style.top = top_pos +'%';
 		}
 		if (rotating) {
-			if (direction == "left") {
+			if (direction === "left") {
 				transform-=1.5;
 			} else {
 				transform+=1.5;
@@ -506,6 +489,10 @@ function animateRocket(rocket) {
 			left_pos-=.015;
 			rocket.style.left = left_pos +'%';
 			rocket.style.top = top_pos +'%';
+			if (width > 1024 && width <= 1275 || width > 484 && width <= 790) { //for responsive design so rocket doesnt overlap with letters in background vid
+				rocket.style.opacity = 0;
+				rocket.style.transition = "opacity 1s";
+			}
 		}
 		if (movingUpAndLeft && top_pos < target_three) {
 			movingUpAndLeft = false;
@@ -522,6 +509,8 @@ function animateRocket(rocket) {
 		}
 		if (curvingUp) {
 			if (transform > 0) {
+				rocket.style.opacity = 0;
+				rocket.style.transition = "opacity 1.5s";
 				transform-=.4;
 				left_pos+=l_speed;
 				top_pos-=t_speed;
@@ -532,11 +521,11 @@ function animateRocket(rocket) {
 				curvingUp = false;
 				clearInterval(id);
 			}
-
 		}
 	}
 }
+
 animateRocket(rocket);
-window.addEventListener("scroll", myScrollFunc); //myScrollFunc is the animation events driver
+window.addEventListener("scroll", scrollHandler); //scrollHandler is the animation events driver
 
 

@@ -63,7 +63,7 @@
 <!-- add box shadow to search box and remove when clicking off of it. Display an x icon to clear form if it isn't empty. Create a dropdown containing suggestions -->
 <script type = "text/javascript">
 
-	//fade in animation
+	//fade in animation -> could also be accomplished by setting each element's opacity in css and adding a transition 
 	function fadeIn(element, final_opc) {
     	var id = setInterval(frame, 3);
     	var opc = 0;
@@ -161,7 +161,6 @@
 			createResultImage(result.id, image);
 			result.addEventListener("click", whichResult);
 		} else { //this is for when a specific deck is selected. Result div will be created differently
-			//console.log("ID:", result.id, "LENGTH:", name.length, "NAME:", name);
 			result.style.backgroundColor = "#FFEBE6";
 			result.style.cursor = "default";
 			result.style.boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)";
@@ -437,7 +436,6 @@
 		if (event.target.id === "form" || event.target.id === "search_icon" || (event.target.id === "x_icon" && x_icon_opacity === '0')) {
 			searchElement.style.border = "solid gray 1px";
 			searchElement.style.transition = "0.15s";
-
 		} else {
 			//click is outside of search box
 			searchElement.style.boxShadow = "none";
@@ -624,8 +622,6 @@
 		if (creatingElements) {
 			return;
 		}
-		// console.log("ID:", event.target.id);
-		// console.log("PARENT ID", event.target.parentElement.id);
 		var path = event.composedPath();
 		//get name and id for create result
 		if (event.target.id === '') { //user has clicked on the h5
@@ -710,14 +706,14 @@
 		}
 	}
 
-  	function pressEnterHandler(event) {
-  		let enter = 13;
-  		let dropdown = document.getElementById("dropdown_wrapper");
-  		if (event.keyCode === enter && dropdown) {
-  			let children = dropdown.childNodes;
-  			displaySearchAll(children);
-  		}
-  	}
+  function pressEnterHandler(event) {
+		let enter = 13;
+		let dropdown = document.getElementById("dropdown_wrapper");
+		if (event.keyCode === enter && dropdown) {
+			let children = dropdown.childNodes;
+			displaySearchAll(children);
+		}
+  }
 
 	//handles suggestion div click
 	function clickDivSuggestion(event) {
@@ -803,7 +799,6 @@
 		fullNameWrapper.appendChild(fullName);
 		parentSubString = parent.slice(0, -1);
 		if (parentSubString === "producer_suggestion_") {
-			//fullName.style.marginBottom = "10%";
 			let numItems = document.createElement("h4");
 			if (getNumItems()[name] === 1) {
 				var itemString = " item";
@@ -872,7 +867,7 @@
 	function createDropdown(parent, current_decks_returned, current_producers_returned) {
 		//dropdown wrapper
 		var dropdown = document.createElement("div");
-  		dropdown.setAttribute("id", "dropdown_wrapper");
+  	dropdown.setAttribute("id", "dropdown_wrapper");
 		dropdown.style.position = "absolute";
 		dropdown.style.minWidth = responsiveDesign(width)["dropdownWidth"];
 		if (width < 483 || width > 1441) {
@@ -990,13 +985,16 @@
 		if (event.key === "Backspace") {
 			var inputString = searchBox.value.substring(0, searchBox.value.length - 1);
 		} else {
-			var inputString = searchBox.value + event.key;
+			if (!omit_keys.includes(event.key)) {
+				var inputString = searchBox.value + event.key;
+			} else {
+				var inputString = searchBox.value
+			}
 		}
 		if (event.key === "Enter") {
 			return;
 		}
 		inputString = inputString.toLowerCase();
-		console.log("input string: ", inputString);
 		var currentDecksReturned = [], currentProducersReturned = [];
 		{% for deck in deck_list %}  //use django to pull from database
 			var d = "{{ deck }}", p = "{{ deck.producer }}";
@@ -1009,12 +1007,7 @@
 		{% endfor %}
 		// console.log("currentDecksReturned list:", currentDecksReturned);
 		// console.log("currentProducersReturned list:", currentProducersReturned);
-		if (!omit_keys.includes(event.key)) {
-			xIcon.style.opacity = '1';
-			xIcon.style.cursor = "pointer";
-		}
 		if (currentDecksReturned.length !== previousNumDecksReturned) { //monitor changes in number of results
-		//console.log("currentDecksReturned length has changed");
 		previousNumDecksReturned = currentDecksReturned.length;
 		numDecksChanged = true;
 		} 

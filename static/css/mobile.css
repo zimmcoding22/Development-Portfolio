@@ -1,17 +1,19 @@
 /*use command shift r to clear browser cache*/
-
-html, body { overflow-y: scroll; overflow-x:hidden; }
+html { overflow-y: scroll; overflow-x:hidden; }  /*prevent horizontal scrolling*/
 
 body {
-  position: relative;
-}
+  margin: 0;
+  padding: 0;
 
-/*The two styles above ^ are for locking horizontal scroll on mobile.*/
+}
 
 h1, h2, h4, h5, h6 {
   color: #444444;
 }
 
+p {
+  font-size: 10px;
+}
 
 ul {
   margin: 0;
@@ -34,130 +36,243 @@ button {
 
 button:focus {
   outline: 0;
-  border: none;
 
 }
 
 input::placeholder {
-  color: #9E9C9C;
+  color: gray;
   font-weight: bold;
+}
+
+/*remove customize name icon on safari*/
+input::-webkit-contacts-auto-fill-button { 
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
 }
 
 textarea {
   border: none;
+  outline: 0;
   background-color: #EEEDED;
+  border-radius: 10px;
+  padding: 5px;
+}::placeholder {
+  color: gray;
+}
+
+#bodyWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 4000px;
 }
 
 #jzArchivesLogo {
+  position: absolute;
   width: 100px;
-  height: auto;
+  height: 70px;
+  cursor: pointer;
+  left: 5%;
 }
 
-.rocket {
-  position: absolute;
-  height: auto;
-  width: 6%;
-  top: 6%;
-  left: 80%;
-  z-index: 100;
+#titleVid {
+  position: absolute; 
+  left: -150px;
+  width: 1200px; 
+  height: auto; 
 }
 
-.select {
-  border: .5px solid white;
-  outline: none;
-  background: #8DACCA;
-  border-radius: 5%;
-  color: white;
-}
-
-.unSelect {
-  background: none;
-  border: none;
-}
-
-.icon {
-  width: 30px;
-  height: auto;
-}
-
-.icon:hover {
-  width: 40px;
-  height: auto;
-}
-
-.bottomIcon {
-  width: 20px;
-  height: auto;
-}
-
-.bottomIcon:hover {
-  box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
-}
-
-.typewrite{
-  display: block;
-/*  font-size: 2em;
-*/margin-block-start: 0.67em;
-  margin-block-end: 0.67em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  font-weight: bold;
-  font-family: "Varela Round", Geneva;
-  padding: 20% 0;
-  color: navy;
-  position: absolute;
-  top: 2.1%;
-  left: 55%;
-  font-size: 12px;
-}
-
-#contactText {
-  position: absolute;
-  font-family: "Varela Round", Geneva, Impact, sans-serif;
-  color: #534D4C;
-  top: 10%;
-  left: 63%;
-  font-size: 15px;
-}
-
-#contactParagraph {
-  position: absolute;
-  font-family: "Varela Round", Geneva, Impact, sans-serif;
-  color: #9E9C9C;
-  top: 25%;
-  left: 63%;
-  padding-right: 10%;
-  font-size: 10px;
-}
-
-#contactForm {
-  position: absolute;
-  background-color: white;
-  width: 45%;
-  height: 70%;
-  top: 5%;
-  left: 10%;
-  border-radius: 3%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+#titleContainer {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 18%;
+}
 
+#titleWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  top: -20%;
+  /*width: 40%;*/
+  min-width: 240px;
+  height: 15%;
+  background-color: white;
+  border-radius: 3%;
+
+}
+
+#title {
+  position: relative;
+  font-family: "Varela Round", Geneva;
+  font-weight: bold;
+  font-style: italic;
+  top: 8%;
+  left: 2%;
+  white-space: nowrap;  
+  font-size: 12px;
+  color: navy;
+}
+
+#typewrite {
+  position: relative;
+  text-align: left;
+  left: 15%;
+  bottom: 5%;
+
+}
+
+.typewrite {
+  font-weight: bold;
+  font-family: "Varela Round", Geneva;
+  color: navy;
+  font-size: 18px;
+}
+
+#contactContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  width: 100%;
+  height: 12%;
+}
+
+#contactDivWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column-reverse;
+  align-items: center;
+  width: 90%;
+  /*min-width: 1300px;*/
+  height: auto;
+}
+
+#contactTitleWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: auto;
+  right: 8%;
+  top: 0%;
+}
+
+#contactTitle {
+  position: relative;
+  font-family: "Varela Round", Geneva, Impact, sans-serif;
+  font-size: 22px;
+  color: #534D4C;
+  top: 10%;
+  right: -10%;
+
+
+}
+
+#contactParagraph {
+  position: relative;
+  font-family: "Varela Round", Geneva, Impact, sans-serif;
+  color: #9E9C9C;
+  text-align: left;
+  top: 15%;
+  left: 15%;
+  font-size: 14px;
+}
+
+#contactForm {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  width: 97%;
+  height: 55%;
+  top: -7%;
+  border-radius: 3%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ 
+ 
+}
+
+#nameInputWrapper {
+  position: relative;
+  top: 20px;
+}
+
+#emailInputWrapper {
+  position: relative;
+  top: -10px;
+  
+}
+
+#writeMessage {
+  position: relative;
+  bottom: 30px;
+  height: 80px;
+}
+
+
+
+.name_email {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 25px;
+  border-radius: 5px;
+  border: solid .5px lightgray;
+}
+
+
+.name_email input {
+  border-style: none;
+  border: 0;
+  outline: 0;
+  position: relative;
+  padding-left: 2%;
+  padding-top: 2px;
+  font-size: 12px;
+  width:99%;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+}::placeholder {
+  opacity: .8;
+  font-size: 12px;
+}
+
+
+.x_icon {
+  position: absolute;
+  height: 12px;
+  width: auto;
+  right: 2%;
+  padding-right: 1px;
+  cursor: pointer;
+  
 }
 
 #submit {
   position: absolute;
   width: 30%;
-  height: 10%;
-  top: 85%;
-  left: 65%;
+  height: 12%;
+  top: 83%;
+  right: 5%;
   border-radius: 25px;
   border: none;
   background-color: #C3DEE9;
   font-family: "Varela Round", Geneva, Impact, sans-serif;
+  font-size: 14px;
   color: #534D4C;
-  font-size: 10px;
-  text-align: center;
+  cursor: pointer;
 }
 
 #submit:hover {
@@ -170,472 +285,499 @@ textarea {
 .form {
   font-family: "Varela Round", Geneva, Impact, sans-serif;
   color: black;
-  border-radius: 3%;
-  border: none;
-  font-size: 12px;
-  opacity: .4;
   resize: none;
-  width: 100px;
+  width: 210px;
 }
+
 
 #poleGameContainer {
-  position: absolute;
-  height: 12%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 15%;
   width: 100%;
   background-color: #F1FFFF;
-  bottom: 74%;
 }
 
-#poleGameTitle {
+
+#poleGameVideoWrapper {
+  position: relative;
+  display: flex;
+  width: 10%;
+  min-width: 165px;
+  min-height: 215px;
+  border-radius: 3%;
+  top: -6%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+#poleGameIconWrapper {
   position: absolute;
-  bottom: 90%;
-  color: #0B2161;
-  white-space: nowrap;  
-  left: 45%;
-  opacity: 0;
-  font-family: "Varela Round", Geneva, Impact, sans-serif;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 165px;
+  height: 12%;
+  top: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  left: 0;
+  right: 0;
 }
-
-#poleGameVideo {
-  position: absolute;
-  top: 5%;
-  left: 37%;
-
-}
-
-.verticalVid {
-  height: 350px;
-  width: 200px;
-}
-
-.horizontalVid {
-  height: 200px;
-  width: 300px;
-}
-
 
 #poleGameLogo {
-  position: absolute;
-  top: 11%;
-  left: 8%;
+  position: relative;
+
 }
 
 #appStoreLogo {
-  position: absolute;
-  top: 30%;
-  left: 8%;
-  width: 10px;
-  height: auto:
+  position: relative;
 }
 
-.picture {
-  width: 60px;
+.appLogos {
+  width: 30px;
+  min-width: 60px;
   height: auto;
 }
 
-#poleGameDescription {
+#poleGameStackDescriptionWrapper {
   position: absolute;
-  top: 50%;
-  left: 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+  top: 80%;
+}
+
+#poleGameDescription {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: width .5s, height .5s;
+  font-size: 12px;
+  background-color: #6ACAFF;
+  color: white;
+  border-radius: 25px;
+  width: 100px;
+  height: 30px;
+  top: -8%;
 
 }
 
 #poleGameDescription:hover {
-  top: 48%;
-  left: 7%;
-
-}
-
-.poleGameInfo:hover {
-  color: #0B2161;
-  background-color: #EFF8FB;
-  height: 30%;
-  width: 25%;
-  transition: width .5s;
-  border: none;
   text-align: left;
-  padding: 10px;
-  font-size: 10px;
-  border-radius: 15px;
-
-}
-
-.poleGameInfo {
   font-family: Geneva, Impact, sans-serif;
-  font-weight: bold;
   font-size: 10px;
-  border-radius: 15px;
-  background-color: #6ACAFF;
-  color: white;
-  text-align: center;
-  height: 7%;
-  width: 17%;
- 
+  background-color: #EFF8FB;
+  color: black;
+  width: 85%;
+  height: 52%;
+  transition: width .5s, height .5s;
+  padding: 15px;
 }
-
 
 #poleGameStack {
-  position: absolute;
-  height: auto;
-  width: 80%;
-  top: 80%;
+  position: relative;
   text-align: center;
-  left: 10%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 12px;
-
+  min-width: 230px;
+  height: 50px;
 }
 
 
 #tradingContainer {
-  position: absolute;
-  height: 15%;
-  width: 100%;
-  background-color: white;
-  bottom: 58%;
-  display: flex;
-  justify-content: center;
-}
-
-#tradingDescription:hover {
-  position: absolute;
-  left: 10%;
-  top: 29%;
-  text-align: center;
-  font-family: Geneva, Impact, sans-serif;
-  font-size: 10px;
-  border-radius: 15px;
-  color: #0B2161;
-  background-color: #D8F5D1;
-  height: auto;
-  width: 50%;
-  transition: width .2s, height .5s;
-  padding: 10px;
-}
-
-#tradingDescription {
-  position: absolute;
-  left: 10%;
-  top: 32%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Geneva, Impact, sans-serif;
-  font-size: 10px;
-  border-radius: 15px;
-  background-color: #D8F5D1;
-  color: #0B2161;
-  height: 7%;
-  width: 17%;
-
-}
-
-#launchpadLogo {
-  position: absolute;
-  top: 30%;
-  left: 65%;
-  width: 100px;
-  height: auto;
-}
-
-
-#tradingVideo {
-  position: absolute;
-  top: -5%;
-  left: 8%;
-}
-
-#tradingStack {
-  position: absolute;
-  text-align: center;
-  top: 53%;
-  left: 5%;
-  width: 85%;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-}
-
-#bgchContainer {
-  position: absolute;
-  height: 15%;
-  width: 100%;
-  bottom: 32%;
-}
-
-#bgchVideo {
-  position: absolute;
-  top: -10%;
-  left: 8%;
-}
-
-#bgchLogo {
-  position: absolute;
-  top: 30%;
-  left: 70%;
-}
-
-#bgchDescription {
-  position: absolute;
-  top: 32%;
-  left: 15%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#bgchDescription:hover {
-  position: absolute;
-  top: 30%;
-  left: 15%;
-}
-
-#bgchStack {
-  position: absolute;
-  height: auto;
-  width: 80%;
-  top: 50%;
-  text-align: center;
-  left: 10%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-}
-
-.bgchInfo:hover {
-  color: #0B2161;
-  background-color: #EFF8FB;
-  height: auto;
-  width: 35%;
-  transition: width .2s;
-  border: none;
-  text-align: left;
-  padding: 5px;
-
-}
-
-.bgchInfo {
-  font-family: Geneva, Impact, sans-serif;
-  font-size: 10px;
-  border-radius: 15px;
-  background-color: #6ACAFF;
-  color: white;
-  text-align: center;
-  height: 7%;
-  width: 17%;
-}
-
-/*part of bgch*/
-#teeTimesTitle {
-  position: absolute;
-  top: -18%;
-  left: 37%;
-  color: #0B2161;
-  white-space: nowrap;  
-/*  opacity: 0;
-*/font-family: "Varela Round", Geneva, Impact, sans-serif;
-  font-size: 14px;
-}
-
-#title {
-  position: absolute;
-  font-family: "Varela Round", Geneva;
-  font-weight: bold;
-  font-style: italic;
-  top: 3.6%;
-  left: 35%;
-  white-space: nowrap;  
-  font-size: 10px;
-  color: navy;
-
-}
-
-
-#titleVid {
-  position: absolute; 
-  right: 0; 
-  top: -2.5%;
-  width: 100%; 
-  height: 15%; 
-  z-index: -100;
-  background-size: cover;
-  overflow: hidden;
-  visibility: visible;
-}
-
-#titleDiv {
-  top: 120px;
-/*  background-color: #546BBF;
-*/width: 100%;
-  height: 100px;
-}
-
-
-#fitnessAppContainer {
-  height: 13%;
-  width: 100%;
-  background-color: #FFFDE8;
-  position: absolute;
-  bottom: 50%;
-}
-
-#fitnessAppTitle {
-  position: absolute;
-  top: 2%;
-  color: #0B2161;
-  white-space: nowrap;  
-  left: 25%;
-/*  opacity: 0;
-*/font-family: "Varela Round", Georgia, Impact, sans-serif;
-  font-size: 14px;
-}
-
-#fitnessAppVideo {
-  position: absolute;
-  top: 6%;
-  left: 8%;
-}
-
-#fitnessAppDescription:hover {
-  position: absolute;
-  left: 20%;
-  top: 50%;
-  text-align: center;
-  font-family: Geneva, Impact, sans-serif;
-  font-size: 10px;
-  border-radius: 15px;
-  color: #0B2161;
-  background-color: #EFF8FB;
-  padding: 5px;
-  height: auto;
-  width: 30%;
-  transition: width .2s, height .5s;
-  background-color: #FFF79E;
-}
-
-#fitnessAppDescription {
-  position: absolute;
-  left: 20%;
-  top: 55%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Geneva, Impact, sans-serif;
-  font-size: 10px;
-  border-radius: 15px;
-  background-color: #D6CD6A;
-  color: white;
-  height: 7%;
-  width: 17%;
-
-}
-
-#fitnessAppStack {
-  position: absolute;
-  height: 40%;
-  width: 10%;
-  top: 50%;
-  text-align: center;
-  left: 70%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  height: 15%;
+
+}
+
+#tradingVideoWrapper {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  min-width: 225px;
+  width: 80%;
+  height: auto;
+  border-radius: 3%; 
+  margin-left: auto;
+  margin-right: auto;
+  top: 47%;
+  z-index: 1;
+  
+}
+
+#tradingInfoWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  
+}
+
+
+#tradingDescription {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Geneva, Impact, sans-serif;
   font-size: 12px;
+  border-radius: 25px;
+  background-color: #D8F5D1;
+  color: #0B2161;
+  transition: width .5s, height .5s;
+  width: 100px;
+  height: 30px;
+  top: -17%;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+#tradingDescription:hover {
+  text-align: left;
+  font-size: 10px;
+  border-radius: 25px;
+  color: #0B2161;
+  background-color: #D8F5D1;
+  width: 50%;
+  height: 25%;
+  transition: height .5s;
+  padding: 10px;
+}
+
+#launchpadDiv {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 2%;
+}
+
+#tradingStack {
+  position: absolute;
+  bottom: -2%;
+}
+
+#fitnessAppContainer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 15%;
+  width: 100%;
+  background-color: #FFFDE8;
+}
+
+#fitnessTitleVideoWrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+}
+
+#fitnessAppTitle {
+  position: relative;
+  color: #0B2161;
+  white-space: nowrap;  
+  text-align: center;
+  top: 5%;
+  font-family: "Varela Round", Georgia, Impact, sans-serif;
+  font-size: 16px;
+}
+
+#fitnessAppVideoWrapper {
+  position: relative;
+  border-radius: 3%;
+  min-width: 225px;
+  width: 80%;
+  height: auto;
+  bottom: -40%;
+  background-color: black;
+}
+
+#fitnessAppDescriptionWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  top: 9%;
+  
+}
+
+#fitnessAppDescription {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Geneva, Impact, sans-serif;
+  font-size: 12px;
+  border-radius: 25px;
+  background-color: #D6CD6A;
+  color: white;
+  width: 100px;
+  height: 30px;
+  transition: width .5s;
+  z-index: 1;
+
+}
+
+#fitnessAppDescription:hover {
+  position: relative;
+  text-align: left;
+  font-size: 10px;
+  border-radius: 25px;
+  color: #0B2161;
+  padding: 10px;
+  background-color: #FFF79E;
+  width: 100%;
+  height: 100%;
+  transition: width .5s, height .5s;
+}
+
+#fitnessAppStack {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  width: 75%;
+  height: 10%;
+  top: 85%;
+  padding: 10px;
+
+}
+
+#bgchContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 17%;
+  width: 100%;
+}
+
+#bgchTitleVideoWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#bgchTitle {
+  position: relative;
+  color: #0B2161;
+  white-space: nowrap;  
+  top: 4%;
+  text-align: center;
+  font-family: "Varela Round", Geneva, Impact, sans-serif;
+  font-size: 16px;
+}
+
+#bgchVideoWrapper {
+  position: absolute;
+  border-radius: 3%;
+  min-width: 225px;
+  width: 80%;
+  height: auto;
+  background-color: black;
+  z-index: 1;
+  top: 30%;
+
+}
+
+#bgchInfoWrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+
+#bgchDiv {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 10%;
+}
+
+#bgchDescription {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Geneva, Impact, sans-serif;
+  font-size: 12px;
+  border-radius: 25px;
+  background-color: #6ACAFF;
+  color: #0B2161;
+  transition: width .5s, height .5s;
+  width: 100px;
+  height: 30px;
+  bottom: 22%;
+  z-index: 1;
+
+}
+
+
+#bgchDescription:hover {
+  font-size: 10px;
+  text-align: left;
+  color: #0B2161;
+  background-color: #EFF8FB;
+  width: 70%;
+  height: 11%;
+  transition: width .5s;
+  padding: 10px;
+
+}
+
+#bgchStack {
+  position: absolute;
+  bottom: 7%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  left: 0;
+  right: 0;
+}
+
+.stack {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 75%;
+  min-width: 250px;
+  height: auto;
+  font-size: 14px;
+  text-align: center;
+  bottom: 5%;
+  padding: 10px;
 }
 
 
 .hide {
-  opacity: 0;
+  opacity: 1;
 }
 .show {
   opacity: 1;
 }
-.content {
-  height:4200px;
-}
-.fullpage {
-  position: relative;
-}
+
 
 #footer {
-    position: absolute;
-    background-color: #EFF8FB;
-    font-size:25px;
-    line-height: 3.5;
-    width: 1000%;
-    height: 30%;
-    bottom: 0;
-    left:0;
-    display: flex;
-    flex-direction: row;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #EFF8FB;
+  font-size: 25px;
+  line-height: 3.5;
+  width: 100%;
+  height: 12%;
+}
 
-  }
+#footerSeal {
+  position: relative;
+  top: -12%;
+
+}
 
 #footerBottom {
-  position: absolute;
+  position: relative;
   bottom: 0%;
   width: 100%;
   height: 20%;
   background-color: white;
 }
 
-#social-media-links {
-  position: absolute;
-  left: 4.76%;
-  top: 73%;
-  width: 1.3%;
-  height: 10%;
+#socialMediaLinks {
+  position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: space-between;
-  flex-direction: horizontal;
+  align-items: center;
+  width: 2.5%;
+  min-width: 40px;
+  height: 3%;
+  top: 21%;
 }
 
-#footerSeal {
-  position: absolute;
-  left: 3.5%;
-  top: -3%;
-
-}
-
-#contactDiv {
-  position: absolute;
-  background-color: white;
-  width: 100%;
-  height: 8%;
-  bottom: 85%;
-}
-
-.activeLink {
-  border: 1px solid black;
-  height: 75px;
-  width: 50px;
-}
-
-.bg-steel {
-  background-color: white;
-  height: 130px;
+#toggler {
+  position: relative;
+  left: 80%;
+  width: 45px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #navbarToggle {
-  color: red;
-  border-radius: 5px;
-  background-color: #F1FFFF;
+  position: absolute;
+  background-color: #C3DEE9;
+  width: 100%;
+  height: 85px;
+  transition: height .1s;
+  top: 100%;
+  border: 1px solid gray;
+  left: 0%;
 }
 
 .navbar-toggler {
   background-color: #2A3D68;
 }
 
+.emblems {
+  width: 100px;
+  height: 100px;
+}
+
+.bg-steel {
+  background-color: white;
+  height: 130px;
+
+}
 
 .moving-header {
   background-color: #C3DEE9;
@@ -643,81 +785,93 @@ textarea {
   transition: height .5s;
 }
 
+#links {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
 
 .links {
-  color: navy;
+  color: white;
   padding: 10px;
-  font-family: "Varela Round", Georgia, Impact, sans-serif;
+  cursor: pointer;
+  font-size: 15px;
+
 }
 
 .links:hover {
-  color: #C3DEE9;
-  font-family: "Varela Round", Georgia, Impact, sans-serif;
+  color: navy;
+
 }
 
-/*.moving-links {
-  color: black;
-  padding: 10px;
-}*/
+/*a href causes padding with button to render slightly different, no need a bit more padding*/
+#cards {
+  padding: 12px;
+}
 
-/*.moving-links:hover {
+.moving-links {
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.moving-links:hover {
   background-color: #8DACCA;
   border-radius: 5%;
-  color: gray;
-}*/
-
-
-.content-section {
-  background: red;
-  padding: 10px 20px;
-  border: 1px solid #dddddd;
-  border-radius: 3px;
-  margin-bottom: 20px;
+  color: white;
+  border: .5px solid white;
 }
 
-.article-title {
-  color: #444444;
+.vid {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
 }
 
-a.article-title:hover {
-  color: #428bca;
-  text-decoration: none;
+.rocket {
+  position: absolute;
+  height: auto;
+  width: 8%;
+  top: 90%;
+  left: 90%;
+  z-index: 1;
 }
 
-.article-content {
-  white-space: pre-line;
+.select {
+  border: .5px solid white;
+  outline: none;
+  background: #8DACCA;
+  border-radius: 5%;
+  color: white;
 }
 
-.article-img {
-  height: 65px;
-  width: 65px;
-  margin-right: 16px;
+
+.unSelect {
+  background: none;
+  border: none;
 }
 
-.article-metadata {
-  padding-bottom: 1px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
+
+.icon {
+  width: 20px;
+  height: auto;
 }
 
-.article-metadata a:hover {
-  color: black;
-  text-decoration: none;
+.icon:hover {
+  width: 30px;
+  height: auto;
 }
 
-.article-svg {
-  width: 25px;
-  height: 25px;
-  vertical-align: middle;
+.bottomIcon {
+  width: 15px;
+  height: auto;
 }
 
-.account-img {
-  height: 125px;
-  width: 125px;
-  margin-right: 20px;
-  margin-bottom: 16px;
-}
-
-.account-heading {
-  font-size: 2.5rem;
+.bottomIcon:hover {
+  box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
 }

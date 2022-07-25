@@ -1,14 +1,19 @@
 /*use command shift r to clear browser cache*/
-html, body { overflow-y: scroll; overflow-x:hidden; }
+html { overflow-y: scroll; overflow-x:hidden; }  /*prevent horizontal scrolling*/
 
 body {
-  position: relative;
+  margin: 0;
+  padding: 0;
+
 }
 
 h1, h2, h4, h5, h6 {
   color: #444444;
 }
 
+p {
+  font-size: 12px;
+}
 
 ul {
   margin: 0;
@@ -16,8 +21,6 @@ ul {
 
 img {
   border-radius: 10%;
-  max-width: 100%
-  height: auto;
 }
 
 a:link {
@@ -33,121 +36,221 @@ button {
 
 button:focus {
   outline: 0;
-  border: none;
 
 }
 
 input::placeholder {
-  color: #9E9C9C;
+  color: gray;
   font-weight: bold;
+}
+
+/*remove customize name icon on safari*/
+input::-webkit-contacts-auto-fill-button { 
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
 }
 
 textarea {
   border: none;
+  outline: 0;
   background-color: #EEEDED;
+  border-radius: 10px;
+  padding: 5px;
+}::placeholder {
+  color: gray;
 }
 
-.rocket {
+#bodyWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 4000px;
+}
+
+#jzArchivesLogo {
   position: absolute;
-  height: auto;
-  width: 5%;
-  top: 8.5%;
-  left: 80%;
+  width: 160px;
+  height: 85px;
+  cursor: pointer;
+  left: 5%;
 }
 
-.select {
-  border: .5px solid white;
-  outline: none;
-  background: #8DACCA;
-  border-radius: 5%;
-  color: white;
+#titleVid {
+  position: absolute; 
+  left: -120px;
+  width: 1200px; 
+  height: auto; 
 }
 
-.unSelect {
-  background: none;
-  border: none;
+#titleContainer {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 18%;
 }
 
-.icon {
-  width: 35px;
-  height: auto;
+#titleWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 34%;
+  top: 26%;
+  width: 30%;
+  min-width: 600px;
+  height: 15%;
+  background-color: white;
+  border-radius: 3%;
+
 }
 
-.icon:hover {
-  width: 60px;
-  height: auto;
+#title {
+  position: relative;
+  font-family: "Varela Round", Geneva;
+  font-weight: bold;
+  font-style: italic;
+  top: 8%;
+  left: 2%;
+  white-space: nowrap;  
+  font-size: 15px;
+  color: navy;
 }
 
-.bottomIcon {
-  width: 20px;
-  height: auto;
+#typewrite {
+  position: relative;
+  text-align: left;
+  left: 15%;
+  bottom: 5%;
+
 }
 
-.bottomIcon:hover {
-  box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
-}
-
-.typewrite{
-  display: block;
-  font-size: 2em;
-  margin-block-start: 0.67em;
-  margin-block-end: 0.67em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+.typewrite {
   font-weight: bold;
   font-family: "Varela Round", Geneva;
-  padding: 20% 0;
   color: navy;
-  position: absolute;
-  top: .4%;
-  left: 55%;
-  font-size: 22px;
+  font-size: 18px;
 }
 
-#contactText {
-  position: absolute;
-  font-family: "Varela Round", Georgia, Impact, sans-serif;
+#contactContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  width: 100%;
+  height: 12%;
+}
+
+#contactDivWrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  /*min-width: 1300px;*/
+  height: auto;
+  left: 5%;
+}
+
+#contactTitleWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  /*min-width: 500px;*/
+  height: auto;
+  right: 8%;
+}
+
+#contactTitle {
+  position: relative;
+  font-family: "Varela Round", Geneva, Impact, sans-serif;
+  font-size: 20px;
   color: #534D4C;
   top: 10%;
-  left: 57%;
+  right: -10%;
+
+
 }
 
 #contactParagraph {
-  position: absolute;
-  font-family: "Varela Round", Georgia, Impact, sans-serif;
+  position: relative;
+  font-family: "Varela Round", Geneva, Impact, sans-serif;
   color: #9E9C9C;
-  top: 30%;
-  left: 57%;
-  padding-right: 10%;
-  font-size: 14px;
+  text-align: left;
+  top: 15%;
+  left: 15%;
+  font-size: 12px;
 }
 
 #contactForm {
-  position: absolute;
-  background-color: white;
-  width: 40%;
-  height: 110%;
-  top: 5%;
-  left: 10%;
-  border-radius: 3%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: white;
+  width: 55%;
+  height: 85%;
+  top: 5%;
+  left: -5%;
+  border-radius: 3%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ 
+}
 
+
+.name_email {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+  border: solid .5px lightgray;
+}
+
+
+.name_email input {
+  border-style: none;
+  border: 0;
+  outline: 0;
+  position: relative;
+  padding-left: 2%;
+  padding-top: 2px;
+  font-size: 14px;
+  width:99%;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+}::placeholder {
+  opacity: .8;
+  font-size: 14px;
+}
+
+
+.x_icon {
+  position: absolute;
+  height: 12px;
+  width: auto;
+  right: 2%;
+  padding-right: 1px;
+  cursor: pointer;
+  
 }
 
 #submit {
   position: absolute;
-  width: 25%;
-  height: 10%;
-  top: 80%;
-  left: 70%;
+  width: 30%;
+  height: 9%;
+  top: 83%;
+  right: 5%;
   border-radius: 25px;
   border: none;
   background-color: #C3DEE9;
-  font-family: "Varela Round", Georgia, Impact, sans-serif;
+  font-family: "Varela Round", Geneva, Impact, sans-serif;
+  font-size: 14px;
   color: #534D4C;
+  cursor: pointer;
 }
 
 #submit:hover {
@@ -158,142 +261,159 @@ textarea {
 
 
 .form {
-  font-family: "Varela Round", Georgia, Impact, sans-serif;
+  font-family: "Varela Round", Geneva, Impact, sans-serif;
   color: black;
-  border-radius: 3%
-  font-size: 12px;
-  opacity: .4;
   resize: none;
-  width: 300px;
+  width: 210px;
 }
 
+
 #poleGameContainer {
-  position: absolute;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   height: 15%;
   width: 100%;
   background-color: #F1FFFF;
-  bottom: 63%;
 }
 
-#poleGameTitle {
-  position: absolute;
-  bottom: 90%;
-  color: #0B2161;
-  white-space: nowrap;  
-  left: 45%;
-  opacity: 0;
-  font-family: "Varela Round", Georgia, Impact, sans-serif;
+
+#poleGameVideoWrapper {
+  position: relative;
+  display: flex;
+  width: 10%;
+  min-width: 200px;
+  min-height: 350px;
+  border-radius: 3%;
+  /*background-color: red;*/
+  top: -8%;
+
 }
 
-#poleGameVideo {
-  position: absolute;
-  top: 5%;
-  left: 70%;
 
+#poleGameIconWrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  width: 20%;
+  min-width: 175px;
+  height: 50%;
+  top: 4%;
+  left: 10%;
 }
 
 #poleGameLogo {
-  position: absolute;
-  top: 10%;
-  left: 41%;
+  position: relative;
 }
-
-.picture {
-  width: 150px;
-  height: auto;
-}
-
-.verticalVid {
-  width: 280px;
-  height: auto;
-}
-
 
 #appStoreLogo {
-  position: absolute;
-  top: 45%;
-  left: 41%;
+  position: relative;
+  height: auto;
+  bottom: 10%;
   
 }
 
-
-#poleGameStack {
-  position: absolute;
+.appLogos {
+  width: 50%;
   height: auto;
-  width: 30%;
-  top: 50%;
-  text-align: center;
-  left: 6%;
+}
+
+#poleGameStackDescriptionWrapper {
+  position: relative;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  font-size: 10px;
+  width: 30%;
+  height: 100%;
+  left: 6%;
+  bottom: 1%;
 }
 
 #poleGameDescription {
   position: absolute;
-  top: 50%;
-  left: 11%;
   display: flex;
   align-items: center;
   justify-content: center;
-
-}
-
-.poleGameInfo:hover {
-  color: #0B2161;
-  background-color: #EFF8FB;
-  height: 20%;
-  width: 20%;
-  transition: width .5s;
-  border: none;
-  text-align: left;
-  padding: 10px;
-
-}
-
-.poleGameInfo {
-  font-family: Geneva, Impact, sans-serif;
-  font-size: 14px;
-  border-radius: 25px;
+  transition: width .5s, height .5s;
+  font-size: 12px;
   background-color: #6ACAFF;
   color: white;
+  border-radius: 25px;
+  width: 100px;
+  height: 30px;
+  top: 100%;
+  left: 30%;
+
+}
+
+#poleGameDescription:hover {
+  text-align: left;
+  transition: width .5s, height .5s;
+  font-family: Geneva, Impact, sans-serif;
+  font-size: 10px;
+  background-color: #EFF8FB;
+  color: black;
+  width: 85%;
+  height: 17%;
+  padding: 10px;
+}
+
+#poleGameStack {
+  position: absolute;
   text-align: center;
-  height: 7%;
-  width: 15%;
- 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 400px;
+  height: auto;
+  bottom: -10%;
+  left: 0%;
+  z-index: 1;
 }
 
 
 #tradingContainer {
-  position: absolute;
-  height: 15%;
-  width: 100%;
-  background-color: white;
-  bottom: 50%;
+  position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 15%;
+
 }
 
-#tradingDescription:hover {
-  position: absolute;
-  left: 70%;
-  top: 27%;
-  text-align: center;
-  font-family: Geneva, Impact, sans-serif;
-  border-radius: 25px;
-  color: #0B2161;
-  background-color: #D8F5D1;
-  height: auto;
-  width: 26%;
-  transition: width 1s, height .5s;
-  padding: 10px;
+#tradingVideoWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 450px;
+  width: 450px;
+  min-height: 250px;
+  height: 250px;
+  border-radius: 3%; 
+  left: -20%;
+  top: 5%;
 }
+
+#tradingInfoWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 
 #tradingDescription {
-  position: absolute;
-  left: 74%;
-  top: 35%;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -302,231 +422,234 @@ textarea {
   border-radius: 25px;
   background-color: #D8F5D1;
   color: #0B2161;
-  height: 7%;
-  width: 15%;
+  transition: width .5s, height .5s;
+  width: 100px;
+  height: 30px;
+  bottom: 15%;
+  left: -20%;
 
 }
 
-#launchpadLogo {
-  position: absolute;
-  top: 2%;
-  left: 80%;
-}
-
-#tradingVideo {
-  position: absolute;
-  top: 5%;
-  left: 0%;
-}
-
-#tradingStack {
-  position: absolute;
-  text-align: center;
-  top: 54%;
-  left: 65%;
-  width: 32%;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 10px;
-}
-
-.horizontalVid {
-  width: 500px;
-  height: auto;
-}
-
-#bgchContainer {
-  position: absolute;
-  height: 15%;
-  width: 100%;
-  bottom: 28%;
-}
-
-#bgchVideo {
-  position: absolute;
-  top: 12%;
-  left: 0%;
-}
-
-#bgchLogo {
-  position: absolute;
-  top: 5%;
-  left: 80%;
-}
-
-#bgchDescription {
-  position: absolute;
-  top: 100%;
-  left: 75%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-
-}
-
-#bgchDescription:hover {
-  position: absolute;
-  top: 0%;
-  left: 70%;
-}
-
-#bgchStack {
-  position: absolute;
-  height: auto;
-  width: 22%;
-  top: 100%;
-  text-align: center;
-  left: 70%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 14px;
-}
-
-.bgchInfo:hover {
-  color: #0B2161;
-  background-color: #EFF8FB;
-  height: 20%;
-  width: 25%;
-  transition: width .5s;
-  border: none;
+#tradingDescription:hover {
   text-align: left;
-  padding: 10px;
-
-}
-
-.bgchInfo {
-  font-family: Geneva, Impact, sans-serif;
+  font-size: 10px;
   border-radius: 25px;
-  background-color: #6ACAFF;
-  color: white;
-  text-align: center;
-  height: 7%;
-  width: 15%;
- 
-}
-
-/*part of bgch*/
-#teeTimesTitle {
-  position: absolute;
-  top: 2%;
   color: #0B2161;
-  white-space: nowrap;  
-  left: 45%;
-  opacity: 0;
-  font-family: "Varela Round", Georgia, Impact, sans-serif;
+  background-color: #D8F5D1;
+  width: 50%;
+  height: 40%;
+  transition: height .5s;
+  padding: 10px;
 }
 
-
-#title {
+#launchpadDiv {
   position: absolute;
-  font-family: "Varela Round", Geneva;
-  font-weight: bold;
-  font-style: italic;
-  top: 3.5%;
-  left: 45%;
-  white-space: nowrap;  
-  font-size: 20px;
-  color: navy;
-
-}
-
-
-#titleVid {
-  position: absolute; 
-  right: 0; 
-  top: 0%;
-  width: 100%; 
-  height: auto; 
-  z-index: -100;
-  background-size: cover;
-  overflow: hidden;
-  visibility: visible;
-}
-
-#titleDiv {
-  top: 120px;
-/*  background-color: #546BBF;
-*/width: 100%;
-  height: 100px;
+  top: 15%;
+  left: 110%;
 }
 
 
 #fitnessAppContainer {
-  height: 12%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 15%;
   width: 100%;
   background-color: #FFFDE8;
+}
+
+#fitnessTitleVideoWrapper {
   position: absolute;
-  bottom: 43%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50%;
 }
 
 #fitnessAppTitle {
-  position: absolute;
-  bottom: 90%;
+  position: relative;
   color: #0B2161;
   white-space: nowrap;  
-  opacity: 0;
-  left: 37%;
-  font-family: "Varela Round", Georgia, Impact, sans-serif;
-}
-
-#fitnessAppVideo {
-  position: absolute;
-  top: 15%;
-  left: 25%;
-}
-
-#fitnessAppDescription:hover {
-  position: absolute;
-  left: 2.5%;
-  top: 20%;
   text-align: center;
-  font-family: Geneva, Impact, sans-serif;
-  font-size: 14px;
-  border-radius: 25px;
-  color: #0B2161;
-  background-color: #EFF8FB;
+  top: 5%;
+  font-family: "Varela Round", Georgia, Impact, sans-serif;
+  font-size: 18px;
+}
+
+#fitnessAppVideoWrapper {
+  position: relative;
+  border-radius: 3%;
+  width: 450px;
   height: auto;
-  width: 20%;
-  transition: width 1s, height .5s;
-  background-color: #FFF79E;
-  padding: 5px;
+  bottom: -10%;
+}
+
+#fitnessAppDescriptionWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  
 }
 
 #fitnessAppDescription {
-  position: absolute;
-  left: 4%;
-  top: 30%;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: Geneva, Impact, sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   border-radius: 25px;
   background-color: #D6CD6A;
   color: white;
-  height: 7%;
-  width: 15%;
+  width: 100px;
+  height: 30px;
+  transition: width .5s;
+  top: 30%;
+  left: 60%;
+
 
 }
 
+#fitnessAppDescription:hover {
+  position: relative;
+  text-align: left;
+  font-size: 10px;
+  border-radius: 25px;
+  color: #0B2161;
+  padding: 10px;
+  background-color: #FFF79E;
+  width: 100%;
+  height: 36%;
+  transition: width .5s, height .5s;
+}
+
 #fitnessAppStack {
-  position: absolute;
-  height: 50%;
-  width: 10%;
-  top: 20%;
-  text-align: center;
-  left: 86%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  font-size: 14px;
-  
+  text-align: center;
+  width: 25%;
+  min-width: 150px;
+  height: 35%;
+  top: 62%;
+  left: 40%;
+
 }
+
+#bgchContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 17%;
+  width: 100%;
+}
+
+#bgchTitleVideoWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50%%;
+}
+
+#bgchTitle {
+  position: relative;
+  color: #0B2161;
+  white-space: nowrap;  
+  top: 4%;
+  text-align: center;
+  font-family: "Varela Round", Geneva, Impact, sans-serif;
+}
+
+#bgchVideoWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: auto;
+  min-width: 450px;
+  width: 450px;
+  min-height: 250px;
+  height: 255px;
+  border-radius: 3%; 
+  left: -20%;
+  top: 10%;
+}
+
+#bgchInfoWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+
+#bgchDiv {
+  position: absolute;
+  top: 15%;
+  left: 110%;
+}
+
+#bgchDescription {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Geneva, Impact, sans-serif;
+  font-size: 12px;
+  border-radius: 25px;
+  background-color: #6ACAFF;
+  color: #0B2161;
+  transition: width .5s, height .5s;
+  width: 100px;
+  height: 30px;
+  bottom: -30%;
+  left: -20%;
+  z-index: 1;
+
+}
+
+
+#bgchDescription:hover {
+  font-size: 10px;
+  text-align: left;
+  color: #0B2161;
+  background-color: #EFF8FB;
+  width: 30%;
+  height: 30%;
+  transition: width .5s;
+  padding: 10px;
+
+}
+
+#bgchStack {
+  bottom: -70%;
+}
+
+.stack {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+  min-width: 325px;
+  height: auto;
+  font-size: 14px;
+  text-align: center;
+  bottom: 5%;
+  padding: 20px;
+}
+
 
 .hide {
   opacity: 0;
@@ -534,62 +657,68 @@ textarea {
 .show {
   opacity: 1;
 }
-.content {
-  height:4200px;
-}
-.fullpage {
-  position: relative;
-}
+
 
 #footer {
-    position: absolute;
-    background-color: #EFF8FB;
-    font-size:25px;
-    line-height: 3.5;
-    width: 1000%;
-    height: 1000px;
-    bottom: 8%;
-    left: 0;
-    display: flex;
-    flex-direction: row;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #EFF8FB;
+  font-size: 25px;
+  line-height: 3.5;
+  width: 100%;
+  height: 12%;
+}
 
-  }
+#footerSeal {
+  position: relative;
+  top: -12%;
+
+}
 
 #footerBottom {
-  position: absolute;
+  position: relative;
   bottom: 0%;
   width: 100%;
   height: 20%;
   background-color: white;
 }
 
-#social-media-links {
-  position: absolute;
-  left: 4.93%;
-  top: 72%;
-  width: 1%;
-  height: 10%;
+#socialMediaLinks {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 2.5%;
+  min-width: 40px;
+  height: 3%;
+  top: 21%;
 }
 
-#footerSeal {
-  position: absolute;
-  left: 4.5%;
-  top: -5%;
-
+#toggler {
+  position: relative;
+  left: 88%;
 }
 
-#contactDiv {
+#navbarToggle {
   position: absolute;
-  background-color: white;
+  background-color: #C3DEE9;
   width: 100%;
-  height: 8%;
-  bottom: 80%;
+  top: 100%;
+  border: 1px solid gray;
+  left: 0%;
 }
 
-.activeLink {
-  border: 1px solid black;
-  height: 75px;
-  width: 50px;
+.navbar-toggler {
+  background-color: #2A3D68;
+}
+
+.emblems {
+  width: 125px;
+  height: 125px;
 }
 
 .bg-steel {
@@ -598,89 +727,96 @@ textarea {
 
 }
 
-
 .moving-header {
   background-color: #C3DEE9;
   height: 95px;
   transition: height .5s;
 }
 
+#links {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
 
 .links {
- 
-  color: gray;
+  color: white;
   padding: 10px;
+  cursor: pointer;
 
 }
 
 .links:hover {
-  color: #C3DEE9;
+  color: navy;
 
+}
+
+/*a href causes padding with button to render slightly different, no need a bit more padding*/
+#cards {
+  padding: 12px;
 }
 
 .moving-links {
   color: white;
   padding: 10px;
+  cursor: pointer;
 }
 
 .moving-links:hover {
   background-color: #8DACCA;
   border-radius: 5%;
   color: white;
+  border: .5px solid white;
+}
+
+.vid {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.rocket {
+  position: absolute;
+  height: auto;
+  width: 8%;
+  top: 90%;
+  left: 90%;
+  z-index: 1;
+}
+
+.select {
+  border: .5px solid white;
+  outline: none;
+  background: #8DACCA;
+  border-radius: 5%;
+  color: white;
 }
 
 
-.content-section {
-  background: red;
-  padding: 10px 20px;
-  border: 1px solid #dddddd;
-  border-radius: 3px;
-  margin-bottom: 20px;
+.unSelect {
+  background: none;
+  border: none;
 }
 
-.article-title {
-  color: #444444;
+
+.icon {
+  width: 35px;
+  height: auto;
 }
 
-a.article-title:hover {
-  color: #428bca;
-  text-decoration: none;
+.icon:hover {
+  width: 45px;
+  height: auto;
 }
 
-.article-content {
-  white-space: pre-line;
+.bottomIcon {
+  width: 15px;
+  height: auto;
 }
 
-.article-img {
-  height: 65px;
-  width: 65px;
-  margin-right: 16px;
-}
-
-.article-metadata {
-  padding-bottom: 1px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
-}
-
-.article-metadata a:hover {
-  color: black;
-  text-decoration: none;
-}
-
-.article-svg {
-  width: 25px;
-  height: 25px;
-  vertical-align: middle;
-}
-
-.account-img {
-  height: 125px;
-  width: 125px;
-  margin-right: 20px;
-  margin-bottom: 16px;
-}
-
-.account-heading {
-  font-size: 2.5rem;
+.bottomIcon:hover {
+  box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
 }

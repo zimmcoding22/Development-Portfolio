@@ -6,9 +6,10 @@ import requests
 
 #send email
 def send_simple_message(message_name, message_email, message):
+	API_KEY = str(os.environ.get('MAILGUN_PRIVATE_KEY'))
 	return requests.post(
 		"https://api.mailgun.net/v3/sandbox0993ed0109fb4f639a2567180ae08a01.mailgun.org/messages",
-		auth=("api", "5ba44a850a4a730fac6e9d95c2aea252-28d78af2-ef3d2b4e"),
+		auth=("api", API_KEY),
 		data={"from": message_email,
 			"to": ["jakeziscoding@gmail.com"],
 			"subject": "django email test",
@@ -34,6 +35,4 @@ def base_view(request, *args, **kwargs):
 
 	else:
 		return render(request, "base.html")
-
-
 

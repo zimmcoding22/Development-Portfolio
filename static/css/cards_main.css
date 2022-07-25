@@ -154,9 +154,8 @@ span:nth-child(18) {
 	box-shadow: none;
 	display: flex;
 	align-items: center;
-	border-style: solid;
-	border-color: lightgray;
-	border-width: .5px;
+	border: solid .5px lightgray;
+	
 }
 
 #search input {

@@ -18,15 +18,15 @@
 	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 484px) and (max-width: 767px)" href="{% static 'css/small_tablet_.css' %}">
 
 	<!-- large tablet -->
-	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 768px) and (max-width: 980px)" href="{% static 'css/large_tablet.css' %}">
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 768px) and (max-width: 1024px)" href="{% static 'css/large_tablet.css' %}">
 
 	<!-- laptop/desktop tablet -->
-	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 981px) and (max-width: 1450px)" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 1025px) and (max-width: 1450px)" href="{% static 'css/main.css' %}">
 
 	<!-- large desktop -->
 	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 1450px)" href="{% static 'css/large_screen.css' %}">
 
-	<!-- Prevent smartphones from scaling pages down -->
+	
 	<title>JZ Archives</title>
 	<link rel="shortcut icon" type="image/gif" href="{% static 'shortcut_icon.png' %}"/>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
@@ -39,8 +39,8 @@
 	<header class="site-header">
 	  <nav id="navid" class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
 	    <div class="container">
-	      <img id="jzArchivesLogo" src="/static/logo_transparent.png" width="190" height="95" />
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+	      <img id="jzArchivesLogo" src="/static/logo_transparent.png"/>
+	      <button class="navbar-toggler" id="toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
 	      </button>
 	      <div class="collapse navbar-collapse" id="navbarToggle">
@@ -48,21 +48,20 @@
 	        </div>
 	        <!-- Navbar Right Side -->
 	        <div id="links">
-	          <!-- <button onclick="scrollWin('home')" id="start" class="links">Home</button> -->
 	          <button onclick="scrollTopAnimated('home')" id="start" class="links">Home</button>
 	          <button onclick="scrollTopAnimated('contact')" id="contact" class="links">Contact</button>
 	          <button onclick="scrollTopAnimated('games')" id="games" class="links">Games</button>
 	          <button onclick="scrollTopAnimated('trading')" id="trading" class="links">Trading</button>
 	          <button onclick="scrollTopAnimated('web')" id="web" class="links">Web Apps</button>
-	          <a href="cards/" id="cards" class="links" target="_blank">Cards!</a>
+	          <button><a href="cards/" id="cards" class="links" target="_blank">Cards!</a></button>
 	        </div>
 	      </div>
 	    </div>
 	  </nav>
 	</header>
 	<div id="bodyWrapper">
-		<video id="titleVid" autoplay playsinline src="{% static 'pole_game_coding.mov' %}"> <!-- removed audio from vid in quicktime to remove PictureinPicture icon in firefox -->
-	    	Your browser does not support the HTML5 Video element.
+		<video id="titleVid" muted autoplay playsinline src="{% static 'pole_game_coding.mov' %}"> <!-- removed audio from vid in quicktime to remove PictureinPicture icon in firefox -->
+	    	Your browser does not support the HTML5 Video element.		<!-- video will not play unless muted attribute is included -->
 		</video>
 		<div id="titleContainer">
 			<div id="titleWrapper">
@@ -77,9 +76,16 @@
 				<div id="contactForm">
 					<form method="POST">
 						{% csrf_token %}
-						<input type="text" class="form" name="message_name" placeholder="Full name"><br><br>
-						<input type="text" class="form" name="message_email" placeholder="Email"><br><br>
-						<textarea class="form" rows="4" name="message" placeholder="Write me"></textarea><br><br>
+						<div id="nameInputWrapper" class="name_email">
+							<input type="text" id="name_input" class="form" name="name" placeholder="Full name">
+						</div>
+						<br><br>
+						<div id="emailInputWrapper" class="name_email">
+							<input type="text" id="email_input" class="form" name="email" placeholder="Email">
+						</div>
+						<br><br>
+						<textarea id="writeMessage" class="form" rows="4" name="message" placeholder="Write me"></textarea>
+						<br><br>
 						<input id="submit" type="submit" value="Send">
 					</form>
 				</div>	
@@ -123,10 +129,10 @@
 	 		</div>
 	 		<div id="poleGameIconWrapper">
 		 		<div id="poleGameLogo" class="hide">
-					<img class="picture" src="{% static 'poleGameIcon.png' %}"/>
+					<img class="appLogos" src="{% static 'poleGameIcon.png' %}"/>
 				</div>
 				<div id="appStoreLogo">
-					<img class="picture" src="{% static 'appStoreIcon.png' %}"/>
+					<img class="appLogos" src="{% static 'appStoreIcon.png' %}"/>
 				</div>
 			</div>
 			<div id="poleGameVideoWrapper" class="hide">
@@ -142,11 +148,11 @@
 				</video>
 			</div>
 			<div id="tradingInfoWrapper">
-				<div id="launchpadLogo" class="hide"><img class="picture" src="{% static 'launchpad.png' %}" width="200" height="200"/></div>
-				<div id="tradingDescription" onmouseover="this.innerHTML='Stock/options day trading system capable of screening opportunities, evaluating trade logic, sizing positions, managing risk, sending orders, and logging data.';" onmouseout="this.innerHTML='What is it?';">
+				<div id="launchpadDiv" class="hide"><img class="emblems" src="{% static 'launchpad.png' %}"/></div>
+				<div id="tradingDescription" onmouseover="this.innerHTML='Stocks and options day trading system capable of screening opportunities, evaluating trade logic, sizing positions, managing risk, sending orders, and logging data.';" onmouseout="this.innerHTML='What is it?';">
 					What is it?
 				</div>
-				<div id="tradingStack">
+				<div id="tradingStack" class="stack">
 					<a href="https://interactivebrokers.com/en/home.php" target="_blank">
 						<img src="{% static 'ibkrLogo.png' %}" class="icon"/>
 						<p>Interactive Brokers</p>
@@ -195,17 +201,17 @@
 			<div id="bgchTitleVideoWrapper">
 				<h4 id="bgchTitle" class="hide">Tee Time Sniper</h4>
 				<div id="bgchVideoWrapper" class="hide">
-					<video class="vid" controls="controls" width="700" height="450" src="{% static 'bgch.mov' %}" poster="{% static 'bgch_poster.png' %}">
+					<video class="vid" controls="controls" src="{% static 'bgch.mov' %}" poster="{% static 'bgch_poster.png' %}">
 			    	Your browser does not support the HTML5 Video element.
 					</video>
 				</div>
 			</div>
-			<div id="bgchStackLogoDescriptionWrapper">
-				<div id="bgchLogo" class="hide"><img class="picture" src="{% static 'tee times emblem.png' %}" width="200" height="200"/></div>
+			<div id="bgchInfoWrapper">
+				<div id="bgchDiv" class="hide"><img class="emblems" src="{% static 'tee times emblem.png' %}"/></div>
 				<div id="bgchDescription" onmouseover="this.innerHTML='Tee times hacker that made it possible to secure a time slot ahead of the rest of the online crowd during the pandemic.';" onmouseout="this.innerHTML='What is it?';">
 					What is it?
 				</div> 
-				<div id="bgchStack">
+				<div id="bgchStack" class="stack">
 					<a href="https://selenium-python.readthedocs.io/" target="_blank">
 						<img src="{% static 'seleniumIcon.png' %}" class="icon"/>
 						<p>Selenium</p>
@@ -248,39 +254,154 @@
 
     <script>
 
+
+    	//handle x icon for user inputs
+   		function inputHandler(event) {
+   			const fields = ["name_input", "email_input"];
+   			if (fields.includes(event.target.id)) {
+   				var wrapper = document.getElementById(event.target.parentElement.id);
+   				var elem = document.getElementById(event.target.id);
+   				var name = event.target.name;
+   			} else {
+   				return;
+   			}
+   			if (event.key === "Backspace") {
+   				var inputString = elem.value.substring(0, elem.value.length - 1);
+   			} else {
+   				if (!omit_keys.includes(event.key)) {
+					var inputString = elem.value + event.key;
+				} else {
+					var inputString = elem.value
+				}
+   			}
+   			//if input string isn't empty, create the appropriate x icon
+   			let id = "x_icon_" + name;
+   			let x_icon = document.getElementById(id);
+			if (inputString !== "" && !x_icon) {
+				x_icon = document.createElement("img");
+				x_icon.setAttribute("id", id);
+				x_icon.className = "x_icon";
+				x_icon.src = "{% static 'x_icon.png' %}";
+				wrapper.appendChild(x_icon);
+			} 
+			if (inputString === '' && x_icon) {				
+				x_icon.remove();	
+			}		
+   		}
+
+   		//add border on click
+   		function addRemoveSearchBorder(event) {
+   			if (event.target.id === "write_message" && highlighted !== undefined) {
+   				document.getElementById(highlighted).style.border = "solid .5px lightgray";
+   				return;
+   			}
+   			if (event.target.className === "x_icon") {
+   				var id = event.composedPath()[1].id;
+   			} else {
+   				var id = event.target.parentElement.id;
+   			}
+   			//unhighlight
+   			if (id !== highlighted && highlighted !== undefined) {
+				document.getElementById(highlighted).style.border = "solid .5px lightgray";
+			}
+   			if (event.target.className === "form" || event.target.className === "x_icon") {
+   				let elem = document.getElementById(id);
+   				if (elem) {
+   					elem.style.border = "solid gray 1px";
+					elem.style.transition = "0.15s";
+					highlighted = id;
+   				} 
+			}
+   		}
+
+   		//clear form fields
+    	function clearForm(event) {
+    		const x_icons = ["x_icon_name", "x_icon_email"];
+    		if (x_icons.includes(event.target.id)) {
+	    		let x_icon = document.getElementById(event.target.id);
+				x_icon.remove();
+				let form_id = document.getElementById(event.composedPath()[1].firstElementChild.id);
+				form_id.value = "";
+			}
+    	}
+
     	//resize video elements for firefox/safari
     	function resizeVideos() {
-    		var browser = detectBrowser();
-    		console.log("browser main:", browser);
-    		var poleGameVideoWrapper = document.getElementById("poleGameVideoWrapper");
-    		var tradingVideoWrapper = document.getElementById("tradingVideoWrapper");
-    		var fitnessAppVideoWrapper = document.getElementById("fitnessAppVideoWrapper");
-    		var bgchVideoWrapper = document.getElementById("bgchVideoWrapper");
-    		if (browser === "firefox" || browser === "safari") {
-    			poleGameVideoWrapper.style.width = "18%";
+    		let browser = detectBrowser();
+    		let poleGameVideoWrapper = document.getElementById("poleGameVideoWrapper");
+    		let tradingVideoWrapper = document.getElementById("tradingVideoWrapper");
+    		let fitnessAppVideoWrapper = document.getElementById("fitnessAppVideoWrapper");
+    		let bgchVideoWrapper = document.getElementById("bgchVideoWrapper");
+    		if (browser !== "chrome") {
+
+    			//poleGameVideoWrapper.style.backgroundColor = "red";
     			poleGameVideoWrapper.style.minWidth = "270px";
-    			tradingVideoWrapper.style.height = "400px";
-    			fitnessAppVideoWrapper.style.height = "390px";
-    			bgchVideoWrapper.style.height = "410px";
+    			tradingVideoWrapper.style.backgroundColor = "black";
+    			fitnessAppVideoWrapper.style.backgroundColor = "black";
+    			bgchVideoWrapper.style.backgroundColor = "black";
+    			if (width > screen_width_dividers["small_tablet"] && width <= screen_width_dividers["main"]) { 
+    				poleGameVideoWrapper.style.width = "250px";
+    				poleGameVideoWrapper.style.height = "580px";
+    			}
+    			if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["tablet"]) {
+    				poleGameVideoWrapper.style.width = "200px";
+    				poleGameVideoWrapper.style.minWidth = "200px";
+    				poleGameVideoWrapper.style.height = "430px";
+    			}
+    			if (width <= screen_width_dividers["mobile"]) {
+    				poleGameVideoWrapper.style.width = "160px";
+    				poleGameVideoWrapper.style.minWidth = "160px";
+    				poleGameVideoWrapper.style.height = "345px";
+    			}
+    			
     		}
     	}
+
+    	//animated scroll inspired by @litecoin.org
+    	function scrollTopAnimated(tab) {
+    		position = scrollWin(tab).toString(); //return position based on tab clicked/screen width
+            $("html, body").animate({ scrollTop: position }, 2000, "easeInOutExpo");
+        }
+
     	//reload page
-    	var logo = document.getElementById("jzArchivesLogo");
+    	let logo = document.getElementById("jzArchivesLogo");
     	logo.addEventListener("click", () => {
   			location.reload();
 		});	
-    	resizeVideos();
-    	//animated scroll inspired by @litecoin.org
-    	function scrollTopAnimated(tab) {
-    		position = scrollWin(tab).toString();
-            $("html, body").animate(
-                { scrollTop: position }, 2000, "easeInOutExpo");
-        }
-
-     
+        const omit_keys = ["Tab", "CapsLock", "Shift", "Control", "Backspace", "ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Meta", "Enter", "Alt", "Escape"];
+        var highlighted;
+        var width = window.innerWidth;
+        resizeVideos();
+         //reload anmations and bring user to top of page if stylesheet changes on window resize to reorganize elements
+        var stylesheet;
+     	window.addEventListener("resize", (event) => {
+     		width = window.innerWidth;
+     		if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["small_tablet"]) {
+     			currentStylesheet = "mobile";
+     		} else if (width > screen_width_dividers["small_tablet"] && width <= screen_width_dividers["tablet"]) {
+     			currentStylesheet = "tablet";
+     		} else if (width > screen_width_dividers["tablet"] && width <= screen_width_dividers["main"]) {
+     			currentStylesheet = "laptop";
+     		} else {
+     			currentStylesheet = "desktop";
+     		}
+     		if (stylesheet === undefined) {
+     			stylesheet = currentStylesheet;
+     		} else {
+     			if (currentStylesheet !== stylesheet) {
+     				stylesheet = currentStylesheet;
+   	 				this.location.href = this.location.href; //location.reload() doesnt seem to work for screen size event in firefox
+     				window.scrollTo(0, 0);
+     				
+     			}
+     		}
+     	});
+        document.body.addEventListener("keydown", inputHandler);
+        document.body.addEventListener("click", clearForm);
+        document.body.addEventListener("click", addRemoveSearchBorder);
+       
 
     </script>
-
 
 </body>
 
