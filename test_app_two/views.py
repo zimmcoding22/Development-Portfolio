@@ -7,9 +7,9 @@ import os
 
 #send email
 def send_simple_message(message_name, message_email, message):
-	API_KEY = str(os.environ.get('MAILGUN_PRIVATE_KEY'))
+	API_KEY = os.environ.get('MAILGUN_PRIVATE_KEY')
 	return requests.post(
-		"https://api.mailgun.net/v3/sandbox0993ed0109fb4f639a2567180ae08a01.mailgun.org/messages",
+		"https://api.mailgun.net/v3/sandbox76d04e9490d84b34bea8c3ad25975ac8.mailgun.org/messages",
 		auth=("api", API_KEY),
 		data={"from": message_email,
 			"to": ["jakeziscoding@gmail.com"],
@@ -17,6 +17,7 @@ def send_simple_message(message_name, message_email, message):
 			"text": message})
 
 
+#sandbox0993ed0109fb4f639a2567180ae08a01.mailgun.org
 #Create your views here.
 
 def cards_view(request, *args, **kwargs):
