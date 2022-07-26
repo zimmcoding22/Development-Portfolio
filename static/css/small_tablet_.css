@@ -2,6 +2,7 @@
 html { overflow-y: scroll; overflow-x:hidden; }  /*prevent horizontal scrolling*/
 
 body {
+  position: relative;
   margin: 0;
   padding: 0;
 

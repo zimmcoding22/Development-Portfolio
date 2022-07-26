@@ -1,3 +1,5 @@
+//separate module for utility functions that are used across scripts
+
 function detectBrowser() {         
 		let userAgent = navigator.userAgent;
     let browserName; 

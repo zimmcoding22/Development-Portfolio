@@ -43,20 +43,20 @@ jzArchivesLogoStyle = window.getComputedStyle(jzArchivesLogo);
 rocket = document.getElementById("rocket");
 rocketStyle = window.getComputedStyle(rocket);
 
-bgch_animations_one = false;
-bgch_animations_two = false;
-fitness_animations = false
-pole_game_animations = false;
-trading_animations = false;
-rocket_animation = false;
-animation_width = 1200; //screen widths less than this will not display animations for now
-var width;
+var bgch_animations_one = false;
+var bgch_animations_two = false;
+var fitness_animations = false
+var pole_game_animations = false;
+var trading_animations = false;
+var rocket_animation = false;
+var width = window.innerWidth;
 
-main_css_tabs = {"home" : 500, "contact" : 992, "games" : 1651, "trading" : 2290};
-tablet_css_tabs = {"home" : 380, "contact" : 862, "games" : 1421, "trading" : 1850};
-main_css_animations = {"pole_game" : 700, "trading" : 1100, "fitness" : 2100, "bgch_one" : 2500, "bgch_two" : 2650};
-tablet_css_animations = {"pole_game" : 700, "trading" : 1250, "fitness" : 1900, "bgch_one" : 2500, "bgch_two" : 2600};
-screen_width_dividers = {"main" : 1450, "tablet" : 1024, "small_tablet" : 768, "mobile" : 483};
+const main_css_tabs = {"home" : 500, "contact" : 992, "games" : 1651, "trading" : 2290};
+const tablet_css_tabs = {"home" : 380, "contact" : 862, "games" : 1421, "trading" : 1850};
+const mobile_css_tabs = {"home" : 380, "contact" : 862, "games" : 1421, "trading" : 1850};
+const main_css_animations = {"pole_game" : 700, "trading" : 1100, "fitness" : 2100, "bgch_one" : 2500, "bgch_two" : 2650};
+const tablet_css_animations = {"pole_game" : 700, "trading" : 1250, "fitness" : 1900, "bgch_one" : 2500, "bgch_two" : 2600};
+const screen_width_dividers = {"main" : 1450, "tablet" : 1024, "small_tablet" : 768, "mobile" : 483};
 
 
 function scrollWin(tab) { //scroll to appropriate tab
@@ -75,13 +75,16 @@ function scrollWin(tab) { //scroll to appropriate tab
 			y_value = 515;
 		}
 	} else if (tab === "games") {
-		if (width >= screen_width_dividers["main"]) {
+		if (width > screen_width_dividers["main"]) {
 			y_value = 992;
 		} 
-		if (width >= screen_width_dividers["small_tablet"] && width < screen_width_dividers["main"]) {
+		if (width > screen_width_dividers["small_tablet"] && width <= screen_width_dividers["main"]) {
 			y_value = 1045;
 		} 
-		if (width < screen_width_dividers["small_tablet"]) {
+		if (width > screen_width_dividers["mobile"] && width < screen_width_dividers["small_tablet"]) {
+			y_value = 1007;
+		}
+		if (width <= screen_width_dividers["mobile"]) {
 			y_value = 970;
 		}
 	} else if (tab === "trading") {
@@ -91,7 +94,10 @@ function scrollWin(tab) { //scroll to appropriate tab
 		if (width >= screen_width_dividers["small_tablet"] && width < screen_width_dividers["main"]) {
 			y_value = 1651;
 		} 
-		if (width < screen_width_dividers["small_tablet"]) {
+		if (width > screen_width_dividers["mobile"] && width < screen_width_dividers["small_tablet"]) {
+			y_value = 1585;
+		}
+		if (width < screen_width_dividers["mobile"]) {
 			y_value = 1550;
 		}
 	} else { //web apps
@@ -101,7 +107,10 @@ function scrollWin(tab) { //scroll to appropriate tab
 		if (width >= screen_width_dividers["small_tablet"] && width < screen_width_dividers["main"]) {
 			y_value = 2225;
 		} 
-		if (width < screen_width_dividers["small_tablet"]) {
+		if (width > screen_width_dividers["mobile"] && width < screen_width_dividers["small_tablet"]) {
+			y_value = 2165;
+		}
+		if (width < screen_width_dividers["mobile"]) {
 			y_value = 2130;
 		}
 	}
@@ -113,7 +122,7 @@ function scrollHandler() {
 	var y = window.scrollY;
 	width = window.innerWidth;
 	console.log("y:", y);
-	//if user scrolls down at all
+	//if user scrolls
 	//navbar
 	if (y > 100) {
 		navid.className = "navbar navbar-expand-md navbar-dark moving-header fixed-top";
@@ -143,27 +152,7 @@ function scrollHandler() {
   }
   if (width >= screen_width_dividers["main"]) {
  		//make header interactive
-  	if (y > 100 && y < main_css_tabs["home"]) {
-  		//console.log("highlighting home tab");
-			setLinkClass("moving-links unSelect");
-			homeLink.className = "moving-links select";
-  	} else if (y >= main_css_tabs["home"] && y < main_css_tabs["contact"]) {
-			//console.log("highlighting contact tab");
-			setLinkClass("moving-links unSelect");
-			contactLink.className = "moving-links select";
-  	} else if (y >= main_css_tabs["contact"] && y < main_css_tabs["games"]) {
-			//console.log("highlighting games tab");
-			setLinkClass("moving-links unSelect");
-			gamesLink.className = "moving-links select";				
-  	} else if (y >= main_css_tabs["games"] && y < main_css_tabs["trading"]) {
-  		//console.log("highlighting trading tab");
-  		setLinkClass("moving-links unSelect");
-			tradingLink.className = "moving-links select";
-  	} else if (y >= main_css_tabs["trading"]) {
-  		//console.log("highlighting web apps tab");
-  		setLinkClass("moving-links unSelect");
-			webLink.className = "moving-links select";
-  	} else {}
+ 		configureLinks(y, main_css_tabs);
   	//animations
 		if (y >= main_css_animations["pole_game"] && !pole_game_animations) {
 			poleGameVideoWrapper.className = "show";
@@ -196,28 +185,8 @@ function scrollHandler() {
   		bgch_animations_two = true;
 	  } 
 	} else if (width > screen_width_dividers["mobile"] && width < screen_width_dividers["main"]) {
-	 	//configure animations for tablet here
-	 	if (y > 100 && y < tablet_css_tabs["home"]) {
-			setLinkClass("moving-links unSelect");
-			homeLink.className = "moving-links select";
-	  } 
-	  if (y >= tablet_css_tabs["home"] && y < tablet_css_tabs["contact"]) { //we are at contact tab.
-			setLinkClass("moving-links unSelect");
-			contactLink.className = "moving-links select";
-	  } 
-	  if (y >= tablet_css_tabs["contact"] && y < tablet_css_tabs["games"]) {
-			setLinkClass("moving-links unSelect");
-			gamesLink.className = "moving-links select";				
-	  } 
-	  if (y >= tablet_css_tabs["games"] && y < tablet_css_tabs["trading"]) {
-	  		setLinkClass("moving-links unSelect");
-			tradingLink.className = "moving-links select";
-	  } 
-	  if (y >= tablet_css_tabs["trading"]) {
-	  		setLinkClass("moving-links unSelect");
-			webLink.className = "moving-links select";
-	  } 
-  		//animations
+	 	configureLinks(y, tablet_css_tabs);
+  	//animations
 		if (y >= tablet_css_animations["pole_game"] && !pole_game_animations) {
 		 	fadeIn(poleGameLogo);
 		 	fadeIn(poleGameVideoWrapper);
@@ -249,7 +218,8 @@ function scrollHandler() {
   		moveDescriptionAndStackUp(bgchDescription, bgchStack, "");
   		bgch_animations_two = true;
 	  } 
-	} else {
+	} else { //leaving out animations on mobile for now because layout on mobile is totally different.
+		configureLinks(y, tablet_css_tabs); //didn't need an extra one for mobile
 		poleGameVideoWrapper.className = "show";
 		poleGameLogo.className = "show";
 		bgchVideoWrapper.className = "show";
@@ -257,6 +227,30 @@ function scrollHandler() {
 		launchpadDiv.className = "show";
 		tradingVideoWrapper.className = "show";
 	}
+}
+
+//toggle which tab is highlighted as user scrolls
+function configureLinks(y, tabs) {
+	if (y > 100 && y < tabs["home"]) {
+			setLinkClass("moving-links unSelect");
+			homeLink.className = "moving-links select";
+	  } 
+	  if (y >= tabs["home"] && y < tabs["contact"]) { //we are at contact tab.
+			setLinkClass("moving-links unSelect");
+			contactLink.className = "moving-links select";
+	  } 
+	  if (y >= tabs["contact"] && y < tabs["games"]) {
+			setLinkClass("moving-links unSelect");
+			gamesLink.className = "moving-links select";				
+	  } 
+	  if (y >= tabs["games"] && y < tabs["trading"]) {
+	  	setLinkClass("moving-links unSelect");
+			tradingLink.className = "moving-links select";
+	  } 
+	  if (y >= tabs["trading"]) {
+	  	setLinkClass("moving-links unSelect");
+			webLink.className = "moving-links select";
+	  } 
 }
 
 function setLinkClass(c) {
@@ -420,14 +414,17 @@ function moveDescriptionAndStackUp(description, stack, tag) {
 }
 
 function animateRocket(rocket) {
+	width = window.innerWidth;
+	if (width < screen_width_dividers["mobile"]) {
+		rocket.style.opacity = 0;
+		return;
+	}
 	var top_pos = 14, left_pos = 80, transform = 0; //starting position of rocket in css sheet
 	var target_one = 13, target_two = 70, target_three = 10.5, target_four = 80;
 	var l_speed = .055, t_speed = .1, d_speed = .1;
 	var movingUp = true, rotating = false, movingLeft = false, movingUpAndLeft = false, movingRight = false, curvingUp = false;
 	var direction = "left";
 	var firstMoveComplete = false, secondMoveComplete = false;
-	var width = window.innerWidth;
-	console.log("rocket width:", width);
 	if (width > screen_width_dividers["main"]) {
 		top_pos = 15, left_pos = 80, transform = 0; 
 	 	target_one = 10, target_two = 75, target_three = 10.5, target_four = 70;
