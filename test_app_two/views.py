@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.conf import settings
 from .models import Deck, Producer
 import requests
+import os
 
 #send email
 def send_simple_message(message_name, message_email, message):

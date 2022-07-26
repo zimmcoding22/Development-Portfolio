@@ -77,11 +77,11 @@
 					<form method="POST">
 						{% csrf_token %}
 						<div id="nameInputWrapper" class="name_email">
-							<input type="text" id="name_input" class="form" name="name" placeholder="Full name">
+							<input type="text" id="name_input" class="form" name="message_name" placeholder="Full name">
 						</div>
 						<br><br>
 						<div id="emailInputWrapper" class="name_email">
-							<input type="text" id="email_input" class="form" name="email" placeholder="Email">
+							<input type="text" id="email_input" class="form" name="message_email" placeholder="Email">
 						</div>
 						<br><br>
 						<textarea id="writeMessage" class="form" rows="4" name="message" placeholder="Write me"></textarea>
@@ -316,7 +316,7 @@
 
    		//clear form fields
     	function clearForm(event) {
-    		const x_icons = ["x_icon_name", "x_icon_email"];
+    		const x_icons = ["x_icon_message_name", "x_icon_message_email"];
     		if (x_icons.includes(event.target.id)) {
 	    		let x_icon = document.getElementById(event.target.id);
 				x_icon.remove();
