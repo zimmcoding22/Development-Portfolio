@@ -7,7 +7,8 @@ import os
 
 #send email
 def send_simple_message(message_name, message_email, message):
-	API_KEY = os.environ.get('MAILGUN_PRIVATE_KEY')
+	#API_KEY = os.environ.get('MAILGUN_PRIVATE_KEY')
+	API_KEY = "efd20351e5a413f45740c37ded361463-835621cf-566428bf"
 	return requests.post(
 		"https://api.mailgun.net/v3/sandbox76d04e9490d84b34bea8c3ad25975ac8.mailgun.org/messages",
 		auth=("api", API_KEY),
@@ -17,7 +18,7 @@ def send_simple_message(message_name, message_email, message):
 			"text": message})
 
 
-#sandbox0993ed0109fb4f639a2567180ae08a01.mailgun.org
+#sandbox0993ed0109fb4f639a2567180ae08a01.mailgun.org - original
 #Create your views here.
 
 def cards_view(request, *args, **kwargs):
