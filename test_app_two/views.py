@@ -7,8 +7,8 @@ import os
 
 #send email
 def send_simple_message(message_name, message_email, message):
-	#API_KEY = os.environ.get('MAILGUN_PRIVATE_KEY')
-	API_KEY = "key-48c8d08bfffd29a191ef49b93c5bb059"
+	API_KEY = os.environ.get('MAILGUN_PRIVATE_KEY')
+	#API_KEY = "key-48c8d08bfffd29a191ef49b93c5bb059"
 	return requests.post(
 		"https://api.mailgun.net/v3/sandbox0993ed0109fb4f639a2567180ae08a01.mailgun.org/messages",
 		auth=("api", API_KEY),
