@@ -6,7 +6,7 @@
 	 <!-- Required meta tags -->
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -257,15 +257,7 @@
 
     <script>
 
-    	if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
-		    var viewportmeta = document.querySelector('meta[name="viewport"]');
-		    if (viewportmeta) {
-		        viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0';
-		        document.body.addEventListener('gesturestart', function () {
-		            viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
-		        }, false);
-		    }
-		}
+
 
     	//handle x icon for user inputs
    		function inputHandler(event) {
