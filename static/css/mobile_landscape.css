@@ -1,5 +1,8 @@
 /*use command shift r to clear browser cache*/
-html, body { overflow-y: scroll; overflow-x:hidden; }  /*prevent horizontal scrolling*/
+html, body { 
+  width: 100%;
+  overflow-y: scroll; overflow-x:hidden; 
+}  /*prevent horizontal scrolling*/
 
 body {
   overflow-x: hidden;
