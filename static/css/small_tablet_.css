@@ -72,7 +72,7 @@ textarea {
   flex-direction: column;
   height: 4000px;
   position: relative;
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 
 #jzArchivesLogo {
