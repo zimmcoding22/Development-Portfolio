@@ -93,9 +93,6 @@ textarea {
   left: -120px;
   width: 1200px; 
   height: auto; 
-  overflow-x: hidden;
-}::-webkit-media-controls-start-playback-button {
-  display: none !important;
 }
 
 #titleContainer {

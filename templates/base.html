@@ -257,8 +257,6 @@
 
     <script>
 
-
-
     	//handle x icon for user inputs
    		function inputHandler(event) {
    			const fields = ["name_input", "email_input"];
@@ -404,11 +402,12 @@
         document.body.addEventListener("click", clearForm);
         document.body.addEventListener("click", addRemoveSearchBorder);
 
-        $.each( $('*'), function() { 
-		    if( $(this).width() > $('body').width()) {
-		        console.log("Wide Element: ", $(this), "Width: ", $(this).width(), "ID: ", this.id); 
-		    } 
-		});
+        //detects elements that are off screena dn potentially causing viewport sizing issues
+        //$.each( $('*'), function() { 
+		//     if( $(this).width() > $('body').width()) {
+		//         console.log("Wide Element: ", $(this), "Width: ", $(this).width(), "ID: ", this.id); 
+		//     } 
+		// });
 
 
     </script>
