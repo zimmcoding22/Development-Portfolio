@@ -443,9 +443,9 @@ function animateRocket(rocket) {
 		rocket.style.opacity = 0;
 		return;
 	}
-	var top_pos = 14, left_pos = 80, transform = 0; //starting position of rocket in css sheet
+	var top_pos = 14, left_pos = 90, transform = 0; //starting position of rocket in css sheet
 	var target_one = 13, target_two = 70, target_three = 10.5, target_four = 80;
-	var l_speed = .055, t_speed = .1, d_speed = .1;
+	var l_speed = .055, t_speed = .1, d_speed = .05;
 	var movingUp = true, rotating = false, movingLeft = false, movingUpAndLeft = false, movingRight = false, curvingUp = false;
 	var direction = "left";
 	var firstMoveComplete = false, secondMoveComplete = false;
