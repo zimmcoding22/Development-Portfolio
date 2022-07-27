@@ -2,6 +2,7 @@
 html { overflow-y: scroll; overflow-x:hidden; }  /*prevent horizontal scrolling*/
 
 body {
+  position: relative;
   margin: 0;
   padding: 0;
 
@@ -15,6 +16,9 @@ h1, h2, h4, h5, h6 {
   color: #444444;
 }
 
+p {
+  font-size: 16px;
+}
 
 ul {
   margin: 0;
@@ -75,9 +79,11 @@ textarea {
 }
 
 #jzArchivesLogo {
-  width: 190px;
-  height: 95px;
+  position: absolute;
+  width: 195px;
+  height: 100px;
   cursor: pointer;
+  left: 5%;
 }
 
 #titleVid {
@@ -100,7 +106,7 @@ textarea {
   flex-direction: column;
   justify-content: center;
   left: 45%;
-  top: 32%;
+  top: 33%;
   width: 40%;
   min-width: 600px;
   height: 15%;
@@ -115,7 +121,7 @@ textarea {
   top: 0%;
   left: 0%;
   white-space: nowrap;  
-  font-size: 26px;
+  font-size: 32px;
   color: navy;
 }
 
@@ -129,7 +135,7 @@ textarea {
   font-weight: bold;
   font-family: "Varela Round", Geneva;
   color: navy;
-  font-size: 40px;
+  font-size: 42px;
 }
 
 #contactContainer {
@@ -156,7 +162,6 @@ textarea {
   display: flex;
   flex-direction: column;
   width: 40%;
-  /*min-width: 500px;*/
   height: 100%;
   right: 12%;
 }
@@ -177,7 +182,7 @@ textarea {
   text-align: left;
   top: 15%;
   left: 5%;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 #contactForm {
@@ -195,13 +200,21 @@ textarea {
  
 }
 
+
+#writeMessage {
+  position: relative;
+  width: 500px;
+  bottom: 10px;
+}
+
+
 .name_email {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 30px;
+  width: 500px;
+  height: 40px;
   border-radius: 5px;
   border: solid .5px lightgray;
 }
@@ -214,19 +227,19 @@ textarea {
   position: relative;
   padding-left: 2%;
   padding-top: 2px;
-  font-size: 14px;
-  width:99%;
-  box-sizing:border-box;
-  -moz-box-sizing:border-box;
+  font-size: 15px;
+  width: 99%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }::placeholder {
   opacity: .8;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 
 .x_icon {
   position: absolute;
-  height: 12px;
+  height: 14px;
   width: auto;
   right: 2%;
   padding-right: 1px;
@@ -280,7 +293,7 @@ textarea {
 #poleGameVideoWrapper {
   position: relative;
   display: flex;
-  width: 19%;
+  width: 14%;
   min-width: 280px;
   min-height: 460px;
   height: 100%;
@@ -315,8 +328,9 @@ textarea {
 }
 
 .appLogos {
-  width: 60%;
+  width: 45%;
   height: auto;
+  max-width: 450px;
 }
 
 #poleGameStackDescriptionWrapper {
@@ -326,7 +340,6 @@ textarea {
   justify-content: center;
   align-items: center;
   width: 30%;
-  /*min-width: 450px;*/
   height: 100%;
   left: 3%;
 }
@@ -336,13 +349,14 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 50%;
+  top: 80%;
   background-color: #6ACAFF;
   color: white;
   border-radius: 25px;
   width: 50%;
-  height: 7%;
+  height: 8%;
   transition: width .5s;
+  font-size: 18px;
 
 }
 
@@ -366,7 +380,7 @@ textarea {
   width: 90%;
   min-width: 350px;
   height: auto;
-  bottom: 0%;
+  bottom: -20%;
 }
 
 
@@ -385,11 +399,11 @@ textarea {
   position: relative;
   display: flex;
   justify-content: left;
-  width: 50%;
-  height: auto;
   border-radius: 3%; 
+  width: 40%;
+  height: auto;
+  max-width: 800px;
   left: -20%;
-  background-color: red;
 }
 
 #tradingInfoWrapper {
@@ -411,12 +425,13 @@ textarea {
   align-items: center;
   justify-content: center;
   font-family: Geneva, Impact, sans-serif;
+  font-size: 18px;
   border-radius: 25px;
   background-color: #D8F5D1;
   color: #0B2161;
   transition: width .5s, height .5s;
   width: 50%;
-  height: 7%;
+  height: 8%;
   bottom: 4%;
   left: 10%;
 
@@ -470,6 +485,7 @@ textarea {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   width: 50%;
   min-width: 620px;
   height: 100%;
@@ -481,13 +497,15 @@ textarea {
   white-space: nowrap;  
   text-align: center;
   font-family: "Varela Round", Georgia, Impact, sans-serif;
+  font-size: 28px;
   top: 5%;
 }
 
 #fitnessAppVideoWrapper {
   position: relative;
   border-radius: 3%;
-  width: 100%;
+  width: 70%;
+  max-width: 720px;
   height: auto;
   bottom: 7%;
 }
@@ -507,11 +525,12 @@ textarea {
   align-items: center;
   justify-content: center;
   font-family: Geneva, Impact, sans-serif;
+  font-size: 18px;
   border-radius: 25px;
   background-color: #D6CD6A;
   color: white;
   width: 55%;
-  height: 7%;
+  height: 8%;
   transition: width .5s, height .5s;
   top: 8%;
 
@@ -542,7 +561,7 @@ textarea {
   min-width: 120px;
   height: 70%;
   top: 20%;
-  left: 4%;
+  left: 10%;
 
 }
 
@@ -570,12 +589,15 @@ textarea {
   top: 4%;
   left: 85%;
   font-family: "Varela Round", Geneva, Impact, sans-serif;
+  font-size: 28px;
 }
 
 #bgchVideoWrapper {
   position: relative;
   border-radius: 3%;
   width: 100%;
+  height: auto;
+  max-width: 800px;
   top: 8%;
 }
 
@@ -603,6 +625,7 @@ textarea {
   align-items: center;
   justify-content: center;
   font-family: Geneva, Impact, sans-serif;
+  font-size: 18px;
   border-radius: 25px;
   background-color: #6ACAFF;
   color: white;
@@ -610,7 +633,7 @@ textarea {
   height: 8%;
   transition: width .5s, height .5s;
   top: 200%;
-  left: 25%;
+  left: 26%;
   padding: 10px;
 
 }
@@ -632,10 +655,10 @@ textarea {
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  width: 55%;
+  width: 65%;
   min-width: 300px;
   height: 7%;
-  left: 15%;
+  left: 24%;
   bottom: -10%;
 
 }
@@ -655,15 +678,16 @@ textarea {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-	background-color: #EFF8FB;
+  background-color: #EFF8FB;
   font-size: 25px;
   line-height: 3.5;
-	width: 100%;
+  width: 100%;
   height: 12%;
 }
 
 #footerSeal {
   position: relative;
+  width: 150px;
   top: -12%;
 
 }
@@ -683,9 +707,14 @@ textarea {
   justify-content: space-between;
   align-items: center;
   width: 3.1%;
-  min-width: 50px;
+  min-width: 60px;
   height: 3%;
   top: 21%;
+}
+
+#links {
+  position: absolute;
+  right: 5%;
 }
 
 .emblems {
@@ -695,13 +724,13 @@ textarea {
 
 .bg-steel {
   background-color: white;
-  height: 130px;
+  height: 140px;
 
 }
 
 .moving-header {
   background-color: #C3DEE9;
-  height: 95px;
+  height: 110px;
   transition: height .5s;
 }
 
@@ -709,6 +738,7 @@ textarea {
   color: gray;
   padding: 10px;
   cursor: pointer;
+  font-size: 22px;
 
 }
 
@@ -725,6 +755,7 @@ textarea {
   color: white;
   padding: 10px;
   cursor: pointer;
+  font-size: 22px;
 }
 
 
@@ -744,8 +775,8 @@ textarea {
 .rocket {
   position: absolute;
   height: auto;
-  width: 5%;
-  top: 90%;
+  width: 4%;
+  top: 50%;
   left: 90%;
   z-index: 1;
 }
@@ -776,7 +807,7 @@ textarea {
 }
 
 .bottomIcon {
-  width: 20px;
+  width: 25px;
   height: auto;
 }
 

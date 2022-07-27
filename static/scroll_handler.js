@@ -20,6 +20,8 @@ poleGameVideoWrapper = document.getElementById("poleGameVideoWrapper");
 poleGameVideoWrapperStyle = window.getComputedStyle(poleGameVideoWrapper);
 poleGameLogo = document.getElementById("poleGameLogo");
 poleGameLogoStyle = window.getComputedStyle(poleGameLogo);
+appStoreLogo = document.getElementById("appStoreLogo");
+appStoreLogoStyle = window.getComputedStyle(appStoreLogo);
 tradingVideoWrapper = document.getElementById("tradingVideoWrapper");
 tradingVideoWrapperStyle = window.getComputedStyle(tradingVideoWrapper);
 launchpadDiv = document.getElementById("launchpadDiv");
@@ -51,9 +53,8 @@ var trading_animations = false;
 var rocket_animation = false;
 var width = window.innerWidth;
 
-const main_css_tabs = {"home" : 500, "contact" : 992, "games" : 1651, "trading" : 2290};
+const main_css_tabs = {"home" : 350, "contact" : 920, "games" : 1480, "trading" : 2190};
 const tablet_css_tabs = {"home" : 380, "contact" : 862, "games" : 1421, "trading" : 1850};
-const mobile_css_tabs = {"home" : 380, "contact" : 862, "games" : 1421, "trading" : 1850};
 const main_css_animations = {"pole_game" : 700, "trading" : 1100, "fitness" : 2100, "bgch_one" : 2500, "bgch_two" : 2650};
 const tablet_css_animations = {"pole_game" : 700, "trading" : 1250, "fitness" : 1900, "bgch_one" : 2500, "bgch_two" : 2600};
 const screen_width_dividers = {"main" : 1450, "tablet" : 1024, "small_tablet" : 768, "mobile" : 483};
@@ -65,49 +66,49 @@ function scrollWin(tab) { //scroll to appropriate tab
 	if (tab === "home") {
 		y_value = 0;
 	} else if (tab === "contact") {
-		if (width >= screen_width_dividers["main"]) {
+		if (width > screen_width_dividers["main"]) {
 			y_value = 500;
 		} 
-		if (width >= screen_width_dividers["mobile"] && width < screen_width_dividers["main"]) {
+		if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["main"]) {
 			y_value = 500;
 		} 
-		if (width < screen_width_dividers["mobile"]) {
+		if (width <= screen_width_dividers["mobile"]) {
 			y_value = 515;
 		}
 	} else if (tab === "games") {
 		if (width > screen_width_dividers["main"]) {
-			y_value = 992;
+			y_value = 920;
 		} 
 		if (width > screen_width_dividers["small_tablet"] && width <= screen_width_dividers["main"]) {
 			y_value = 1045;
 		} 
-		if (width > screen_width_dividers["mobile"] && width < screen_width_dividers["small_tablet"]) {
+		if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["small_tablet"]) {
 			y_value = 1007;
 		}
 		if (width <= screen_width_dividers["mobile"]) {
 			y_value = 970;
 		}
 	} else if (tab === "trading") {
-		if (width >= screen_width_dividers["main"]) {
+		if (width > screen_width_dividers["main"]) {
+			y_value = 1500;
+		} 
+		if (width > screen_width_dividers["small_tablet"] && width <= screen_width_dividers["main"]) {
 			y_value = 1651;
 		} 
-		if (width >= screen_width_dividers["small_tablet"] && width < screen_width_dividers["main"]) {
-			y_value = 1651;
-		} 
-		if (width > screen_width_dividers["mobile"] && width < screen_width_dividers["small_tablet"]) {
+		if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["small_tablet"]) {
 			y_value = 1585;
 		}
 		if (width < screen_width_dividers["mobile"]) {
 			y_value = 1550;
 		}
 	} else { //web apps
-		if (width >= screen_width_dividers["main"]) {
-			y_value = 2290;
+		if (width > screen_width_dividers["main"]) {
+			y_value = 2193;
 		} 
-		if (width >= screen_width_dividers["small_tablet"] && width < screen_width_dividers["main"]) {
+		if (width > screen_width_dividers["small_tablet"] && width <= screen_width_dividers["main"]) {
 			y_value = 2225;
 		} 
-		if (width > screen_width_dividers["mobile"] && width < screen_width_dividers["small_tablet"]) {
+		if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["small_tablet"]) {
 			y_value = 2165;
 		}
 		if (width < screen_width_dividers["mobile"]) {
@@ -121,104 +122,122 @@ function scrollWin(tab) { //scroll to appropriate tab
 function scrollHandler() {
 	var y = window.scrollY;
 	width = window.innerWidth;
-	console.log("y:", y);
+	//console.log("y:", y);
+	var animatePoleGame = () => {
+		fadeIn(poleGameLogo);
+		fadeIn(appStoreLogo);
+		fadeIn(poleGameVideoWrapper);
+		moveVideo(poleGameVideoWrapper, "left");
+		fadeIn(poleGameDescription);
+		fadeIn(poleGameStack);
+		moveDescriptionAndStackUp(poleGameDescription, poleGameStack, "pg");
+		pole_game_animations = true;
+	}
+	var animateTradingSystem = () => {
+		fadeIn(launchpadDiv);
+  	fadeIn(tradingVideoWrapper);
+	  moveVideo(tradingVideoWrapper, "right");
+	  moveLogoLeft(launchpadDiv, "trading");
+	  trading_animations = true;
+	}
+	var animateFitnessApp = () => {
+		fadeIn(fitnessAppTitle);
+		fadeIn(fitnessAppVideoWrapper);
+		fitness_animations = true;
+	}
+	var animateBgchOne = () => {
+		fadeIn(bgchDiv);
+		fadeIn(bgchTitle);
+		fadeIn(bgchVideoWrapper);
+		moveVideo(bgchVideoWrapper, "right");
+		moveLogoLeft(bgchDiv, "bgch");
+		bgch_animations_one = true;	   
+	}
+	var animateBgchTwo = (tag) => {
+		fadeIn(bgchDescription);
+		fadeIn(bgchStack);
+		moveDescriptionAndStackUp(bgchDescription, bgchStack, tag);
+  	bgch_animations_two = true;
+	}
 	//if user scrolls
 	//navbar
 	if (y > 100) {
 		navid.className = "navbar navbar-expand-md navbar-dark moving-header fixed-top";
   	setLinkClass("moving-links");
   	//change size of logo
-		if (width > screen_width_dividers["mobile"]) {
-  		jzArchivesLogo.style.width = "150px";
-  		jzArchivesLogo.style.height = "80px";
-  	} else {
+		if (width <= screen_width_dividers["mobile"]) {
   		jzArchivesLogo.style.width = "90px";
   		jzArchivesLogo.style.height = "70px";
+  	}
+  	if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["main"]) {
+  		jzArchivesLogo.style.width = "150px";
+  		jzArchivesLogo.style.height = "80px";
+  	}
+  	if (width > screen_width_dividers["main"]) {
+  		jzArchivesLogo.style.width = "160px";
+  		jzArchivesLogo.style.height = "85px";
   	}
 	  jzArchivesLogo.style.transition = ".3s";
   } else { //we are at the top of the page
 		navid.className = "navbar navbar-expand-md navbar-dark bg-steel fixed-top";
   	setLinkClass("links");
-		if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["tablet"]) {
-  		jzArchivesLogo.style.width = "160px";
-  		jzArchivesLogo.style.height = "85px";
-  	} else if (width > screen_width_dividers["tablet"] && width <= screen_width_dividers["main"]) {
-  		jzArchivesLogo.style.width = "190px";
-  		jzArchivesLogo.style.height = "95px";
-  	} else {
+  	if (width <= screen_width_dividers["mobile"]) {
   		jzArchivesLogo.style.width = "100px";
   		jzArchivesLogo.style.height = "70px";
   	}
+		if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["tablet"]) {
+  		jzArchivesLogo.style.width = "160px";
+  		jzArchivesLogo.style.height = "85px";
+  	} 
+  	if (width > screen_width_dividers["tablet"] && width <= screen_width_dividers["main"]) {
+  		jzArchivesLogo.style.width = "190px";
+  		jzArchivesLogo.style.height = "95px";
+  	} 
+  	if (width > screen_width_dividers["main"]) {
+  		jzArchivesLogo.style.width = "195px";
+  		jzArchivesLogo.style.height = "100px";
+  	}
   }
-  if (width >= screen_width_dividers["main"]) {
+  if (width > screen_width_dividers["main"]) {
  		//make header interactive
  		configureLinks(y, main_css_tabs);
   	//animations
 		if (y >= main_css_animations["pole_game"] && !pole_game_animations) {
-			poleGameVideoWrapper.className = "show";
-			poleGameLogo.className = "show";
-			moveVideo(poleGameVideoWrapper, "left");
-			moveDescriptionAndStackUp(poleGameDescription, poleGameStack, "pg");
-			pole_game_animations = true;
+			animatePoleGame();
 	 	}
 	  if (y >= main_css_animations["trading"] && !trading_animations) {
-  		tradingVideoWrapper.className = "show";
-  		launchpadDiv.className = "show";
-	  	moveVideo(tradingVideoWrapper, "right");
-	  	moveLogoLeft(launchpadDiv, "trading");
-	  	trading_animations = true;
+	  	animateTradingSystem();
 	  }
 	  if (y >= main_css_animations["fitness"] && !fitness_animations) {
-			fadeIn(fitnessAppTitle);
-			fitness_animations = true;
+			animateFitnessApp();
 	  }
 	  if (y  >= main_css_animations["bgch_one"] && !bgch_animations_one) {
-			bgchVideoWrapper.className = "show";
-			bgchDiv.className = "show";
-			fadeIn(bgchTitle);
-			moveVideo(bgchVideoWrapper, "right");
-			moveLogoLeft(bgchDiv, "bgch");
-			bgch_animations_one = true;	   
+	  	animateBgchOne();
 	  }
 	  if (y > main_css_animations["bgch_two"] && !bgch_animations_two) {
-  		moveDescriptionAndStackUp(bgchDescription, bgchStack, "bg2");
-  		bgch_animations_two = true;
+	  	animateBgchTwo("bg2");
 	  } 
-	} else if (width > screen_width_dividers["mobile"] && width < screen_width_dividers["main"]) {
+	} 
+	if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["main"]) {
 	 	configureLinks(y, tablet_css_tabs);
   	//animations
 		if (y >= tablet_css_animations["pole_game"] && !pole_game_animations) {
-		 	fadeIn(poleGameLogo);
-		 	fadeIn(poleGameVideoWrapper);
-			moveVideo(poleGameVideoWrapper, "left");
-		 	moveDescriptionAndStackUp(poleGameDescription, poleGameStack, "pg");
-			pole_game_animations = true;
+			animatePoleGame();
 	 	}
 	  if (y >= tablet_css_animations["trading"] && !trading_animations) {
-   		fadeIn(launchpadDiv);
-   		fadeIn(tradingVideoWrapper);
-	   	moveVideo(tradingVideoWrapper, "right");
-	   	moveLogoLeft(launchpadDiv, "trading");
-	   	trading_animations = true;
+	  	animateTradingSystem();
 	  }
 	  if (y >= tablet_css_animations["fitness"] && !fitness_animations) {
-		 	fadeIn(fitnessAppTitle);
-		 	fadeIn(fitnessAppVideoWrapper);
-		 	fitness_animations = true;
+		 	animateFitnessApp();
 	  }
 	  if (y  >= tablet_css_animations["bgch_one"] && !bgch_animations_one) {
-		 	bgchDiv.className = "show";
-		 	fadeIn(bgchTitle);
-		 	fadeIn(bgchVideoWrapper);
-		 	moveVideo(bgchVideoWrapper, "right");
-		 	moveLogoLeft(bgchDiv, "bgch");
-		 	bgch_animations_one = true;	   
+	  	animateBgchOne();
 	  }
 	  if (y > tablet_css_animations["bgch_two"] && !bgch_animations_two) {
-  		moveDescriptionAndStackUp(bgchDescription, bgchStack, "");
-  		bgch_animations_two = true;
+	  	animateBgchTwo("");
 	  } 
-	} else { //leaving out animations on mobile for now because layout on mobile is totally different.
+	} 
+	if (width <= screen_width_dividers["mobile"]) { //leaving out animations on mobile for now because layout on mobile is totally different.
 		configureLinks(y, tablet_css_tabs); //didn't need an extra one for mobile
 		poleGameVideoWrapper.className = "show";
 		poleGameLogo.className = "show";
@@ -262,7 +281,6 @@ function setLinkClass(c) {
 	cardsLink.className = c;
 }
 
-
 //ANIMATIONS
 function fadeIn(element) {
   var id = setInterval(frame, 5);
@@ -282,27 +300,29 @@ function fadeIn(element) {
 function setPositionAndTarget(which_animation, tag) {  //May need a large screen too.
 	var width = window.innerWidth;
 	var pos = 0, target = 0;
-	if (width >= screen_width_dividers["main"]) {
+	if (width > screen_width_dividers["main"]) {
 		if (which_animation === "video") {
 			target = 3;
 			if (tag === "left") {
-				pos = 70;
-				target = 67;
+				pos = 0;
+				target = -10;
 			}
 		} else if (which_animation === "stack") {
-			pos = 70;
-			target = 35;
+			pos = 120;
+			target = 80;
 			if (tag === "pg") {
-				target = 50;
+				pos = 50
+				target = 40;
 			}
 		} else { //logo
-			pos = 80;
-			target = 68;
+			pos = 60;
+			target = 0;
 			if (tag === "trading") {
-				target = 73;
+				target = 10;
 			}
 		} 
-	} else if (width >= screen_width_dividers["small_tablet"] && width < screen_width_dividers["main"]) {
+	}
+	if (width > screen_width_dividers["small_tablet"] && width <= screen_width_dividers["main"]) {
 		if (which_animation === "video") {
 			target = 5;
 			if (tag === "left") {
@@ -322,7 +342,8 @@ function setPositionAndTarget(which_animation, tag) {  //May need a large screen
 				target = 0;
 			}
 		} 
-	} else {  //from mobile to small tablet. No animations on mobile because viewport is too small
+	} 
+	if (width < screen_width_dividers["small_tablet"]) {  //from mobile to small tablet. No animations on mobile because viewport is too small
 		if (which_animation === "video") {
 			target = 0;
 			if (tag === "left") {
@@ -400,8 +421,11 @@ function moveDescriptionAndStackUp(description, stack, tag) {
 				if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["small_tablet"]) {
 					offset = pos/1.15;
 				}
-				if (width <= screen_width_dividers["mobile"]) {
+				if (width <= screen_width_dividers["mobile"]) { //not being used right now
 					offset = pos/3;
+				}
+				if (width > screen_width_dividers["main"]) {
+					offset = pos/1.7;
 				}
 				description.style.top = offset + '%';
 				stack.style.top = pos + '%';
@@ -426,8 +450,8 @@ function animateRocket(rocket) {
 	var direction = "left";
 	var firstMoveComplete = false, secondMoveComplete = false;
 	if (width > screen_width_dividers["main"]) {
-		top_pos = 15, left_pos = 80, transform = 0; 
-	 	target_one = 10, target_two = 75, target_three = 10.5, target_four = 70;
+		top_pos = 50, left_pos = 90, transform = 0; 
+	 	target_one = 40, target_two = 80, target_three = 30, target_four = 80;
 	}
 	if (width <= screen_width_dividers["main"] && width > screen_width_dividers["mobile"]) {
 		top_pos = 90, left_pos = 90, transform = 0; 

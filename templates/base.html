@@ -14,6 +14,9 @@
     <!-- mobile -->
 	<link rel="stylesheet" type = "text/css" media="only screen and (max-width: 483px)" href="{% static 'css/mobile.css' %}">
 
+	<!-- mobile landscape -->
+	<link rel="stylesheet" type = "text/css" media="only screen and (max-width: 1024px) and (orientation: landscape)" href="{% static 'css/large_tablet.css' %}">
+
 	<!-- small tablet -->
 	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 484px) and (max-width: 767px)" href="{% static 'css/small_tablet_.css' %}">
 
@@ -24,7 +27,7 @@
 	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 1025px) and (max-width: 1450px)" href="{% static 'css/main.css' %}">
 
 	<!-- large desktop -->
-	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 1450px)" href="{% static 'css/large_screen.css' %}">
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 1450px)" href="{% static 'css/large_screen_.css' %}">
 
 	
 	<title>JZ Archives</title>
@@ -101,10 +104,10 @@
 		</div>
  		<div id="poleGameContainer">
  			<div id="poleGameStackDescriptionWrapper">
-				<div id="poleGameDescription" onmouseover="this.innerHTML='A real world hockey mini game morphed into an iphone application. Available for download on the app store!';" onmouseout="this.innerHTML='What is it?';">
+				<div id="poleGameDescription" class="hide" onmouseover="this.innerHTML='A real world hockey mini game morphed into an iphone application. Available for download on the app store!';" onmouseout="this.innerHTML='What is it?';">
 					What is it?
 				</div> 
-				<div id="poleGameStack">
+				<div id="poleGameStack" class="hide">
 					<a href="http://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/" target="_blank">
 						<img src="{% static 'csharp.svg' %}" class="icon"/>
 						<p>C#</p>
@@ -131,7 +134,7 @@
 		 		<div id="poleGameLogo" class="hide">
 					<img class="appLogos" src="{% static 'poleGameIcon.png' %}"/>
 				</div>
-				<div id="appStoreLogo">
+				<div id="appStoreLogo" class="hide">
 					<img class="appLogos" src="{% static 'appStoreIcon.png' %}"/>
 				</div>
 			</div>
@@ -334,12 +337,11 @@
     		let bgchVideoWrapper = document.getElementById("bgchVideoWrapper");
     		if (browser !== "chrome") {
 
-    			//poleGameVideoWrapper.style.backgroundColor = "red";
     			poleGameVideoWrapper.style.minWidth = "270px";
     			tradingVideoWrapper.style.backgroundColor = "black";
     			fitnessAppVideoWrapper.style.backgroundColor = "black";
     			bgchVideoWrapper.style.backgroundColor = "black";
-    			if (width > screen_width_dividers["small_tablet"] && width <= screen_width_dividers["main"]) { 
+    			if (width > screen_width_dividers["small_tablet"]) { 
     				poleGameVideoWrapper.style.width = "250px";
     				poleGameVideoWrapper.style.height = "580px";
     			}
@@ -399,13 +401,9 @@
         document.body.addEventListener("keydown", inputHandler);
         document.body.addEventListener("click", clearForm);
         document.body.addEventListener("click", addRemoveSearchBorder);
-       
 
     </script>
 
 </body>
 
 </html>
-
-
-
