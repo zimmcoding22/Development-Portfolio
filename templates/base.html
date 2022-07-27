@@ -367,10 +367,6 @@
         }
 
        
-        var scrollEventHandler = () => {
-			window.scroll(0, window.pageYOffset)
-		}
-
     	//reload page
     	let logo = document.getElementById("jzArchivesLogo");
     	logo.addEventListener("click", () => {
@@ -407,7 +403,6 @@
         document.body.addEventListener("keydown", inputHandler);
         document.body.addEventListener("click", clearForm);
         document.body.addEventListener("click", addRemoveSearchBorder);
-        window.addEventListener("scroll", scrollEventHandler, false);
 
 
     </script>
