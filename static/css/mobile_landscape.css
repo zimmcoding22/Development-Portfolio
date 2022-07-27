@@ -90,8 +90,8 @@ textarea {
 
 #titleVid {
   position: absolute; 
-  left: -120px;
-  width: 1200px; 
+  /*left: -120px;*/
+  width: 100% 
   height: auto; 
 }
 
