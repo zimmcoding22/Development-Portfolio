@@ -404,6 +404,12 @@
         document.body.addEventListener("click", clearForm);
         document.body.addEventListener("click", addRemoveSearchBorder);
 
+        $.each( $('*'), function() { 
+		    if( $(this).width() > $('body').width()) {
+		        console.log("Wide Element: ", $(this), "Width: ", $(this).width()); 
+		    } 
+		});
+
 
     </script>
 
