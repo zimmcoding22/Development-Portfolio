@@ -90,9 +90,10 @@ textarea {
 
 #titleVid {
   position: absolute; 
-  /*left: -120px;*/
-  width: 100% 
+  left: -120px;
+  width: 1200px; 
   height: auto; 
+  overflow-x: hidden;
 }
 
 #titleContainer {
