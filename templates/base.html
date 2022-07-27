@@ -6,7 +6,7 @@
 	 <!-- Required meta tags -->
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -63,7 +63,7 @@
 		    </div>
 		  </nav>
 		</header>
-		<video id="titleVid" autoplay="autoplay" playsinline loop muted src="{% static 'pole_game_coding.mov' %}"> <!-- removed audio from vid in quicktime to remove PictureinPicture icon in firefox -->
+		<video id="titleVid" autoplay="autoplay" preload playsinline loop muted src="{% static 'pole_game_coding.mov' %}"> <!-- removed audio from vid in quicktime to remove PictureinPicture icon in firefox -->
 	    	Your browser does not support the HTML5 Video element.		<!-- video will not play unless muted attribute is included -->
 		</video>
 		<div id="titleContainer">
