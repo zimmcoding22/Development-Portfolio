@@ -367,7 +367,7 @@
     	logo.addEventListener("click", () => {
   			location.reload();
 		});	
-        const omit_keys = ["Tab", "CapsLock", "Shift", "Control", "Backspace", "ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Meta", "Enter", "Alt", "Escape"];
+        const omit_keys = ["Tab", "CapsLock", "Shift", "Control", "Backspace", "ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Meta", "Enter", "Alt", "Escape"]; //for contact form fields
         var highlighted;
         var width = window.innerWidth;
         resizeVideos();
@@ -390,7 +390,7 @@
      			if (currentStylesheet !== stylesheet) {
      				stylesheet = currentStylesheet;
    	 				this.location.href = this.location.href; //location.reload() doesnt seem to work for screen size event in firefox
-     				window.scrollTo(0, 0);
+     				window.scrollTo(0, 0); //decided to scroll back to top of page on reload
      				
      			}
      		}
@@ -399,7 +399,7 @@
         document.body.addEventListener("click", clearForm);
         document.body.addEventListener("click", addRemoveSearchBorder);
 
-        //detects elements that are off screena dn potentially causing viewport sizing issues
+        //detects elements that are off screen and potentially causing viewport sizing issues
         //$.each( $('*'), function() { 
 		//     if( $(this).width() > $('body').width()) {
 		//         console.log("Wide Element: ", $(this), "Width: ", $(this).width(), "ID: ", this.id); 
