@@ -75,7 +75,7 @@ textarea {
 }
 
 #jzArchivesLogo {
-  width: 190px;
+  width: 200px;
   height: 95px;
   cursor: pointer;
 }
@@ -349,7 +349,7 @@ textarea {
 #poleGameDescription:hover {
   text-align: left;
   transition: width .5s;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   background-color: #EFF8FB;
   color: black;
   width: 70%;
@@ -410,7 +410,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   border-radius: 25px;
   background-color: #D8F5D1;
   color: #0B2161;
@@ -425,7 +425,7 @@ textarea {
 #tradingDescription:hover {
   position: relative;
   text-align: left;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   border-radius: 25px;
   color: #0B2161;
   background-color: #D8F5D1;
@@ -506,7 +506,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   border-radius: 25px;
   background-color: #D6CD6A;
   color: white;
@@ -520,10 +520,9 @@ textarea {
 #fitnessAppDescription:hover {
   position: relative;
   text-align: left;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   border-radius: 25px;
   color: #0B2161;
-  background-color: #EFF8FB;
   padding: 10px;
   background-color: #FFF79E;
   width: 80%;
@@ -602,7 +601,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   border-radius: 25px;
   background-color: #6ACAFF;
   color: white;

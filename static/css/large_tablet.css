@@ -347,7 +347,7 @@ textarea {
 #poleGameDescription:hover {
   text-align: left;
   transition: width .5s;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   background-color: #EFF8FB;
   color: black;
   width: 85%;
@@ -406,7 +406,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   border-radius: 25px;
   background-color: #D8F5D1;
   color: #0B2161;
@@ -502,7 +502,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   border-radius: 25px;
   background-color: #D6CD6A;
   color: white;
@@ -593,7 +593,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   border-radius: 25px;
   background-color: #6ACAFF;
   color: white;

@@ -166,7 +166,7 @@ function scrollHandler() {
   	setLinkClass("moving-links");
   	//change size of logo
 		if (width <= screen_width_dividers["mobile"]) {
-  		jzArchivesLogo.style.width = "90px";
+  		jzArchivesLogo.style.width = "130px";
   		jzArchivesLogo.style.height = "70px";
   	}
   	if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["main"]) {
@@ -182,19 +182,19 @@ function scrollHandler() {
 		navid.className = "navbar navbar-expand-md navbar-dark bg-steel fixed-top";
   	setLinkClass("links");
   	if (width <= screen_width_dividers["mobile"]) {
-  		jzArchivesLogo.style.width = "100px";
+  		jzArchivesLogo.style.width = "150px";
   		jzArchivesLogo.style.height = "70px";
   	}
 		if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["tablet"]) {
-  		jzArchivesLogo.style.width = "160px";
+  		jzArchivesLogo.style.width = "180px";
   		jzArchivesLogo.style.height = "85px";
   	} 
   	if (width > screen_width_dividers["tablet"] && width <= screen_width_dividers["main"]) {
-  		jzArchivesLogo.style.width = "190px";
+  		jzArchivesLogo.style.width = "200px";
   		jzArchivesLogo.style.height = "95px";
   	} 
   	if (width > screen_width_dividers["main"]) {
-  		jzArchivesLogo.style.width = "195px";
+  		jzArchivesLogo.style.width = "200px";
   		jzArchivesLogo.style.height = "100px";
   	}
   }
@@ -443,8 +443,8 @@ function animateRocket(rocket) {
 		rocket.style.opacity = 0;
 		return;
 	}
-	var top_pos = 14, left_pos = 90, transform = 0; //starting position of rocket in css sheet
-	var target_one = 13, target_two = 70, target_three = 10.5, target_four = 80;
+	var top_pos, left_pos, transform; //starting position of rocket in css sheet
+	var target_one, target_two, target_three, target_four;
 	var l_speed = .055, t_speed = .1, d_speed = .05;
 	var movingUp = true, rotating = false, movingLeft = false, movingUpAndLeft = false, movingRight = false, curvingUp = false;
 	var direction = "left";
@@ -453,7 +453,7 @@ function animateRocket(rocket) {
 		top_pos = 50, left_pos = 90, transform = 0; 
 	 	target_one = 40, target_two = 80, target_three = 30, target_four = 80;
 	}
-	if (width > screen_width_dividers["small_tablet"] && width <= screen_width_dividers["main"]) {
+	if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["main"]) {
 		top_pos = 90, left_pos = 90, transform = 0; 
 		target_one = 80, target_two = 80, target_three = 65, target_four = 80;				
 	}

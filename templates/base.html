@@ -35,11 +35,10 @@
 </head>
 
 <body>
-	<img id="rocket" class="rocket" src="{% static 'rocketAnimation.gif' %}"/>
 	<header class="site-header">
 	  <nav id="navid" class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
 	    <div class="container">
-	      <img id="jzArchivesLogo" src="/static/logo_transparent.png"/>
+	      <img id="jzArchivesLogo" src="/static/jzArchivesEmblem.png"/>
 	      <button class="navbar-toggler" id="toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
 	      </button>
@@ -64,6 +63,7 @@
 	    	Your browser does not support the HTML5 Video element.		<!-- video will not play unless muted attribute is included -->
 		</video>														<!-- low power mode on iphone will disable autoplay capabilities -->
 		<div id="titleContainer">
+			<img id="rocket" class="rocket" src="{% static 'rocketAnimation.gif' %}"/>
 			<div id="titleWrapper">
 				<p id="title">Jake Zimmerman Software Development</p>
 				<h3 id="typewrite">

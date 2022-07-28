@@ -186,18 +186,18 @@
 			let text = document.createTextNode(name)//this will be queried from the database
 			deckName.appendChild(text);
 			deckName.style.marginTop = "4%";
-			deckName.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
+			deckName.style.fontFamily = "'Varela Round', 'copperplate', Geneva, Impact, sans-serif";
 			deckName.style.opacity = "0";
 			let cost = document.createElement("h6");
 			text = document.createTextNode("Price $" + c);
 			cost.appendChild(text);
-			cost.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
+			cost.style.fontFamily = "'Varela Round', 'copperplate', Geneva, Impact, sans-serif";
 			cost.style.opacity = "0";
 			cost.style.marginTop = "5%";
 			let finish = document.createElement("h6");
 			text = document.createTextNode("Finish: " + f);
 			finish.appendChild(text);
-			finish.style.fontFamily = "'copperplate', Geneva, Impact, sans-serif";
+			finish.style.fontFamily = "'Varela Round', 'copperplate', Geneva, Impact, sans-serif";
 			finish.style.marginTop = "-5%";
 			//responsive design tweaks
 			font_size = responsiveDesign(width)["deckSingleFontSize"]
@@ -793,7 +793,7 @@
 		text = document.createTextNode(name)//this will be queried from the database
 		fullName.appendChild(text);
 		fullName.style.position = "relative";
-	    fullName.style.fontFamily = "Verdana, copperplate, Impact, sans-serif";
+	    fullName.style.fontFamily = "'Varela Round', copperplate, Impact, sans-serif";
 		fullName.style.fontWeight = "bold";
 		fullName.style.fontSize = responsiveDesign(width)["fullNameWrapper"][0];
 		fullName.style.marginBottom = responsiveDesign(width)["fullNameWrapper"][1];
@@ -810,7 +810,7 @@
 			text = document.createTextNode(getNumItems()[name].toString() + itemString);//this will be queried from the database
 			numItems.appendChild(text);
 			numItems.style.position = "absolute";
-		    numItems.style.fontFamily = "Verdana, copperplate, Impact, sans-serif";
+		    numItems.style.fontFamily = "'Varela Round', copperplate, Impact, sans-serif";
 			numItems.style.fontWeight = "bold";
 			numItems.style.color = "gray";
 			numItems.style.fontSize = responsiveDesign(width)["numItems"][0];
@@ -890,7 +890,7 @@
 			text = document.createTextNode("No items found");
 			noItems.appendChild(text);
 			noItems.style.position = "relative";
-			noItems.style.fontFamily = "Verdana, copperplate, Impact, sans-serif";
+			noItems.style.fontFamily = "'Varela Round', copperplate, Impact, sans-serif";
 			if (width > 1441) { // not in responsive function because this is the only screen width that warrants changes
 				noItems.style.fontSize = "12px";
 				dropdown.style.height = "45px";
@@ -921,7 +921,7 @@
 		deckName.style.left = "2%";
 		deckName.style.width = "98%";
 		deckName.style.height = "12%";
-		deckName.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
+		deckName.style.fontFamily = "'Varela Round', copperplate, Impact, sans-serif";
 		deckName.style.fontWeight = "bold";
 		var suggestionDivText = responsiveDesign(width)["suggestionDivText"];
 		deckName.style.fontSize = suggestionDivText;
@@ -939,7 +939,7 @@
 		producerName.appendChild(text);
 		producerName.style.position = "relative";
 		producerName.style.left = "2%";
-		producerName.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
+		producerName.style.fontFamily = "'Varela Round', copperplate, Impact, sans-serif";
 		producerName.style.fontWeight = "bold";
 		producerName.style.fontSize = suggestionDivText;
 		producerName.style.color = "gray";
@@ -965,7 +965,7 @@
 		searchAll.style.left = "2%";
 		searchAll.style.fontSize = suggestionDivText;
 		searchAll.style.color = "gray";
-		searchAll.style.fontFamily = "Geneva, copperplate, Impact, sans-serif";
+		searchAll.style.fontFamily = "'Varela Round', copperplate, Impact, sans-serif";
 		return([dropdown, deckNameWrapper, producerNameWrapper, deckName, producerName]);
 	}
 

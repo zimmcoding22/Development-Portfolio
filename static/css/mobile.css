@@ -72,7 +72,7 @@ textarea {
 
 #jzArchivesLogo {
   position: absolute;
-  width: 100px;
+  width: 150px;
   height: 70px;
   cursor: pointer;
   left: 5%;
@@ -375,7 +375,7 @@ textarea {
 
 #poleGameDescription:hover {
   text-align: left;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   font-size: 10px;
   background-color: #EFF8FB;
   color: black;
@@ -439,7 +439,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   font-size: 12px;
   border-radius: 25px;
   background-color: #D8F5D1;
@@ -537,7 +537,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   font-size: 12px;
   border-radius: 25px;
   background-color: #D6CD6A;
@@ -646,7 +646,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Geneva, Impact, sans-serif;
+  font-family: "Varela Round", Impact, sans-serif;
   font-size: 12px;
   border-radius: 25px;
   background-color: #6ACAFF;
