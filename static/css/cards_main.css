@@ -210,7 +210,7 @@ span:nth-child(18) {
 
 #logo_text {
 	color: black;
-	font-family: "copperplate", Geneva, Impact, sans-serif;
+	font-family: "Varela Round", Geneva, Impact, sans-serif;
 	font-size: 20px;
 	font-weight: bold;
 	left: 5%;
@@ -237,6 +237,6 @@ span:nth-child(18) {
 
 .links {
 	color: black;
-	font-family: "copperplate", Geneva, Impact, sans-serif;
+	font-family: "Varela Round", Geneva, Impact, sans-serif;
 	font-size: 14px;
 }

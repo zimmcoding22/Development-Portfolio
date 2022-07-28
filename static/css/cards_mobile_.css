@@ -40,16 +40,16 @@ button:hover {
 
 #page_description {
  	font-family: "Verdana";
-  	font-style: italic;
-  	font-size: 11px;
-  	font-weight: bold;
-  	max-width: 40ch;
-  	text-align: center;
-  	transform: scale(0.94);
-  	animation: scale 1s forwards cubic-bezier(0.5, 1, 0.89, 1);
-  	color: lightgray;
-  	z-index: 1;
-  	position: relative;
+	font-style: italic;
+	font-size: 11px;
+	font-weight: bold;
+	max-width: 40ch;
+	text-align: center;
+	transform: scale(0.94);
+	animation: scale 1s forwards cubic-bezier(0.5, 1, 0.89, 1);
+	color: lightgray;
+	z-index: 1;
+	position: relative;
 	top: 30px;
 }
 
@@ -212,7 +212,7 @@ span:nth-child(18) {
 
 #logo_text {
 	color: black;
-	font-family: "copperplate", Geneva, Impact, sans-serif;
+	font-family: "Varela Round", Geneva, Impact, sans-serif;
 	font-size: 14px;
 	font-weight: bold;
 	margin-top: 15%;
@@ -241,7 +241,7 @@ span:nth-child(18) {
 
 .links {
 	color: black;
-	font-family: "copperplate", Geneva, Impact, sans-serif;
+	font-family: "Varela Round", Geneva, Impact, sans-serif;
 	font-weight: bold;
 	font-size: 12px;
 }
