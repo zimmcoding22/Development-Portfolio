@@ -38,32 +38,32 @@
 </head>
 
 <body>
+	<img id="rocket" class="rocket" src="{% static 'rocketAnimation.gif' %}"/>
+	<header class="site-header">
+	  <nav id="navid" class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+	    <div class="container">
+	      <img id="jzArchivesLogo" src="/static/logo_transparent.png"/>
+	      <button class="navbar-toggler" id="toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	      </button>
+	      <div class="collapse navbar-collapse" id="navbarToggle">
+	        <div class="navbar-nav mr-auto">
+	        </div>
+	        <!-- Navbar Right Side -->
+	        <div id="links">
+	          <button onclick="scrollTopAnimated('home')" id="start" class="links">Home</button>
+	          <button onclick="scrollTopAnimated('contact')" id="contact" class="links">Contact</button>
+	          <button onclick="scrollTopAnimated('games')" id="games" class="links">Games</button>
+	          <button onclick="scrollTopAnimated('trading')" id="trading" class="links">Trading</button>
+	          <button onclick="scrollTopAnimated('web')" id="web" class="links">Web Apps</button>
+	          <button><a href="cards/" id="cards" class="links" target="_blank">Cards!</a></button>
+	        </div>
+	      </div>
+	    </div>
+	  </nav>
+	</header>
 	<div id="bodyWrapper">
-		<img id="rocket" class="rocket" src="{% static 'rocketAnimation.gif' %}"/>
-		<header class="site-header">
-		  <nav id="navid" class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-		    <div class="container">
-		      <img id="jzArchivesLogo" src="/static/logo_transparent.png"/>
-		      <button class="navbar-toggler" id="toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-		      <span class="navbar-toggler-icon"></span>
-		      </button>
-		      <div class="collapse navbar-collapse" id="navbarToggle">
-		        <div class="navbar-nav mr-auto">
-		        </div>
-		        <!-- Navbar Right Side -->
-		        <div id="links">
-		          <button onclick="scrollTopAnimated('home')" id="start" class="links">Home</button>
-		          <button onclick="scrollTopAnimated('contact')" id="contact" class="links">Contact</button>
-		          <button onclick="scrollTopAnimated('games')" id="games" class="links">Games</button>
-		          <button onclick="scrollTopAnimated('trading')" id="trading" class="links">Trading</button>
-		          <button onclick="scrollTopAnimated('web')" id="web" class="links">Web Apps</button>
-		          <button><a href="cards/" id="cards" class="links" target="_blank">Cards!</a></button>
-		        </div>
-		      </div>
-		    </div>
-		  </nav>
-		</header>
-		<video id="titleVid" preload="auto" muted autoPlay playsinline loop src="{% static 'pole_game_coding.mov' %}"> <!-- removed audio from vid in quicktime to remove PictureinPicture icon in firefox -->
+		<video id="titleVid" muted autoplay playsinline loop src="{% static 'pole_game_coding.mov' %}"> <!-- removed audio from vid in quicktime to remove PictureinPicture icon in firefox -->
 	    	Your browser does not support the HTML5 Video element.		<!-- video will not play unless muted attribute is included -->
 		</video>
 		<div id="titleContainer">
