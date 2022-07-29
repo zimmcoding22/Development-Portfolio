@@ -176,6 +176,7 @@ function scrollHandler() {
   		jzArchivesLogo.style.width = "160px";
   		jzArchivesLogo.style.height = "85px";
   	}
+  	jzArchivesLogo.src = "static/jzArchivesEmblemLight.png";
 	  jzArchivesLogo.style.transition = ".3s";
   } else { //we are at the top of the page
 		navid.className = "navbar navbar-expand-md navbar-dark bg-steel fixed-top";
@@ -196,6 +197,7 @@ function scrollHandler() {
   		jzArchivesLogo.style.width = "200px";
   		jzArchivesLogo.style.height = "100px";
   	}
+  	jzArchivesLogo.src = "static/jzArchivesEmblem.png";
   }
   if (width > screen_width_dividers["main"]) {
  		//make header interactive
@@ -438,7 +440,7 @@ function moveDescriptionAndStackUp(description, stack, tag) {
 
 function animateRocket(rocket) {
 	width = window.innerWidth;
-	if (width < screen_width_dividers["mobile"]) {
+	if (width < screen_width_dividers["mobile"]) { //not displaying rocket on mobile for now because screen is too narrow and their isn't enough whitespace.
 		rocket.style.opacity = 0;
 		return;
 	}
