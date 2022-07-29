@@ -57,7 +57,6 @@ const main_css_tabs = {"home" : 350, "contact" : 920, "games" : 1480, "trading" 
 const tablet_css_tabs = {"home" : 380, "contact" : 862, "games" : 1421, "trading" : 1850};
 const main_css_animations = {"pole_game" : 700, "trading" : 1100, "fitness" : 2100, "bgch_one" : 2500, "bgch_two" : 2650};
 const tablet_css_animations = {"pole_game" : 700, "trading" : 1250, "fitness" : 1900, "bgch_one" : 2500, "bgch_two" : 2600};
-const screen_width_dividers = {"main" : 1450, "tablet" : 1024, "small_tablet" : 768, "mobile" : 483};
 
 
 function scrollWin(tab) { //scroll to appropriate tab

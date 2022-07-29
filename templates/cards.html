@@ -13,13 +13,13 @@
 	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 484px) and (max-width: 767px)" href="{% static 'css/cards_small_tablet.css' %}">
 
 	<!-- large tablet -->
-	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 768px) and (max-width: 980px)" href="{% static 'css/cards_large_tablet.css' %}">
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 768px) and (max-width: 1024px)" href="{% static 'css/cards_large_tablet.css' %}">
 
 	<!-- laptop/desktop tablet -->
-	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 981px) and (max-width: 1440px)" href="{% static 'css/cards_main.css' %}">
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 981px) and (max-width: 1450px)" href="{% static 'css/cards_main.css' %}">
 
 	<!-- large desktop -->
-	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 1441px)" href="{% static 'css/cards_large_screen.css' %} ">
+	<link rel="stylesheet" type = "text/css" media="only screen and (min-width: 1450px)" href="{% static 'css/cards_large_screen.css' %} ">
 
 	<title>cards</title>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
@@ -86,13 +86,13 @@
 
   //returns data that determines positioning of certain elements as screen width fluctuates
   function responsiveDesign(width) {
-  	if (width > 1441) {
+  	if (width > screen_width_dividers["main"]) {
   		var data = {"setDimensionsSingleDeck" : ["400px", "550px"], "setDimensionsMultiple" : ["300px", "400px"], "filledCircle" : ["10%", "25%"], "openCircle" : ["8%", "20%"], "trickReelArrows" : "17%", "videoWrapper" : ["400px", "710px"], "toggleIconWrapper" : "850px", "createTitle" : "h1", "suggestionDiv" : "70px", "fullNameWrapper" : ["11px", "5%"], "numItems" : ["11px", "9%"], "iconImage" : "4%", "selectionImage" : ["2%", "32%"], "dropdownWidth" : "440px", "suggestionDivText" : "12px", "deckSingleFontSize" : "16px"}
-  	} else if (width > 980 && width <= 1441) {
+  	} else if (width > screen_width_dividers["tablet"] && width <= screen_width_dividers["main"]) {
   		var data = {"setDimensionsSingleDeck" : ["300px", "400px"], "setDimensionsMultiple" : ["200px", "250px"], "filledCircle" : ["10%", "25%"], "openCircle" : ["8%", "20%"], "trickReelArrows" : "15%", "videoWrapper" : ["300px", "535px"], "toggleIconWrapper" : "635px", "createTitle" : "h1", "suggestionDiv" : "50px", "fullNameWrapper" : ["8px", "7%"], "numItems" : ["8px", "14%"], "iconImage" : "6%", "selectionImage" : ["2.5%", "30%"], "dropdownWidth" : "440px", "suggestionDivText" : "8px"}
-  	} else if (width > 767 && width <= 980) {
+  	} else if (width > screen_width_dividers["small_tablet"] && width <= screen_width_dividers["tablet"]) {
   		var data = {"setDimensionsSingleDeck" : ["250px", "300px"], "setDimensionsMultiple" : ["150px", "200px"], "filledCircle" : ["10%", "25%"], "openCircle" : ["8%", "20%"], "trickReelArrows" : "13%", "videoWrapper" : ["300px", "535px"], "toggleIconWrapper" : "635px", "createTitle" : "h2", "suggestionDiv" : "50px", "fullNameWrapper" : ["8px", "7%"], "numItems" : ["8px", "14%"], "iconImage" : "6%", "selectionImage" : ["2.5%", "30%"], "dropdownWidth" : "440px", "suggestionDivText" : "8px"}
-  	} else if (width > 483 && width <= 767) {
+  	} else if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["small_tablet"]) {
   		var data = {"setDimensionsSingleDeck" : ["200px", "250px"], "setDimensionsMultiple" : ["100px", "150px"], "filledCircle" : ["8%", "20%"], "openCircle" : ["6%", "15%"], "trickReelArrows" : "12%", "videoWrapper" : ["252px", "450px"], "toggleIconWrapper" : "600px", "createTitle" : "h2", "suggestionDiv" : "40px", "fullNameWrapper" : ["6px", "9%"], "numItems" : ["6px", "19%"], "iconImage" : "8%", "selectionImage" : ["3%", "28%"], "dropdownWidth" : "260px", "suggestionDivText" : "6px", "deckSingleFontSize" : "8px"}
   	} else { //mobile
   		var data = {"setDimensionsSingleDeck" : ["175px", "225px"], "setDimensionsMultiple" : ["100px", "150px"], "filledCircle" : ["7%", "17%"], "openCircle" : ["5%", "12%"], "trickReelArrows" : "9%", "videoWrapper" : ["220px", "390px"], "toggleIconWrapper" : "600px", "createTitle" : "h4", "suggestionDiv" : "60px", "fullNameWrapper" : ["6px", "9%"], "numItems" : ["6px", "19%"], "iconImage" : "8%", "selectionImage" : ["3%", "28%"], "dropdownWidth" : "260px", "suggestionDivText" : "6px", "deckSingleFontSize" : "7px"}
@@ -335,7 +335,7 @@
 			arrow.style.position = "relative";
 			arrow.style.width = responsiveDesign(width)["trickReelArrows"];
 			arrow.style.height = responsiveDesign(width)["trickReelArrows"];
-			if (width <= 483) {
+			if (width <= screen_width_dividers["mobile"]) {
 				arrow.style.top = "-12%";
 			}
 			arrow.style.opacity = ".2";
@@ -368,10 +368,10 @@
 		videoWrapper.style.height = "51%";
 		videoWrapper.style.minWidth = responsiveDesign(width)["videoWrapper"][0];
 		videoWrapper.style.minHeight = responsiveDesign(width)["videoWrapper"][1];
-		if (width <= 483) {
+		if (width <= screen_width_dividers["mobile"]) {
 			videoWrapper.style.top = "-12%";
 		}
-		if (width > 1441) {
+		if (width > screen_width_dividers["main"]) {
 			videoWrapper.style.top = "15%";
 		}
 		videoWrapper.style.borderRadius = "3%";
@@ -392,11 +392,11 @@
 		createArrow("90");
 		trickElementsWrapper.appendChild(videoWrapper);
 		createArrow("270");
-		if (width > 483 && width <= 767) {
+		if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["small_tablet"]) {
 			document.getElementById("left_arrow").style.left = "10%";
 			document.getElementById("right_arrow").style.right = "10%";
 		}
-		if (width <= 483) {
+		if (width <= screen_width_dividers["mobile"]) {
 			document.getElementById("left_arrow").style.left = "22%";
 			document.getElementById("right_arrow").style.right = "22%";
 			videoWrapper.style.bottom = "0%";
@@ -542,7 +542,7 @@
 		results_wrapper.setAttribute("id", "results_wrapper");
 		results_wrapper.style.position = "relative";
 		results_wrapper.style.width = "1000px";
-		if (width > 1441) {
+		if (width > screen_width_dividers["main"]) {
 			results_wrapper.style.width = "1500px";
 		}
 		results_wrapper.style.height = "200px";
@@ -564,7 +564,7 @@
 		producerTitle.style.color = "gray";
 		producerTitle.style.opacity = "0";
 		producerTitle.style.fontFamily = "'Varela Round', Georgia, Impact, sans-serif";
-		if (width > 1441) {
+		if (width > screen_width_dividers["main"]) {
 			producerTitle.style.fontSize = "45px";
 		}
 		let t = document.createTextNode(text);
@@ -690,7 +690,6 @@
 				displayResults("producer_suggestion_1", t);
 			} 
 			if (child.id === "producer_name_wrapper" && child.nextSibling.id !== "producer_suggestion_1") { //if found decks but no producers
-				//console.log("hello");
 				let t = children[1].innerText;
 				if (browser === "safari") {
 					let new_t = "";
@@ -771,7 +770,7 @@
 		suggestion.style.justifyContent = "left";
 		suggestion.style.alignItems = "center";
 		suggestion.style.paddingLeft = "10px";//these four lines are to allow box shadow to extend full width of suggestion divs
-		suggestion.style.paddingRight = "10px";//overflow:auto is used w/dropdown to clip edges
+		suggestion.style.paddingRight = "10px";
 		suggestion.style.marginLeft = "-10px";
 		suggestion.style.marginRight = "-10px";
 		suggestion.style.cursor = "pointer";
@@ -817,7 +816,7 @@
 			numItems.style.marginTop = responsiveDesign(width)["numItems"][1];
 			numItems.style.left = "1px";
 			console.log("width:", width);
-			if (width < 483) {
+			if (width < screen_width_dividers["mobile"]) {
 				numItems.style.bottom = "-20%";
 			}
 			fullNameWrapper.appendChild(numItems);
@@ -872,7 +871,7 @@
   	dropdown.setAttribute("id", "dropdown_wrapper");
 		dropdown.style.position = "absolute";
 		dropdown.style.minWidth = responsiveDesign(width)["dropdownWidth"];
-		if (width < 483 || width > 1441) {
+		if (width < screen_width_dividers["mobile"] || width > screen_width_dividers["main"]) {
 			dropdown.style.width = "100%";
 		}
 		dropdown.style.backgroundColor = "white";
@@ -891,7 +890,7 @@
 			noItems.appendChild(text);
 			noItems.style.position = "relative";
 			noItems.style.fontFamily = "'Varela Round', copperplate, Impact, sans-serif";
-			if (width > 1441) { // not in responsive function because this is the only screen width that warrants changes
+			if (width > screen_width_dividers["main"]) { // not in responsive function because this is the only screen width that warrants changes
 				noItems.style.fontSize = "12px";
 				dropdown.style.height = "45px";
 			} else {
@@ -1045,13 +1044,13 @@
 	var collectionTab = document.getElementById("collection");
 	var tricksTab = document.getElementById("tricks");
 	var logo = document.getElementById("logo_wrapper");
-	var videos = [["{% static 'magicOne.mov' %}", "{% static 'onePoster.png' %}"], ["{% static 'magicTwo.mov' %}", "{% static 'twoPoster.png' %}"], ["{% static 'magicThree.mov' %}", "{% static 'threePoster.png' %}"], ["{% static 'magicFour.mov' %}", "{% static 'fourPoster.png' %}"], ["{% static 'magicFive.mov' %}", "{% static 'fivePoster.png' %}"], ["{% static 'magicSix.mov' %}", "{% static 'sixPoster.png' %}"]];
 	var carouselIndex;
 	var creatingElements = false; //used to ensure user cant click on a result while they are still being created/displayed on screen
 	var browser = detectBrowser();
 	console.log("browser:", browser);
 	var width = window.innerWidth;
 	var canTypeNewKey = true;
+	const videos = [["{% static 'magicOne.mov' %}", "{% static 'onePoster.png' %}"], ["{% static 'magicTwo.mov' %}", "{% static 'twoPoster.png' %}"], ["{% static 'magicThree.mov' %}", "{% static 'threePoster.png' %}"], ["{% static 'magicFour.mov' %}", "{% static 'fourPoster.png' %}"], ["{% static 'magicFive.mov' %}", "{% static 'fivePoster.png' %}"], ["{% static 'magicSix.mov' %}", "{% static 'sixPoster.png' %}"]];
 	searchElement.addEventListener("click", addRemoveSearchBorder);
 	document.body.addEventListener("click", addRemoveSearchBorder); 
 	document.addEventListener("mousemove", highlightSuggestion);
@@ -1067,9 +1066,9 @@
 	logo.addEventListener("click", () => {
   		location.reload();
 	});
+	//decided to remove dropdown if user starts resizing page
 	window.addEventListener("resize", () => {
 		width = window.innerWidth;
-		console.log("cards inner width:", width)
 		var dropdown = document.getElementById("dropdown_wrapper");
 		if (dropdown) {
 			dropdown.remove();

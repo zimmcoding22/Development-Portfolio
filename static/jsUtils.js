@@ -18,3 +18,6 @@ function detectBrowser() {
     }
     return(browserName);         
   }
+
+
+const screen_width_dividers = {"main" : 1450, "tablet" : 1024, "small_tablet" : 768, "mobile" : 483};
