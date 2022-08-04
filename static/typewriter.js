@@ -1,3 +1,5 @@
+    //source - https://codepen.io/hi-im-si/pen/ALgzqo
+
     var TxtType = function(el, toRotate, period) {
         this.toRotate = toRotate;
         this.el = el;
