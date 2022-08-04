@@ -298,6 +298,14 @@
 			}		
    		}
 
+   		//change placeholder font if keydown in textarea
+   		function textAreaPlaceHolderText(event) {
+   			textArea.placeholder = "Write me";
+   			submitButton.disabled = false;
+   			changePlaceholderText("gray", "message");
+   		}
+
+
    		//validation for contact form. Must have a name and email.
    		function submitHandler(event) {
     		var name = document.getElementById("name_input");
@@ -315,6 +323,11 @@
     			document.getElementById("emailInputWrapper").style.border = "solid 1px red";
     			changePlaceholderText("red", "email");
     		}
+    		if (message.value === '') {
+    			submitButton.disabled = true;
+    			textArea.placeholder = "Please type a message!";
+    			changePlaceholderText("red", "message");
+    		}
     	}
 
     	function changePlaceholderText(color, field) {
@@ -324,6 +337,9 @@
     		} 
     		if (field === "email") {
     			elems[1].style.setProperty("--c", color);
+    		}
+    		if (field === "message") {
+    			document.querySelector("textarea").style.setProperty("--c", color);
     		}
     	}
 
@@ -440,6 +456,8 @@
      	//contact form validation
      	var submitButton = document.getElementById("submit");
      	submitButton.addEventListener("click", submitHandler);
+     	var textArea = document.getElementById("writeMessage");
+     	textArea.addEventListener("keydown", textAreaPlaceHolderText);
         document.body.addEventListener("keydown", inputHandler);
         document.body.addEventListener("click", clearForm);
         document.body.addEventListener("click", addRemoveSearchBorder);

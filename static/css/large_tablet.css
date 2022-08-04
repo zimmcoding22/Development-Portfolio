@@ -40,7 +40,7 @@ button:focus {
 }
 
 input::placeholder {
-  color: gray;
+  color: var(--c, gray);
   font-weight: bold;
 }
 
@@ -60,7 +60,7 @@ textarea {
   border-radius: 10px;
   padding: 5px;
 }::placeholder {
-  color: gray;
+  color: var(--c, gray);
 }
 
 #bodyWrapper {

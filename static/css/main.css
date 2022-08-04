@@ -61,7 +61,7 @@ textarea {
   border-radius: 10px;
   padding: 5px;
 }::placeholder {
-  color: gray;
+  color: var(--c, gray);
 }
 
 #cards {
