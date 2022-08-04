@@ -41,7 +41,7 @@ button:focus {
 }
 
 input::placeholder {
-  color: gray;
+  color: var(--c, gray);
   font-weight: bold;
 }
 

@@ -31,9 +31,7 @@ def base_view(request, *args, **kwargs):
 		message_email = request.POST["message_email"]
 		message = request.POST["message"]
 		send_simple_message(message_name, message_email, message)
-
 		return render(request, "base.html", {"message_name" : message_name})
-
 	else:
 		return render(request, "base.html")
 
