@@ -13,7 +13,7 @@ def send_simple_message(message_name, message_email, message):
 		auth=("api", API_KEY),
 		data={"from": message_email,
 			"to": ["jakeziscoding@gmail.com"],
-			"subject": "django email test",
+			"subject": "portfolio website message!",
 			"text": message})
 
 
