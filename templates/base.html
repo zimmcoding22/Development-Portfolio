@@ -424,10 +424,13 @@
             $("html, body").animate({ scrollTop: position }, 2000, "easeInOutExpo");
         }
 
+
     	//reload page
     	let logo = document.getElementById("jzArchivesLogo");
     	logo.addEventListener("click", () => {
+    		window.scrollTo(0, 0);
   			location.reload();
+
 		});	
         const omit_keys = ["Tab", "CapsLock", "Shift", "Control", "Backspace", "ArrowLeft", "ArrowDown", "ArrowRight", "ArrowUp", "Meta", "Enter", "Alt", "Escape"]; //for contact form fields
         var highlighted;
@@ -465,6 +468,7 @@
         document.body.addEventListener("keydown", inputHandler);
         document.body.addEventListener("click", clearForm);
         document.body.addEventListener("click", addRemoveSearchBorder);
+
 
         //detects elements that are off screen and potentially causing viewport sizing issues
         //$.each( $('*'), function() { 
