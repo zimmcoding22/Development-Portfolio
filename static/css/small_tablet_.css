@@ -259,6 +259,7 @@ textarea {
   font-size: 14px;
   color: #534D4C;
   cursor: pointer;
+  transition: .3s;
 }
 
 #submit:hover {

@@ -246,6 +246,7 @@ textarea {
   font-family: "Varela Round", Geneva, Impact, sans-serif;
   color: #534D4C;
   cursor: pointer;
+  transition: .3s;
 }
 
 #submit:hover {
