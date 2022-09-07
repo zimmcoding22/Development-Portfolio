@@ -2,7 +2,7 @@ import requests
 
 #client read only request to api
 
-endpoint = "http://127.0.0.1:8000/cards/api/"
+endpoint = "https://www.jzarchives.com/cards/api/"
 
 valid_requests = ["Decks", "Producers"]
 while (True):
