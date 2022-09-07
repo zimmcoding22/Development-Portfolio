@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.conf import settings
 from .models import Deck, Producer
+from .serializers import *
+from rest_framework.decorators import api_view
 import requests
 import os
 
@@ -17,7 +20,25 @@ def send_simple_message(message_name, message_email, message):
 			"text": message})
 
 
-#Create your views here.
+@api_view(["GET", "POST"])
+def cards_api_view(request):
+	
+	if (request.method == "GET"):
+		if (request.content_type == "Decks"):
+			deck_list = Deck.objects.all()
+			serializer = DeckSerializer(deck_list, many=True)
+		else:
+			producer_list = Producer.objects.all()
+			serializer = ProducerSerializer(producer_list, many=True)
+		return(JsonResponse({"Producers" : serializer.data}))
+
+	# if (request.method == "POST"):
+	# 	serializer = DeckSerializer(data=request.data)
+	# 	if (serializer.is_valid()):
+	# 		serializer.save()
+	# 		return()
+
+
 
 def cards_view(request, *args, **kwargs):
 	deck_list = Deck.objects.order_by("name")  #Deck.objects.all() to get full unordered queryset

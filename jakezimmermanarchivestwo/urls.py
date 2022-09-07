@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin', admin.site.urls),
     path('', views.base_view, name='base'),
     path('cards/', views.cards_view),
+    path('cards/api/', views.cards_api_view)
 ]
 
 
