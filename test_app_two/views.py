@@ -4,7 +4,8 @@ from django.http import JsonResponse
 from django.conf import settings
 from .models import Deck, Producer
 from .serializers import *
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from .permissions import CustomPermission
 import requests
 import os
 
@@ -20,18 +21,23 @@ def send_simple_message(message_name, message_email, message):
 			"text": message})
 
 
-@api_view(["GET", "POST"])
+@api_view(["GET"]) #would add POST to this list if API wasn't read only
+@permission_classes([CustomPermission])
 def cards_api_view(request):
-	
 	if (request.method == "GET"):
-		if (request.content_type == "Decks"):
+		print(request.user.id)
+		if (request.content_type == "decks"):
 			deck_list = Deck.objects.all()
 			serializer = DeckSerializer(deck_list, many=True)
-		else:
+			return(JsonResponse({"Decks" : serializer.data}))
+		if (request.content_type == "producers"):
 			producer_list = Producer.objects.all()
 			serializer = ProducerSerializer(producer_list, many=True)
-		return(JsonResponse({"Producers" : serializer.data}))
+			return(JsonResponse({"Producers" : serializer.data}))
+	# in case API url is visited in browser
+	return(JsonResponse({"API" : None}))
 
+    #API is read only for now
 	# if (request.method == "POST"):
 	# 	serializer = DeckSerializer(data=request.data)
 	# 	if (serializer.is_valid()):
