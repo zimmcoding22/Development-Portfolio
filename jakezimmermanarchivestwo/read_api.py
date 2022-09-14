@@ -3,9 +3,9 @@ import requests
 #client read only request to api
 
 #production
-#endpoint = "https://www.jzarchives.com/cards/api/"
+endpoint = "https://www.jzarchives.com/cards/api/"
 #testing
-endpoint = "http://127.0.0.1:8000/cards/api/"
+#endpoint = "http://127.0.0.1:8000/cards/api/"
 
 valid_requests = ["decks", "producers"]
 while (True):
