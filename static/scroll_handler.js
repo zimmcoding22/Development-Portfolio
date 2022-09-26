@@ -44,6 +44,10 @@ jzArchivesLogo = document.getElementById("jzArchivesLogo");
 jzArchivesLogoStyle = window.getComputedStyle(jzArchivesLogo);
 rocket = document.getElementById("rocket");
 rocketStyle = window.getComputedStyle(rocket);
+title = document.getElementById("title");
+titleStyle = window.getComputedStyle(title);
+typewrite = document.getElementById("typewrite");
+typewriteStyle = window.getComputedStyle(typewrite);
 
 var bgch_animations_one = false;
 var bgch_animations_two = false;
@@ -57,6 +61,10 @@ const main_css_tabs = {"home" : 350, "contact" : 920, "games" : 1480, "trading" 
 const tablet_css_tabs = {"home" : 380, "contact" : 862, "games" : 1421, "trading" : 1850};
 const main_css_animations = {"pole_game" : 700, "trading" : 1100, "fitness" : 2100, "bgch_one" : 2500, "bgch_two" : 2650};
 const tablet_css_animations = {"pole_game" : 700, "trading" : 1250, "fitness" : 1900, "bgch_one" : 2500, "bgch_two" : 2600};
+
+fadeIn(title);
+fadeIn(typewrite);
+
 
 
 function scrollWin(tab) { //scroll to appropriate tab
