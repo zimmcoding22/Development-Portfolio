@@ -464,7 +464,7 @@ function animateRocket(rocket) {
 	}
 	if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["main"]) {
 		top_pos = 90, left_pos = 90, transform = 0; 
-		target_one = 80, target_two = 80, target_three = 65, target_four = 80;				
+		target_one = 80, target_two = 80, target_three = 70, target_four = 80;				
 	}
 	// mobile
 	if (width <= screen_width_dividers["mobile"]) {
