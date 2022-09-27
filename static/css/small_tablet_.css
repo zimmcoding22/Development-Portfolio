@@ -793,6 +793,7 @@ textarea {
   top: 90%;
   left: 90%;
   z-index: 1;
+  border: None;
 }
 
 .select {

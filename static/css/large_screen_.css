@@ -89,8 +89,9 @@ textarea {
 #titleVid {
   position: absolute; 
   left: -20px;
-  width: 1512px; 
+  width: 1515px; 
   height: auto; 
+  border: None;
 }
 
 #titleContainer {
@@ -778,6 +779,7 @@ textarea {
   top: 50%;
   left: 90%;
   z-index: 1;
+  border: None;
 }
 
 .select {
