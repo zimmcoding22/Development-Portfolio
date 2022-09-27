@@ -20,4 +20,4 @@ function detectBrowser() {
   }
 
 
-const screen_width_dividers = {"main" : 1450, "tablet" : 1024, "small_tablet" : 768, "mobile" : 483};
+const screen_width_dividers = {"main" : 1515, "tablet" : 1024, "small_tablet" : 768, "mobile" : 483};
