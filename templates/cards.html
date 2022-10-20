@@ -139,7 +139,7 @@
 			creatingElements = true;
 			let dimensions = setDimensions(false);
 			{% for p in producer_list %}
-				await sleep(.1);
+				await sleep(sleepTime);
 				createResult("producer", dimensions[0], dimensions[1], "{{ p }}", "{{ p.image.url }}");
 			{% endfor %}
 			creatingElements = false;
@@ -219,7 +219,7 @@
 			}
 			finish.style.opacity = "0";
 			result.appendChild(deckName);
-			let sleepTime = .15;
+			let sleepTime = .175
 			fadeIn(deckName, 1);
 			await sleep(sleepTime);
 			result.appendChild(img);
@@ -260,7 +260,7 @@
 			creatingElements = true;
 			let dimensions = setDimensions(false);
 			for (var [key, value] of Object.entries(decks_by_producer)) {
-				await sleep(.1);
+				await sleep(sleepTime);
 				createResult("deck", dimensions[0], dimensions[1], key, value);
 			}
 			creatingElements = false;
@@ -1049,6 +1049,7 @@
 	var logo = document.getElementById("logo_wrapper");
 	var carouselIndex;
 	var creatingElements = false; //used to ensure user cant click on a result while they are still being created/displayed on screen
+	var sleepTime = .125
 	var browser = detectBrowser();
 	console.log("browser:", browser);
 	var width = window.innerWidth;
