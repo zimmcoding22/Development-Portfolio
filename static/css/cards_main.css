@@ -159,9 +159,9 @@ span:nth-child(18) {
 }
 
 #search input {
+	position: relative;
 	border: 0;
 	outline: 0;
-	position: relative;
 	padding-left: 2%;
 	padding-top: 2px;
 	background-color: white;
