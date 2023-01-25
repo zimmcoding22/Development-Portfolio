@@ -448,6 +448,7 @@ function moveDescriptionAndStackUp(description, stack, tag) {
 
 function animateRocket(rocket) {
 	width = window.innerWidth;
+	console.log("width: ", width);
 	if (width < screen_width_dividers["mobile"]) { //not displaying rocket on mobile for now because screen is too narrow and their isn't enough whitespace.
 		rocket.style.opacity = 0;
 		return;
@@ -459,10 +460,12 @@ function animateRocket(rocket) {
 	var direction = "left";
 	var firstMoveComplete = false, secondMoveComplete = false;
 	if (width > screen_width_dividers["main"]) {
-		top_pos = 50, left_pos = 90, transform = 0; 
-	 	target_one = 40, target_two = 80, target_three = 30, target_four = 80;
+		console.log("we are here!");
+		top_pos = 70, left_pos = 90, transform = 0; 
+	 	target_one = 50, target_two = 85, target_three = 40, target_four = 80;
 	}
 	if (width > screen_width_dividers["mobile"] && width <= screen_width_dividers["main"]) {
+		console.log("there");
 		top_pos = 90, left_pos = 90, transform = 0; 
 		target_one = 80, target_two = 80, target_three = 70, target_four = 80;				
 	}
